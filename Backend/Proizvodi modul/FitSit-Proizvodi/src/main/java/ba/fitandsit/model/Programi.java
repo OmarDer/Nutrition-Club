@@ -2,6 +2,13 @@ package ba.fitandsit.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 
@@ -10,8 +17,8 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Programi.findAll", query="SELECT p FROM Programi p")
-public class Programi implements Serializable {
+//@NamedQuery(name="Programi.findAll", query="SELECT p FROM Programi p")
+public class Programi {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,7 +36,9 @@ public class Programi implements Serializable {
 	private String opis_programa;
 
 	//bi-directional many-to-many association to Proizvodi
+	@Autowired
 	@ManyToMany(mappedBy="programiList")
+	@JsonManagedReference
 	private List<Proizvodi> proizvodiList;
 
 	public Programi() {

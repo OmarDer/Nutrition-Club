@@ -5,7 +5,20 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-03-22T01:16:00Z</updated>
+  <updated>2017-03-22T20:01:00Z</updated>
+  <entry>
+    <title>Spring Tips: Servlet Container Deployment Options</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/03/22/spring-tips-servlet-container-deployment-options" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2017-03-22:2876</id>
+    <updated>2017-03-22T20:01:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: &lt;a href="https://www.twitter.com/starbuxman"&gt;Josh Long&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Hi Spring fans! In this tip, we&amp;rsquo;ll look at deploying to, and integrating with, embedded (like Apache Tomcat, Eclipse Jetty, and RedHat&amp;rsquo;s Undertow) and standalone Servlet containers (like the Wildfly application server) in a Spring Boot application.&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ogqxbFY_dpY" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
   <entry>
     <title>This Week in Spring - March 21st, 2017</title>
     <link rel="alternate" href="https://spring.io/blog/2017/03/22/this-week-in-spring-march-21st-2017" />
@@ -27,7 +40,7 @@
   &lt;li&gt;this blog looks at the &lt;a href="http://blog.codeleak.pl/2017/03/spring-boot-and-security-events-with-actuator.html"&gt;&lt;code&gt;/auditevents&lt;/code&gt; Actuator feature new in Spring Boot 1.5&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Check out the recording of this webinar by Pivotal&amp;rsquo;s &lt;a href="https://www.brighttalk.com/webcast/14883/247741/rabbitmq-what-s-new-changing-after-10-years-of-application-messaging"&gt;Daniel Carwin looking at what&amp;rsquo;s happening in the RabbitMQ world&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;our friend Christophe F. is back with a continued look &lt;a href="https://medium.com/@christophef/container-networking-part2-cloud-foundry-performance-f74f5cc32996"&gt;at the new container networking in Pivotal Cloud Foundry and how it performs&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;My friend Daniel Bryant has been doing a great job with [his Microservices Weekly news roundup]( &lt;a href="http://us9.campaign-archive1.com/?id=9a0ad56742&amp;u=3402bc2f02ffba01e245dc556&amp;utm_campaign=buffer&amp;utm_content=bufferf91e7&amp;utm_medium=social&amp;utm_source=twitter.com"&gt;http://us9.campaign-archive1.com/?id=9a0ad56742&amp;u=3402bc2f02ffba01e245dc556&amp;utm_campaign=buffer&amp;utm_content=bufferf91e7&amp;utm_medium=social&amp;utm_source=twitter.com&lt;/a&gt;]&lt;/li&gt;
+  &lt;li&gt;My friend Daniel Bryant has been doing a great job with &lt;a href="http://us9.campaign-archive1.com/?id=9a0ad56742&amp;u=3402bc2f02ffba01e245dc556&amp;utm_campaign=buffer&amp;utm_content=bufferf91e7&amp;utm_medium=social&amp;utm_source=twitter.com"&gt;his Microservices Weekly news roundup&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Nicolas Fränkel, a friend to the Spring community, is back with an &lt;a href="https://blog.frankel.ch/fully-configurable-mappings-spring-mvc/#gsc.tab=0"&gt;interesting post in which he tries to use Spring Boot&amp;rsquo;s Actuator in a non-Spring Boot application&lt;/a&gt;. I do &lt;em&gt;not&lt;/em&gt; recommend this! But, it&amp;rsquo;s a very interesting dissection of what makes the Actuator Framework took. Let Nicolas take you on a journey..&lt;/li&gt;
   &lt;li&gt;I love this blog, &lt;a href="https://content.pivotal.io/blog/the-cloud-native-ops-opportunity"&gt;&lt;em&gt;The Cloud Native Opportunity&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;I know this has little to do with the Pivotal ecosystem, but it&amp;rsquo;s a great post from &lt;a href="https://blogs.adobe.com/creativecloud/from-form-to-function-our-thoughts-on-design-are-changing/"&gt;Adobe that talks about the evolution of the notion of &lt;em&gt;design&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
@@ -865,25 +878,5 @@ Another challenge is before us - Amazon Kinesis Binder implementation for &lt;a 
   &lt;li&gt;Spring Data Elasticsearch 2.0.8 - &lt;a href="https://repo.spring.io/libs-release/org/springframework/data/spring-data-elasticsearch/2.0.8.RELEASE"&gt;Artifacts&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/elasticsearch/docs/2.0.8.RELEASE/api"&gt;JavaDocs&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/elasticsearch/docs/2.0.8.RELEASE/reference/html"&gt;Documentation&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/elasticsearch/docs/2.0.8.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Spring Data Couchbase 2.1.8 - &lt;a href="https://repo.spring.io/libs-release/org/springframework/data/spring-data-couchbase/2.1.8.RELEASE"&gt;Artifacts&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/couchbase/docs/2.1.8.RELEASE/api"&gt;JavaDocs&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/couchbase/docs/2.1.8.RELEASE/reference/html"&gt;Documentation&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/couchbase/docs/2.1.8.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Security 4.2.2 Released</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/03/02/spring-security-4-2-2-released" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Rob Winch</name>
-    </author>
-    <id>tag:spring.io,2017-03-02:2856</id>
-    <updated>2017-03-02T14:01:12Z</updated>
-    <content type="html">&lt;div class="paragraph"&gt;
-&lt;p&gt;On behalf of the community, I&amp;#8217;m pleased to announce the release of Spring Security  4.2.2 which fix has a number of &lt;a href="https://github.com/spring-projects/spring-security/milestone/95?closed=1"&gt;bug fixes&lt;/a&gt;. Users are encouraged to update immediately.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;&lt;a href="http://projects.spring.io/spring-security/"&gt;Project Site&lt;/a&gt; |
-&lt;a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/"&gt;Reference&lt;/a&gt;
-|
-&lt;a href="http://docs.spring.io/spring-security/site/docs/current/guides/html5/"&gt;Guides&lt;/a&gt;
-| &lt;a href="http://stackoverflow.com/questions/tagged/spring-security"&gt;Help&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;</content>
   </entry>
 </feed>
