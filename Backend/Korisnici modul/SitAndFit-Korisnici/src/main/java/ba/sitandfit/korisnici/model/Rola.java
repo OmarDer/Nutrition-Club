@@ -19,7 +19,7 @@ public class Rola {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ROLA_ID")
-	private long id;
+	private Long id;
 	private String nazivRole;
 	private String opisRole;
 	
@@ -28,11 +28,11 @@ public class Rola {
 	@JsonBackReference
 	private List<Korisnik> korisnici;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -51,14 +51,5 @@ public class Rola {
 	public void setOpisRole(String opisRole) {
 		this.opisRole = opisRole;
 	}
-
-	public List<Korisnik> getKorisnici() {
-		return korisnici;
-	}
-
-	public void setKorisnici(List<Korisnik> korisnici) {
-		this.korisnici = korisnici;
-	}
-	
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
 import ba.sitandfit.korisnici.repository.KorisnikRepository;
 
@@ -20,30 +21,49 @@ public class KorisnikServiceImpl implements KorisnikService {
 	}
 
 	@Override
-	public Korisnik createKorisnik(Korisnik k) {
+	public KorisnikJSONWrapper createKorisnik(Korisnik k) {
+		
 		
 		if (korisnikRepository.findOne(k.getId()) != null)
-			return null;
+			return new KorisnikJSONWrapper("Greska! Korisnik već postoji!", k);
 		
-		return korisnikRepository.save(k);
+		return new KorisnikJSONWrapper("Success", korisnikRepository.save(k));
 		
 	}
 
 	@Override
-	public Korisnik getKorisnik(Long id) {
+	public KorisnikJSONWrapper getKorisnik(Long id) {
 		
-		return korisnikRepository.getOne(id);
+		
+		 Korisnik x = korisnikRepository.getOne(id);
+		 
+		 if( x != null)
+			 return new KorisnikJSONWrapper("Success", x);
+		 else
+			 return new KorisnikJSONWrapper("Trazeni korisnik ne postoji", x);
+		 
 	}
 
 	@Override
-	public Korisnik updateKorisnik(Korisnik k) {
+	public KorisnikJSONWrapper updateKorisnik(Korisnik k) {
 		
-		if(korisnikRepository.findOne(k.getId()) != null)
-			return null;
+		Korisnik x;
 		
-		korisnikRepository.delete(k.getId());
+		if((x = korisnikRepository.findOne(k.getId())) == null)
+			return new KorisnikJSONWrapper("Greska! Korisnik ne postoji!", null);
 		
-		return korisnikRepository.save(k);
+		
+		x.setAktivan(k.getAktivan() != null ? k.getAktivan() : x.getAktivan());
+		x.setAdresaPrebivalista(k.getAdresaPrebivalista() != null ? k.getAdresaPrebivalista() : x.getAdresaPrebivalista());
+		x.setIme(k.getIme() != null ? k.getIme() : x.getIme());
+		x.setPrezime(k.getPrezime() != null ? k.getPrezime() : x.getPrezime());
+		x.setKontaktTelefon(k.getKontaktTelefon() != null ? k.getKontaktTelefon() : x.getKontaktTelefon());
+		x.setUserName(k.getUserName() != null ? k.getUserName() : x.getUserName());
+		x.setPassword(k.getPassword() != null ? k.getPassword() : x.getPassword());
+		x.setRola(k.getRola() != null ? k.getRola() : x.getRola());
+		x.setEmail(k.getEmail() != null ? k.getEmail() : x.getEmail());
+		
+		return new KorisnikJSONWrapper("Success", korisnikRepository.save(x));
 		
 		
 	}
@@ -51,10 +71,14 @@ public class KorisnikServiceImpl implements KorisnikService {
 	@Override
 	public Boolean deleteKorisnik(Korisnik k) {
 		
-		if(korisnikRepository.findOne(k.getId()) != null)
+		Korisnik x = null;
+		
+		if((x = korisnikRepository.findOne(k.getId()) ) == null)
 			return false;
 		
-		korisnikRepository.delete(k.getId());
+		x.setAktivan(false);
+		
+		korisnikRepository.save(x);
 		
 		return true;
 		

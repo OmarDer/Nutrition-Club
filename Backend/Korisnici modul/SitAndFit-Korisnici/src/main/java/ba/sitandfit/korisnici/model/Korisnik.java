@@ -26,14 +26,24 @@ public class Korisnik {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="KORISNIK_ID")
-	private long id;
+	private Long id;
+	
 	private String ime;
 	private String prezime;
 	private String adresaPrebivalista;
 	private String kontaktTelefon;
 	private String userName;
 	private String password;
+	private String email;
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "YYYY-MM-dd")
 	private Date datumRegistracije;
@@ -41,18 +51,18 @@ public class Korisnik {
 	
 	@ManyToOne
 	@JoinColumn(name="ROLA_ID")
-	@JsonManagedReference
+	//@JsonManagedReference
 	private Rola rola;
 	
 	@OneToMany(mappedBy="korisnik")
-	@JsonBackReference
+	//@JsonBackReference
 	private List<Stanje> stanjaKorisnika;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -127,14 +137,5 @@ public class Korisnik {
 	public void setRola(Rola rola) {
 		this.rola = rola;
 	}
-
-	public List<Stanje> getStanjaKorisnika() {
-		return stanjaKorisnika;
-	}
-
-	public void setStanjaKorisnika(List<Stanje> stanjaKorisnika) {
-		this.stanjaKorisnika = stanjaKorisnika;
-	}
-	
 	
 }
