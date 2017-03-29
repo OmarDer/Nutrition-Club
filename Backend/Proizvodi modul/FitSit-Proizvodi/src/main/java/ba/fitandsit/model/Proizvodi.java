@@ -22,9 +22,9 @@ public class Proizvodi {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="`Proizvod ID`")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int proizvod_ID;
+	@Column(name="`Proizvod_ID`")
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	private long proizvod_ID;
 
 	private int aktivan;
 
@@ -41,44 +41,25 @@ public class Proizvodi {
 
 	private String slika;
 
-	//bi-directional many-to-many association to Narudzbe
-	@ManyToMany
-	@JoinTable(
-		name="`stavke narudzbe`"
-		, joinColumns={
-
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="NarudzbaID")
-			}
-		)
+	@ManyToMany(mappedBy="proizvodiList")
 	@Autowired
-	@JsonBackReference
+	@JsonIgnore
 	private List<Narudzbe> narudzbeList;
 
-	//bi-directional many-to-many association to Programi
-	@ManyToMany
-	@JoinTable(
-		name="`stavke programa`"
-		, joinColumns={
-
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="ProgramID")
-			}
-		)
+	
+	@ManyToMany(mappedBy="proizvodiList")
 	@Autowired
-	@JsonBackReference
+	@JsonIgnore
 	private List<Programi> programiList;
 
 	public Proizvodi() {
 	}
 
-	public int getProizvod_ID() {
+	public long getProizvod_ID() {
 		return this.proizvod_ID;
 	}
 
-	public void setProizvod_ID(int proizvod_ID) {
+	public void setProizvod_ID(long proizvod_ID) {
 		this.proizvod_ID = proizvod_ID;
 	}
 
@@ -144,6 +125,49 @@ public class Proizvodi {
 
 	public void setProgramiList(List<Programi> programiList) {
 		this.programiList = programiList;
+	}
+	
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti, int autor){
+		this.naziv_proizvoda=ime;
+		this.opis_proizvoda=opis;
+		this.slika=slika;
+		this.cijena=cijena;
+		this.aktivan=akti;
+		this.autor_ID=autor;
+		this.proizvod_ID=id;
+	}
+	
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti, int autor, List<Programi>pr){
+		this.naziv_proizvoda=ime;
+		this.opis_proizvoda=opis;
+		this.slika=slika;
+		this.cijena=cijena;
+		this.aktivan=akti;
+		this.autor_ID=autor;
+		this.programiList=pr;
+		this.proizvod_ID=id;
+	}
+	
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti, List<Narudzbe>nar, int autor){
+		this.naziv_proizvoda=ime;
+		this.opis_proizvoda=opis;
+		this.slika=slika;
+		this.cijena=cijena;
+		this.aktivan=akti;
+		this.autor_ID=autor;
+		this.narudzbeList=nar;
+		this.proizvod_ID=id;
+	}
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti,int autor, List<Programi>pr, List<Narudzbe>nar){
+		this.naziv_proizvoda=ime;
+		this.opis_proizvoda=opis;
+		this.slika=slika;
+		this.cijena=cijena;
+		this.aktivan=akti;
+		this.autor_ID=autor;
+		this.narudzbeList=nar;
+		this.programiList=pr;
+		this.proizvod_ID=id;
 	}
 
 }

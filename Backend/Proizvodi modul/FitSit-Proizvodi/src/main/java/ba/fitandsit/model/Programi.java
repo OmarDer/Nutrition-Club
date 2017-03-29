@@ -22,8 +22,8 @@ public class Programi {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int programID;
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	private long programID;
 
 	private int aktivan;
 
@@ -35,20 +35,26 @@ public class Programi {
 	@Column(name="`Opis programa`")
 	private String opis_programa;
 
-	//bi-directional many-to-many association to Proizvodi
 	@Autowired
-	@ManyToMany(mappedBy="programiList")
-	@JsonManagedReference
+	@ManyToMany
+	@JoinTable(
+	name="`stavke_programa`"
+			, joinColumns={}
+
+			
+		,inverseJoinColumns=
+			@JoinColumn(name="Proizvod_ID")
+		)
 	private List<Proizvodi> proizvodiList;
 
 	public Programi() {
 	}
 
-	public int getProgramID() {
+	public long getProgramID() {
 		return this.programID;
 	}
 
-	public void setProgramID(int programID) {
+	public void setProgramID(long programID) {
 		this.programID = programID;
 	}
 
@@ -90,6 +96,25 @@ public class Programi {
 
 	public void setProizvodiList(List<Proizvodi> proizvodiList) {
 		this.proizvodiList = proizvodiList;
+	}
+	
+	public Programi(long id,String ime, String opis, int autor, int aktivan){
+		this.naziv_programa=ime;
+		this.opis_programa=opis;
+		this.autorID=autor;
+		this.aktivan=aktivan;
+		this.programID=id;
+		
+	}
+	
+	public Programi(long id,String ime, String opis, int autor, int aktivan,List<Proizvodi>p){
+		this.naziv_programa=ime;
+		this.opis_programa=opis;
+		this.autorID=autor;
+		this.aktivan=aktivan;
+		this.proizvodiList=p;
+		this.programID=id;
+		
 	}
 
 }
