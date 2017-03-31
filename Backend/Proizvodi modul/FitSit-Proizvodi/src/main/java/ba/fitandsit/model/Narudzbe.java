@@ -23,8 +23,8 @@ public class Narudzbe {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int narudzbaID;
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	private long narudzbaID;
 
 	private int aktivan;
 
@@ -32,24 +32,33 @@ public class Narudzbe {
 	@JsonFormat(pattern = "YYYY-MM-dd")
 	private Date datum;
 
-	private int korisnikID;
+	private long korisnikID;
 
-	private int prodavacID;
+	private long prodavacID;
 
-	//bi-directional many-to-many association to Proizvodi
+	
+	//@ManyToMany(mappedBy="narudzbeList")
+    //@JsonManagedReference
 	@Autowired
-	@ManyToMany(mappedBy="narudzbeList")
-	@JsonManagedReference
+	@ManyToMany
+	@JoinTable(
+			name="`stavke_narudzbe`"
+					, joinColumns={}
+
+					
+				,inverseJoinColumns=
+					@JoinColumn(name="Proizvod_ID")
+				)
 	private List<Proizvodi> proizvodiList;
 
 	public Narudzbe() {
 	}
 
-	public int getNarudzbaID() {
+	public long getNarudzbaID() {
 		return this.narudzbaID;
 	}
 
-	public void setNarudzbaID(int narudzbaID) {
+	public void setNarudzbaID(long narudzbaID) {
 		this.narudzbaID = narudzbaID;
 	}
 
@@ -69,19 +78,19 @@ public class Narudzbe {
 		this.datum = datum;
 	}
 
-	public int getKorisnikID() {
+	public long getKorisnikID() {
 		return this.korisnikID;
 	}
 
-	public void setKorisnikID(int korisnikID) {
+	public void setKorisnikID(long korisnikID) {
 		this.korisnikID = korisnikID;
 	}
 
-	public int getProdavacID() {
+	public long getProdavacID() {
 		return this.prodavacID;
 	}
 
-	public void setProdavacID(int prodavacID) {
+	public void setProdavacID(long prodavacID) {
 		this.prodavacID = prodavacID;
 	}
 
@@ -93,4 +102,20 @@ public class Narudzbe {
 		this.proizvodiList = proizvodiList;
 	}
 
+	public Narudzbe(Date datum, int korisnik, int prodavac, int aktivan)
+	{
+		this.datum=datum;
+		this.korisnikID=korisnik;
+		this.prodavacID=prodavac;
+		this.aktivan=aktivan;
+	}
+	
+	public Narudzbe(Date datum, int korisnik, int prodavac, int aktivan,List<Proizvodi>p)
+	{
+		this.datum=datum;
+		this.korisnikID=korisnik;
+		this.prodavacID=prodavac;
+		this.aktivan=aktivan;
+		this.proizvodiList=p;
+	}
 }
