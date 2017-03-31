@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -23,16 +24,18 @@ public class Stanje {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="STANJE_ID")
-	private long id;
-	private double tezina;
-	private double procenatMasnoce;
-	private double organskeMasnoce;
-	private double postotakMisica;
-	private double procenatVode;
-	private double bazalniMetabolizam;
-	private double kostanaMasa;
-	private double metabolickeGodine;
-	private int fizickoStanje;
+	private Long id;
+	private Double tezina;
+	private Double procenatMasnoce;
+	private Double organskeMasnoce;
+	private Double postotakMisica;
+	private Double procenatVode;
+	private Double bazalniMetabolizam;
+	private Double kostanaMasa;
+	private Double metabolickeGodine;
+	private Integer fizickoStanje;
+	private Boolean aktivno;
+	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "YYYY-MM-dd")
@@ -40,87 +43,96 @@ public class Stanje {
 	
 	@ManyToOne
 	@JoinColumn(name="KORISNIK_ID")
-	@JsonManagedReference
+	@JsonBackReference
 	private Korisnik korisnik;
+	
+	
+	public Boolean getAktivno() {
+		return aktivno;
+	}
 
-	public long getId() {
+	public void setAktivno(Boolean aktivno) {
+		this.aktivno = aktivno;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public double getTezina() {
+	public Double getTezina() {
 		return tezina;
 	}
-
-	public void setTezina(double tezina) {
-		this.tezina = tezina;
-	}
-
-	public double getProcenatMasnoce() {
+	
+	public Double getProcenatMasnoce() {
 		return procenatMasnoce;
 	}
 
-	public void setProcenatMasnoce(double procenatMasnoce) {
+	public void setProcenatMasnoce(Double procenatMasnoce) {
 		this.procenatMasnoce = procenatMasnoce;
 	}
 
-	public double getOrganskeMasnoce() {
+	public Double getOrganskeMasnoce() {
 		return organskeMasnoce;
 	}
 
-	public void setOrganskeMasnoce(double organskeMasnoce) {
+	public void setOrganskeMasnoce(Double organskeMasnoce) {
 		this.organskeMasnoce = organskeMasnoce;
 	}
 
-	public double getPostotakMisica() {
+	public Double getPostotakMisica() {
 		return postotakMisica;
 	}
 
-	public void setPostotakMisica(double postotakMisica) {
+	public void setPostotakMisica(Double postotakMisica) {
 		this.postotakMisica = postotakMisica;
 	}
 
-	public double getProcenatVode() {
+	public Double getProcenatVode() {
 		return procenatVode;
 	}
 
-	public void setProcenatVode(double procenatVode) {
+	public void setProcenatVode(Double procenatVode) {
 		this.procenatVode = procenatVode;
 	}
 
-	public double getBazalniMetabolizam() {
+	public Double getBazalniMetabolizam() {
 		return bazalniMetabolizam;
 	}
 
-	public void setBazalniMetabolizam(double bazalniMetabolizam) {
+	public void setBazalniMetabolizam(Double bazalniMetabolizam) {
 		this.bazalniMetabolizam = bazalniMetabolizam;
 	}
 
-	public double getKostanaMasa() {
+	public Double getKostanaMasa() {
 		return kostanaMasa;
 	}
 
-	public void setKostanaMasa(double kostanaMasa) {
+	public void setKostanaMasa(Double kostanaMasa) {
 		this.kostanaMasa = kostanaMasa;
 	}
 
-	public double getMetabolickeGodine() {
+	public Double getMetabolickeGodine() {
 		return metabolickeGodine;
 	}
 
-	public void setMetabolickeGodine(double metabolickeGodine) {
+	public void setMetabolickeGodine(Double metabolickeGodine) {
 		this.metabolickeGodine = metabolickeGodine;
 	}
 
-	public int getFizickoStanje() {
+	public Integer getFizickoStanje() {
 		return fizickoStanje;
 	}
 
-	public void setFizickoStanje(int fizickoStanje) {
+	public void setFizickoStanje(Integer fizickoStanje) {
 		this.fizickoStanje = fizickoStanje;
+	}
+
+	public void setTezina(Double tezina) {
+		this.tezina = tezina;
 	}
 
 	public Date getDatumAnalize() {

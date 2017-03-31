@@ -22,11 +22,28 @@ public class Rola {
 	private Long id;
 	private String nazivRole;
 	private String opisRole;
+	private Boolean aktivna;
 	
+
+	public Boolean getAktivna() {
+		return aktivna;
+	}
+
+	public void setAktivna(Boolean aktivna) {
+		this.aktivna = aktivna;
+	}
 
 	@OneToMany(mappedBy="rola")
 	@JsonBackReference
 	private List<Korisnik> korisnici;
+
+	public List<Korisnik> getKorisnici() {
+		return korisnici;
+	}
+
+	public void setKorisnici(List<Korisnik> korisnici) {
+		this.korisnici = korisnici;
+	}
 
 	public Long getId() {
 		return id;

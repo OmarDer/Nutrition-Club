@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.repository.RolaRepository;
 
@@ -19,38 +20,52 @@ public class RolaServiceImpl implements RolaService{
 	}
 
 	@Override
-	public Rola createRola(Rola r) {
+	public RolaJSONWrapper createRola(Rola r) {
 		
-		if(rolaRepository.findOne(r.getId()) != null)
-			return null;
+		if(r.getId() != null && rolaRepository.findOne(r.getId()) != null)
+			return new RolaJSONWrapper("Error","Rola vec postoji", null);
 		
-		return rolaRepository.save(r);
+		return new RolaJSONWrapper("Success", "", rolaRepository.save(r));
 	}
 
 	@Override
-	public Rola getRola(Long id) {	
-		return rolaRepository.findOne(id);
+	public RolaJSONWrapper getRola(Long id) {	
+		
+		Rola r = null;
+		
+		if((r = rolaRepository.findOne(id)) == null)
+			return new RolaJSONWrapper("Error","Rola ne postoji", null);
+		
+		return new RolaJSONWrapper("Success", "", r);
 	}
 
 	@Override
-	public Rola updateRola(Rola r) {
+	public RolaJSONWrapper updateRola(Long rolaId, Rola r) {
 		
-		if(rolaRepository.findOne(r.getId()) == null)
-			return null;
+		Rola staraRola = null;
 		
-		rolaRepository.delete(r.getId());
+		if((staraRola = rolaRepository.findOne(rolaId)) == null)
+			return new RolaJSONWrapper("Error","Rola ne postoji", null);
 		
-		return rolaRepository.save(r);
+		staraRola.setNazivRole( r.getNazivRole() != null ? r.getNazivRole() : staraRola.getNazivRole());
+		staraRola.setOpisRole(r.getOpisRole() != null ? r.getOpisRole() : staraRola.getOpisRole());
+		staraRola.setAktivna(r.getAktivna() != null ? r.getAktivna() : staraRola.getAktivna());
+		
+		return new RolaJSONWrapper("Success", "", rolaRepository.save(staraRola));
 		
 	}
 
 	@Override
-	public Boolean deleteRola(Rola r) {
+	public Boolean deleteRola(Long rolaId) {
 		
-		if(rolaRepository.findOne(r.getId()) == null)
+		Rola r = null;
+		
+		if((r = rolaRepository.findOne(rolaId)) == null)
 			return false;
 		
-		rolaRepository.delete(r.getId());
+		r.setAktivna(false);
+		
+		rolaRepository.save(r);
 		
 		return true;
 	}
@@ -59,6 +74,7 @@ public class RolaServiceImpl implements RolaService{
 	public List<Rola> getRole() {
 		
 		return rolaRepository.findAll();
+		
 	}
 
 }

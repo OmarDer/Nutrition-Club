@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name="korisnici")
@@ -55,8 +55,16 @@ public class Korisnik {
 	private Rola rola;
 	
 	@OneToMany(mappedBy="korisnik")
-	//@JsonBackReference
+	@JsonBackReference
 	private List<Stanje> stanjaKorisnika;
+	
+	public List<Stanje> getStanjaKorisnika() {
+		return stanjaKorisnika;
+	}
+
+	public void setStanjaKorisnika(List<Stanje> stanjaKorisnika) {
+		this.stanjaKorisnika = stanjaKorisnika;
+	}
 
 	public Long getId() {
 		return id;

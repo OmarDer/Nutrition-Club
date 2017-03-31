@@ -10,52 +10,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
-import ba.sitandfit.korisnici.model.Rola;
-import ba.sitandfit.korisnici.service.RolaService;
+
+import ba.sitandfit.korisnici.jsonwrappers.StanjeJSONWrapper;
+import ba.sitandfit.korisnici.model.Stanje;
+import ba.sitandfit.korisnici.service.StanjeService;
 
 @RestController
-@RequestMapping(value = "/role")
-public class RoleController {
+@RequestMapping(value = "/stanja")
+public class StanjaController {
 	
 	@Autowired
-	RolaService rolaService;
+	StanjeService stanjeService;
+	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<Rola> getRole(){
+	public List<Stanje> getStanja(){
 		
-		return rolaService.getRole();
+		return stanjeService.getStanja();
 		
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public RolaJSONWrapper getStanje(@PathVariable(value="id") Long id){
+	public StanjeJSONWrapper getStanje(@PathVariable(value="id") Long id){
 		
-		return rolaService.getRola(id);
+		return stanjeService.getStanje(id);
 		
 	}
 	
 	@RequestMapping(value = "", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public RolaJSONWrapper createRola(@RequestBody Rola r){
+	public StanjeJSONWrapper createStanje(@RequestBody Stanje s){
 		
-		return rolaService.createRola(r);
+		return stanjeService.createStanje(s);
 		
 	}
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public RolaJSONWrapper updateRola(@PathVariable(value="id") Long id, @RequestBody Rola r){
+	public StanjeJSONWrapper updateStanje(@PathVariable(value="id") Long id, @RequestBody Stanje s){
 		
-		return rolaService.updateRola(id, r);
+		return stanjeService.updateStanje(id, s);
 		
 	}
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public RolaJSONWrapper deleteRola(@PathVariable(value="id") Long id){
+	public StanjeJSONWrapper deleteStanje(@PathVariable(value="id") Long id){
 		
-		if(rolaService.deleteRola(id))
-			return new RolaJSONWrapper("Success", "Rola obrisana", null);
+		if(stanjeService.deleteStanje(id))
+			return new StanjeJSONWrapper("Success", "Stanje obrisano", null);
 		else
-			return new RolaJSONWrapper("Error", "Rola nije obrisana, desila se greška", null);
+			return new StanjeJSONWrapper("Error", "Stanje nije obrisano, desila se greška", null);
 				
 	}
 	
