@@ -1,6 +1,5 @@
 package ba.sitandfit.korisnici.jsonwrappers;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import ba.sitandfit.korisnici.model.Korisnik;
 
