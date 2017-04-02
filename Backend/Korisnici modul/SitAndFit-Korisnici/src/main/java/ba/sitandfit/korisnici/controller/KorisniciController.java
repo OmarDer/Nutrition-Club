@@ -72,7 +72,9 @@ public class KorisniciController {
 	}
 	
 	@RequestMapping(value = "/{id}/stanjakorisnika", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<Stanje> getStanjaKorisnikaByDate(@PathVariable(value="id") Long id, @RequestParam(value = "datumAnalize", required=false) Date date, @RequestParam(value = "startDate", required=false) Date startDate, @RequestParam(value = "endDate", required=false) Date endDate){
+	public List<Stanje> getStanjaKorisnikaByDate(@PathVariable(value="id") Long id, @RequestParam(value = "datumAnalize", required=false) Date date, 
+																					@RequestParam(value = "startDate", required=false) Date startDate, 
+																					@RequestParam(value = "endDate", required=false) Date endDate){
 		
 		if (date != null){
 			return stanjeService.getStanjaKorisnikaByDate(id, date);

@@ -100,6 +100,7 @@ public class StanjeServiceImpl implements StanjeService {
 
 	@Override
 	public List<Stanje> getStanjaKorisnikaBetweenDates(Long id, Date startDate, Date endDate) {
+		
 		return stanjeRepository.findStanjaKorisnikaBetweenDates(id, (java.sql.Date)startDate, (java.sql.Date)endDate);
 	}
 
