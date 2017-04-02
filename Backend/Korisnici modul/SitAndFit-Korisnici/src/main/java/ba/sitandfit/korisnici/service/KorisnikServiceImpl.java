@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
-import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.repository.KorisnikRepository;
 
 @Service

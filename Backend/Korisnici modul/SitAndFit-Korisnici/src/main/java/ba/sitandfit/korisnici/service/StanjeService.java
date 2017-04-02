@@ -1,5 +1,6 @@
 package ba.sitandfit.korisnici.service;
 
+import java.util.Date;
 import java.util.List;
 
 import ba.sitandfit.korisnici.jsonwrappers.StanjeJSONWrapper;
@@ -15,5 +16,8 @@ public interface StanjeService {
 	List<Stanje> getStanja();
 	
 	List<Stanje> getStanjaKorisnika(Long korisnikId);
+	List<Stanje> getStanjaKorisnikaByDate(Long id, Date datum);
+	
+	List<Stanje> getStanjaKorisnikaBetweenDates(Long id, Date startDate, Date endDate);
 
 }

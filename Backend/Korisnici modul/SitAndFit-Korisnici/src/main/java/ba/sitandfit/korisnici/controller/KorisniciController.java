@@ -1,5 +1,6 @@
 package ba.sitandfit.korisnici.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
-import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.service.KorisnikService;
 import ba.sitandfit.korisnici.service.RolaService;
@@ -71,10 +71,16 @@ public class KorisniciController {
 		
 	}
 	
-	@RequestMapping(value = "/{id}/stanja", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<Stanje> getStanjaKorisnika(@PathVariable(value="id") Long id){
+	@RequestMapping(value = "/{id}/stanjakorisnika", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<Stanje> getStanjaKorisnikaByDate(@PathVariable(value="id") Long id, @RequestParam(value = "datumAnalize", required=false) Date date, @RequestParam(value = "startDate", required=false) Date startDate, @RequestParam(value = "endDate", required=false) Date endDate){
 		
-		return stanjeService.getStanjaKorisnika(id);
+		if (date != null){
+			return stanjeService.getStanjaKorisnikaByDate(id, date);
+		}
+		else if (endDate != null && startDate != null)
+			return stanjeService.getStanjaKorisnikaBetweenDates(id, startDate, endDate);
+		else
+			return stanjeService.getStanjaKorisnika(id);
 		
 	}
 	

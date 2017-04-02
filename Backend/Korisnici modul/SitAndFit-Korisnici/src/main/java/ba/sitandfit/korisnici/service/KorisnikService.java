@@ -5,7 +5,6 @@ import java.util.List;
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
-import ba.sitandfit.korisnici.model.Rola;
 
 public interface KorisnikService {
 	

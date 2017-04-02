@@ -1,13 +1,12 @@
 package ba.sitandfit.korisnici.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.StanjeJSONWrapper;
-import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.repository.StanjeRepository;
 
@@ -90,6 +89,18 @@ public class StanjeServiceImpl implements StanjeService {
 	public List<Stanje> getStanja() {
 		
 		return stanjeRepository.findAll();
+	}
+
+	@Override
+	public List<Stanje> getStanjaKorisnikaByDate(Long id, Date datum) {
+		
+		return stanjeRepository.findByDatumAnalizeAndKorisnikId((java.sql.Date) datum, id);
+		
+	}
+
+	@Override
+	public List<Stanje> getStanjaKorisnikaBetweenDates(Long id, Date startDate, Date endDate) {
+		return stanjeRepository.findStanjaKorisnikaBetweenDates(id, (java.sql.Date)startDate, (java.sql.Date)endDate);
 	}
 
 }

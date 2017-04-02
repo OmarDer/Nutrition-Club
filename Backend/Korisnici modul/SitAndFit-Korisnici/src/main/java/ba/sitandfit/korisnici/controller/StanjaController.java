@@ -16,7 +16,7 @@ import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.service.StanjeService;
 
 @RestController
-@RequestMapping(value = "/stanja")
+@RequestMapping(value = "/stanjakorisnika")
 public class StanjaController {
 	
 	@Autowired
