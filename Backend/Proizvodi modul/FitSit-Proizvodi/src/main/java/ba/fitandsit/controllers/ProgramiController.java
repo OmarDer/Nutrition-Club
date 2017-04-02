@@ -1,5 +1,5 @@
 package ba.fitandsit.controllers;
-
+import ba.fitandsit.wrappers.*;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -34,44 +34,49 @@ public class ProgramiController {
 	}
 	
 	@RequestMapping("/{id}")
-	public Programi vratiProgramPoID(@PathVariable String id)
+	public JsonWrapperProgrami vratiProgramPoID(@PathVariable String id)
 	{
-		long Id=Long.parseLong(id);
+		Long Id=Long.parseLong(id);
 		return ps.vratiProgramPoID(Id);
 		
 	}
 	
-	@RequestMapping(value="/kreiraj",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public Programi kreirajProgram(@RequestBody Programi p)
+	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public JsonWrapperProgrami kreirajProgram(@RequestBody Programi p)
 	{
 		return ps.kreirajProgram(p);
 	}
 	
-	@RequestMapping(value="/obrisi/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public Boolean obrisiProgram(@PathVariable String id)
 	{
-		long Id=Long.parseLong(id);
-		Programi p=ps.vratiProgramPoID(Id);
-		return ps.obrisiProgram(p);
+		Long Id=Long.parseLong(id);
+		return ps.obrisiProgram(Id);
 	}
 	
-	@RequestMapping(value="/azuriraj",method=RequestMethod.PUT)
-	public Programi azurirajProgram(@RequestBody Programi p){
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public JsonWrapperProgrami azurirajProgram(@PathVariable Long id,@RequestBody Programi p){
 		
-		return ps.azurirajProgram(p);
+		return ps.azurirajProgram(id,p);
 	}
 	@RequestMapping(value="/izlistaj/{name}",method=RequestMethod.GET)
-	public Programi izlistajProgramPoImenu(@PathVariable String name)
+	public JsonWrapperProgrami izlistajProgramPoImenu(@PathVariable String name)
 	{
 		return ps.izlistajProgramPoImenu(name);
 	}
 	
 	@RequestMapping(value="/dodaj/{id}",method=RequestMethod.POST)
-	public Programi dodajProizvodeUProgram(@PathVariable String id, @RequestBody Proizvodi p)
+	public JsonWrapperProgrami dodajProizvodeUProgram(@PathVariable String id, @RequestBody Identifikator p)
 	{
-		long Id=Long.parseLong(id);
-		return ps.dodajProizvodeUProgram(Id,p);
+		Long Id=Long.parseLong(id);
+		return ps.dodajProizvodeUProgram(Id,p.getId());
 		
 	}
-
+	@RequestMapping(value="/obrisi/{id}",method=RequestMethod.POST)
+	public JsonWrapperProgrami obrisiProizvodeIzPrograma(@PathVariable String id, @RequestBody Identifikator p)
+	{
+		Long Id=Long.parseLong(id);
+		return ps.obrisiProizvodeIzPrograma(Id,p.getId());
+		
+	}
 }

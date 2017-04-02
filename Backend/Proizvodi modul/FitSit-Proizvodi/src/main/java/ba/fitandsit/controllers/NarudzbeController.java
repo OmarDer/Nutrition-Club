@@ -1,5 +1,5 @@
 package ba.fitandsit.controllers;
-
+import ba.fitandsit.wrappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -32,37 +32,49 @@ public class NarudzbeController {
 	}
 	
 	@RequestMapping("/{id}")
-	public Narudzbe vratiNarudzbuPoID(@PathVariable String id)
+	public JsonWrapperNarudzbe vratiNarudzbuPoID(@PathVariable String id)
 	{
-		long Id=Long.parseLong(id);
+		Long Id=Long.parseLong(id);	
 		return ns.vratiNarudzbuPoID(Id);
 		
 	}
 	
-	@RequestMapping(value="/kreiraj",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public Narudzbe kreirajNarudzbu(@RequestBody Narudzbe p)
+	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public JsonWrapperNarudzbe kreirajNarudzbu(@RequestBody Narudzbe p)
 	{
 		return ns.kreirajNarudzbu(p);
 	}
 	
-	@RequestMapping(value="/obrisi/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public Boolean obrisiNarudzbu(@PathVariable String id)
 	{
 		long Id=Long.parseLong(id);
-		Narudzbe n=ns.vratiNarudzbuPoID(Id);
-		return ns.obrisiNarudzbu(n);
+		return ns.obrisiNarudzbu(Id);
 	}
 	
-	@RequestMapping(value="/azuriraj",method=RequestMethod.PUT)
-	public Narudzbe azurirajNarudzbu(@RequestBody Narudzbe p){
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public JsonWrapperNarudzbe azurirajNarudzbu(@PathVariable Long id,@RequestBody Narudzbe p){
 		
-		return ns.azurirajNarudzbu(p);
+		return ns.azurirajNarudzbu(id,p);
 	}
 	@RequestMapping(value="/izlistaj/{id}",method=RequestMethod.GET)
 	public List<Narudzbe> izlistajNarudzbu(@PathVariable String id)
 	{
-		long Id=Long.parseLong(id);
+		Long Id=Long.parseLong(id);
 		return ns.izlistajNarudzbuZaKupca(Id);
 	}
 
+	@RequestMapping(value="/dodaj/{id}",method=RequestMethod.POST)
+	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(@PathVariable String id, @RequestBody Identifikator p)
+	{
+		Long Id=Long.parseLong(id);
+		return ns.dodajProizvodeUNarudzbu(Id,p.getId());
+		
+	}
+	@RequestMapping(value="/obrisi/{id}",method=RequestMethod.POST)
+	public JsonWrapperNarudzbe obrisiProizvodIzNarudzbe(@PathVariable String id, @RequestBody Identifikator p)
+	{
+		Long Id=Long.parseLong(id);
+		return ns.obrisiProizvodIzNarudzbe(Id,p.getId());
+	}
 }

@@ -24,17 +24,17 @@ public class Narudzbe {
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private long narudzbaID;
+	private Long narudzbaID;
 
-	private int aktivan;
+	private Integer aktivan;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "YYYY-MM-dd")
 	private Date datum;
 
-	private long korisnikID;
+	private Long korisnikID;
 
-	private long prodavacID;
+	private Long prodavacID;
 
 	
 	//@ManyToMany(mappedBy="narudzbeList")
@@ -54,19 +54,19 @@ public class Narudzbe {
 	public Narudzbe() {
 	}
 
-	public long getNarudzbaID() {
+	public Long getNarudzbaID() {
 		return this.narudzbaID;
 	}
 
-	public void setNarudzbaID(long narudzbaID) {
+	public void setNarudzbaID(Long narudzbaID) {
 		this.narudzbaID = narudzbaID;
 	}
 
-	public int getAktivan() {
+	public Integer getAktivan() {
 		return this.aktivan;
 	}
 
-	public void setAktivan(int aktivan) {
+	public void setAktivan(Integer aktivan) {
 		this.aktivan = aktivan;
 	}
 
@@ -78,19 +78,19 @@ public class Narudzbe {
 		this.datum = datum;
 	}
 
-	public long getKorisnikID() {
+	public Long getKorisnikID() {
 		return this.korisnikID;
 	}
 
-	public void setKorisnikID(long korisnikID) {
+	public void setKorisnikID(Long korisnikID) {
 		this.korisnikID = korisnikID;
 	}
 
-	public long getProdavacID() {
+	public Long getProdavacID() {
 		return this.prodavacID;
 	}
 
-	public void setProdavacID(long prodavacID) {
+	public void setProdavacID(Long prodavacID) {
 		this.prodavacID = prodavacID;
 	}
 
@@ -102,7 +102,7 @@ public class Narudzbe {
 		this.proizvodiList = proizvodiList;
 	}
 
-	public Narudzbe(Date datum, int korisnik, int prodavac, int aktivan)
+	public Narudzbe(Date datum, Long korisnik, Long prodavac, Integer aktivan)
 	{
 		this.datum=datum;
 		this.korisnikID=korisnik;
@@ -110,7 +110,7 @@ public class Narudzbe {
 		this.aktivan=aktivan;
 	}
 	
-	public Narudzbe(Date datum, int korisnik, int prodavac, int aktivan,List<Proizvodi>p)
+	public Narudzbe(Date datum, Long korisnik, Long prodavac, Integer aktivan, List<Proizvodi>p)
 	{
 		this.datum=datum;
 		this.korisnikID=korisnik;

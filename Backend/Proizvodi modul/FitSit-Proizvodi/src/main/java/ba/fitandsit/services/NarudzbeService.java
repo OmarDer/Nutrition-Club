@@ -1,4 +1,5 @@
 package ba.fitandsit.services;
+import ba.fitandsit.wrappers.*;
 import ba.fitandsit.repository.*;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ba.fitandsit.model.Narudzbe;
+import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
 import ba.fitandsit.repository.*;
 
@@ -16,52 +18,61 @@ public class NarudzbeService {
 	@Autowired
 	private NarudzbeRepository nr;
 
+	@Autowired
+	private ProizvodiRepository pr;
+	
 	public List<Narudzbe> vratiSve()
 	{
 		return nr.findAll();
 	}
 	
-	public Narudzbe vratiNarudzbuPoID(long id)
+	public JsonWrapperNarudzbe vratiNarudzbuPoID(Long id)
 	{
-		return nr.findOne(id);
+		Narudzbe n=nr.findOne(id);
+		if(n==null)return new JsonWrapperNarudzbe("Error","Unesena narudzba ne postoji!",null);
+		return new JsonWrapperNarudzbe("Success","",n);
 	}
 	
-	public Boolean obrisiNarudzbu(Narudzbe n)
+	public Boolean obrisiNarudzbu(Long id)
 	{
-		if(nr.findOne(n.getNarudzbaID())==null)
+		Narudzbe n=nr.findOne(id);
+		if(n==null)
 		{
 			return false;
 		}
 		else
 		{
-			nr.delete(n.getNarudzbaID());
+			n.setAktivan(0);
+			nr.save(n);
 			return true;
 		}
 	}
 	
-	public Narudzbe azurirajNarudzbu(Narudzbe n)
+	public JsonWrapperNarudzbe azurirajNarudzbu(Long id, Narudzbe n)
 	{
 		Narudzbe n1=new Narudzbe();
+		Narudzbe sel=nr.findOne(id);
 		
-		if(nr.findOne(n.getNarudzbaID())!=null)
+		if(sel!=null)
 		{
-			n1.setNarudzbaID(n.getNarudzbaID());
-			n1.setAktivan(n.getAktivan());
-			n1.setDatum(n.getDatum());
-			n1.setKorisnikID(n.getKorisnikID());
-			n1.setProdavacID(n.getProdavacID());
-			n1.setProizvodiList(n.getProizvodiList());
+			n1.setNarudzbaID((n.getNarudzbaID()!=null)? n.getNarudzbaID():sel.getNarudzbaID());
+			n1.setAktivan((n.getAktivan()!=null)? n.getAktivan():sel.getAktivan());
+			n1.setDatum((n.getDatum()!=null)? n.getDatum():sel.getDatum());
+			n1.setKorisnikID((n.getKorisnikID()!=null)? n.getKorisnikID():sel.getKorisnikID());
+			n1.setProdavacID((n.getProdavacID()!=null)? n.getProdavacID():sel.getProdavacID());
+			n1.setProizvodiList((n.getProizvodiList()!=null)? n.getProizvodiList():sel.getProizvodiList());
 			
-			nr.delete(n.getNarudzbaID());
-			return nr.save(n1);
+			return new JsonWrapperNarudzbe("Success","",nr.save(n1));
 		}
 		
-		return nr.save(n);
+	 return new JsonWrapperNarudzbe("Error","Unesena narudzba ne postoji!",null);
 	}
 	
-	public Narudzbe kreirajNarudzbu(Narudzbe n)
+	public JsonWrapperNarudzbe kreirajNarudzbu(Narudzbe n)
 	{
-		return nr.save(n);
+		
+		if(n.getNarudzbaID()!=null&& nr.findOne(n.getNarudzbaID())==null) return new JsonWrapperNarudzbe("Success","",nr.save(n));
+		return new JsonWrapperNarudzbe("Error","Unesena narudzba vec postoji!",null);
 	}
 
 	public List<Narudzbe> izlistajNarudzbuZaKupca(long id)
@@ -69,4 +80,47 @@ public class NarudzbeService {
 		return nr.findBykorisnikID(id);
 	}
 
+	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(Long idn,Long idp)
+	{
+		Narudzbe n=nr.findOne(idn);
+		Proizvodi p=pr.findOne(idp);
+		
+		if(n==null && p==null)
+		{
+			return new JsonWrapperNarudzbe("Error","Unesena narudzba i proizvod ne postoje!",null);
+		}
+		else if(p==null)
+		{
+			return new JsonWrapperNarudzbe("Error","Uneseni proizvod ne postoji!",null);
+		}
+		else if(n==null)
+		{
+			return new JsonWrapperNarudzbe("Error","Unesena narudzba ne postoji!",null);
+		}
+		
+		n.getProizvodiList().add(p);
+		return new JsonWrapperNarudzbe("Success","",nr.save(n));
+	}
+	
+	public JsonWrapperNarudzbe obrisiProizvodIzNarudzbe(Long idn,Long idp)
+	{
+		Narudzbe n=nr.findOne(idn);
+		Proizvodi p=pr.findOne(idp);
+		
+		if(n==null && p==null)
+		{
+			return new JsonWrapperNarudzbe("Error","Unesena narudzba i proizvod ne postoje!",null);
+		}
+		else if(p==null)
+		{
+			return new JsonWrapperNarudzbe("Error","Uneseni proizvod ne postoji!",null);
+		}
+		else if(n==null)
+		{
+			return new JsonWrapperNarudzbe("Error","Unesena narudzba ne postoji!",null);
+		}
+		
+		n.getProizvodiList().remove(p);
+		return new JsonWrapperNarudzbe("Success","",nr.save(n));
+	}
 }

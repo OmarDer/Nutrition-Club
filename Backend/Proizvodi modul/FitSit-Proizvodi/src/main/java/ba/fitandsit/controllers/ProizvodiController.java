@@ -1,5 +1,5 @@
 package ba.fitandsit.controllers;
-
+import ba.fitandsit.wrappers.*;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -34,36 +34,36 @@ public class ProizvodiController {
 	}
 	
 	@RequestMapping("/{id}")
-	public Proizvodi vratiProizvodPoID(@PathVariable String id)
+	public JsonWrapperProizvodi vratiProizvodPoID(@PathVariable String id)
 	{
 		long Id=Long.parseLong(id);
 		return ps.vratiProizvodPoID(Id);
 		
 	}
 	
-	@RequestMapping(value="/kreiraj",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public Proizvodi kreirajProizvod(@RequestBody Proizvodi p)
+	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	public JsonWrapperProizvodi kreirajProizvod(@RequestBody Proizvodi p)
 	{
 		return ps.kreirajProizvod(p);
 	}
 	
-	@RequestMapping(value="/obrisi/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public Boolean obrisiProizvod(@PathVariable String id)
 	{
-		long Id=Long.parseLong(id);
-		Proizvodi p=ps.vratiProizvodPoID(Id);
-		return ps.obrisiProizvod(p);
+		Long Id=Long.parseLong(id);
+	
+		return ps.obrisiProizvod(Id);
 	}
 	
-	@RequestMapping(value="/azuriraj",method=RequestMethod.PUT)
-	public Proizvodi azurirajProizvod(@RequestBody Proizvodi p){
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public JsonWrapperProizvodi azurirajProizvod(@PathVariable Long id, @RequestBody Proizvodi p){
 		
-		return ps.azurirajProizvod(p);
+		return ps.azurirajProizvod(id,p);
 	}
 	@RequestMapping(value="/izlistaj/{programName}",method=RequestMethod.GET)
 	public List<Proizvodi> izlistajProizvodePoProgramu(@PathVariable String programName)
 	{
 		return ps.izlistajProizvodePoProgramu(programName);
 	}
-
+	
 }

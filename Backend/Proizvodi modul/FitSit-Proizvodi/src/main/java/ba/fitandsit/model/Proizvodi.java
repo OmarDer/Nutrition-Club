@@ -24,14 +24,14 @@ public class Proizvodi {
 	@Id
 	@Column(name="`Proizvod_ID`")
 	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private long proizvod_ID;
+	private Long proizvod_ID;
 
-	private int aktivan;
+	private Integer aktivan;
 
 	@Column(name="`Autor ID`")
-	private int autor_ID;
+	private Long autor_ID;
 
-	private double cijena;
+	private Double cijena;
 
 	@Column(name="`Naziv proizvoda`")
 	private String naziv_proizvoda;
@@ -55,35 +55,35 @@ public class Proizvodi {
 	public Proizvodi() {
 	}
 
-	public long getProizvod_ID() {
+	public Long getProizvod_ID() {
 		return this.proizvod_ID;
 	}
 
-	public void setProizvod_ID(long proizvod_ID) {
+	public void setProizvod_ID(Long proizvod_ID) {
 		this.proizvod_ID = proizvod_ID;
 	}
 
-	public int getAktivan() {
+	public Integer getAktivan() {
 		return this.aktivan;
 	}
 
-	public void setAktivan(int aktivan) {
+	public void setAktivan(Integer aktivan) {
 		this.aktivan = aktivan;
 	}
 
-	public int getAutor_ID() {
+	public Long getAutor_ID() {
 		return this.autor_ID;
 	}
 
-	public void setAutor_ID(int autor_ID) {
+	public void setAutor_ID(Long autor_ID) {
 		this.autor_ID = autor_ID;
 	}
 
-	public double getCijena() {
+	public Double getCijena() {
 		return this.cijena;
 	}
 
-	public void setCijena(double cijena) {
+	public void setCijena(Double cijena) {
 		this.cijena = cijena;
 	}
 
@@ -127,7 +127,7 @@ public class Proizvodi {
 		this.programiList = programiList;
 	}
 	
-	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti, int autor){
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, Integer akti, Long autor){
 		this.naziv_proizvoda=ime;
 		this.opis_proizvoda=opis;
 		this.slika=slika;
@@ -137,7 +137,7 @@ public class Proizvodi {
 		this.proizvod_ID=id;
 	}
 	
-	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti, int autor, List<Programi>pr){
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, Integer akti, Long autor, List<Programi>pr){
 		this.naziv_proizvoda=ime;
 		this.opis_proizvoda=opis;
 		this.slika=slika;
@@ -148,7 +148,7 @@ public class Proizvodi {
 		this.proizvod_ID=id;
 	}
 	
-	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti, List<Narudzbe>nar, int autor){
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, Integer akti, List<Narudzbe>nar, Long autor){
 		this.naziv_proizvoda=ime;
 		this.opis_proizvoda=opis;
 		this.slika=slika;
@@ -158,7 +158,7 @@ public class Proizvodi {
 		this.narudzbeList=nar;
 		this.proizvod_ID=id;
 	}
-	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, int akti,int autor, List<Programi>pr, List<Narudzbe>nar){
+	public Proizvodi(long id,String ime,String opis,Double cijena,String slika, Integer akti,Long autor, List<Programi>pr, List<Narudzbe>nar){
 		this.naziv_proizvoda=ime;
 		this.opis_proizvoda=opis;
 		this.slika=slika;

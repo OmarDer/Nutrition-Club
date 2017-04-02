@@ -23,11 +23,11 @@ public class Programi {
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private long programID;
+	private Long programID;
 
-	private int aktivan;
+	private Integer aktivan;
 
-	private int autorID;
+	private Long autorID;
 
 	@Column(name="`Naziv programa`")
 	private String naziv_programa;
@@ -50,27 +50,27 @@ public class Programi {
 	public Programi() {
 	}
 
-	public long getProgramID() {
+	public Long getProgramID() {
 		return this.programID;
 	}
 
-	public void setProgramID(long programID) {
+	public void setProgramID(Long programID) {
 		this.programID = programID;
 	}
 
-	public int getAktivan() {
+	public Integer getAktivan() {
 		return this.aktivan;
 	}
 
-	public void setAktivan(int aktivan) {
+	public void setAktivan(Integer aktivan) {
 		this.aktivan = aktivan;
 	}
 
-	public int getAutorID() {
+	public Long getAutorID() {
 		return this.autorID;
 	}
 
-	public void setAutorID(int autorID) {
+	public void setAutorID(Long autorID) {
 		this.autorID = autorID;
 	}
 
@@ -98,7 +98,7 @@ public class Programi {
 		this.proizvodiList = proizvodiList;
 	}
 	
-	public Programi(long id,String ime, String opis, int autor, int aktivan){
+	public Programi(long id,String ime, String opis, Long autor, Integer aktivan){
 		this.naziv_programa=ime;
 		this.opis_programa=opis;
 		this.autorID=autor;
@@ -107,7 +107,7 @@ public class Programi {
 		
 	}
 	
-	public Programi(long id,String ime, String opis, int autor, int aktivan,List<Proizvodi>p){
+	public Programi(long id,String ime, String opis, Long autor, Integer aktivan,List<Proizvodi>p){
 		this.naziv_programa=ime;
 		this.opis_programa=opis;
 		this.autorID=autor;

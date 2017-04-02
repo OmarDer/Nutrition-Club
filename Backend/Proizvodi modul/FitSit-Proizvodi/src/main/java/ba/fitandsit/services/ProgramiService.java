@@ -1,10 +1,13 @@
 package ba.fitandsit.services;
-
+import ba.fitandsit.wrappers.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import ba.fitandsit.model.Narudzbe;
 import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
 import ba.fitandsit.repository.*;
@@ -15,61 +18,108 @@ public class ProgramiService {
 	@Autowired
 	private ProgramiRepository pr;
 	
+	@Autowired
+	private ProizvodiRepository proz;
 	
 	public List<Programi> vratiSve()
 	{
 		return pr.findAll();
 	}
 	
-	public Programi vratiProgramPoID(long id)
+	public JsonWrapperProgrami vratiProgramPoID(Long id)
 	{
-		return pr.findOne(id);
+		Programi p=pr.findOne(id);
+		if(p==null)return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
+		return new JsonWrapperProgrami("Success","",p);
 	}
 	
-	public Boolean obrisiProgram(Programi p)
+	public Boolean obrisiProgram(Long id)
 	{
-		if(pr.findOne(p.getProgramID())==null)
+		Programi p=pr.findOne(id);
+		if(p==null)
 		{
 			return false;
 		}
 		else
 		{
-			pr.delete(p.getProgramID());
+			p.setAktivan(0);
+			pr.save(p);
 			return true;
 		}
 	}
 	
-	public Programi azurirajProgram(Programi p)
+	public JsonWrapperProgrami azurirajProgram(Long id,Programi p)
 	{
 		Programi p1=new Programi();
-		
-		if(pr.findOne(p.getProgramID())!=null)
+		Programi sel=pr.findOne(id);
+		if(sel!=null)
 		{
-			p1.setProgramID(p.getProgramID());
-			p1.setNaziv_programa(p.getNaziv_programa());
-			p1.setAutorID(p.getAutorID());
-			p1.setOpis_programa(p.getOpis_programa());
-			p1.setAktivan(p.getAktivan());
-			p1.setProizvodiList(p.getProizvodiList());
-			pr.delete(p.getProgramID());
-			return pr.save(p1);
+			p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
+			p1.setNaziv_programa((p.getNaziv_programa()!=null) ? p.getNaziv_programa():sel.getNaziv_programa());
+			p1.setAutorID((p.getAutorID()!=null) ? p.getAutorID():sel.getAutorID());
+			p1.setOpis_programa((p.getOpis_programa()!=null) ? p.getOpis_programa():sel.getOpis_programa());
+			p1.setAktivan((p.getAktivan()!=null) ? p.getAktivan():sel.getAktivan());
+			p1.setProizvodiList((p.getProizvodiList()!=null) ? p.getProizvodiList():sel.getProizvodiList());
+			
+			return new JsonWrapperProgrami("Success","",pr.save(p1));
 		}
 		
-		return pr.save(p);
+		return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
 	}
 	
-	public Programi kreirajProgram(Programi p)
+	public JsonWrapperProgrami kreirajProgram(Programi p)
 	{
-		return pr.save(p);
+		if(p.getProgramID()!=null && pr.findOne(p.getProgramID())==null) return new JsonWrapperProgrami("Success","",pr.save(p));
+		return new JsonWrapperProgrami("Error","Uneseni program vec postoji!",null);
 	}
 
-	public Programi izlistajProgramPoImenu(String name) {
-		return pr.findBynaziv_programa(name);
+	public JsonWrapperProgrami izlistajProgramPoImenu(String name) {
+		Programi p=pr.findBynaziv_programa(name);
+		if(p!=null) return new JsonWrapperProgrami("Success","",p);
+		return new JsonWrapperProgrami("Error","Trazeni program ne postoji!",null);
+		
 	}
 	
-	public Programi dodajProizvodeUProgram(long id,Proizvodi p){
+	public JsonWrapperProgrami dodajProizvodeUProgram(Long id,Long idp){
 		Programi ps=pr.findOne(id);
+		Proizvodi p=proz.findOne(idp);
+		
+		if(p==null && ps==null)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni program i proizvod ne postoji!",null);
+		}
+		else if(p==null)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni proizvod ne postoji!",null);
+		}
+		else if(ps==null)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
+		}
+		
 		ps.getProizvodiList().add(p);
-		return pr.save(ps);
+		return new JsonWrapperProgrami("Success","",pr.save(ps));
+	}
+	
+	public JsonWrapperProgrami obrisiProizvodeIzPrograma(Long idp, Long idpr)
+	{
+		Programi ps=pr.findOne(idp);
+		Proizvodi p=proz.findOne(idpr);
+		
+		if(p==null && ps==null)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni program i proizvod ne postoji!",null);
+		}
+		else if(p==null)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni proizvod ne postoji!",null);
+		}
+		else if(ps==null)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
+		}
+		
+		ps.getProizvodiList().remove(p);
+		return new JsonWrapperProgrami("Success","",pr.save(ps));
 	}
 }
