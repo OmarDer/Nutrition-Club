@@ -18,7 +18,7 @@ public interface ProizvodiRepository extends JpaRepository<Proizvodi,Long> {
 			+ "where pr.naziv_programa = :name ")
 	List<Proizvodi> findByProgramName(@Param("name") String name);
 	
-	@Query("select p from Proizvodi p where p.aktivan = :1 ")
+	@Query("select p from Proizvodi p where p.aktivan = 1 ")
 	List<Proizvodi> findAktivne();
 
 }

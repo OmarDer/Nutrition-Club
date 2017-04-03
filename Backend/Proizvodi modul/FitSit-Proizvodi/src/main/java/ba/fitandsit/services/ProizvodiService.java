@@ -20,7 +20,10 @@ public class ProizvodiService {
 		return pr.findAll();
 	}
 	
-	
+	public List<Proizvodi> vratiAktivne()
+	{
+		return pr.findAktivne();
+	}
 	public Boolean obrisiProizvod(Long id)
 	{
 		Proizvodi p=pr.findOne(id);

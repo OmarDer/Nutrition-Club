@@ -20,6 +20,6 @@ public interface ProgramiRepository extends JpaRepository<Programi, Long>{
 	@Query("select p from Programi p where p.naziv_programa = :name ")
 	Programi findBynaziv_programa(@Param("name") String name);
 	
-	@Query("select p from Programi p where p.aktivan = :1 ")
+	@Query("select p from Programi p where p.aktivan = 1 ")
 	List<Programi> findAktivne();
 }

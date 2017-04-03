@@ -16,6 +16,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ba.fitandsit.repository.ProizvodiRepository;
 import ba.fitandsit.services.ProizvodiService;
 import ba.fitandsit.model.Narudzbe;
+import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
 
 @RestController
@@ -26,13 +27,19 @@ public class ProizvodiController {
 	private ProizvodiService ps;
 	
 	
-	@RequestMapping("")
+	@RequestMapping("/all")
 	public List<Proizvodi> vratiSve(){	
 		
 		return ps.vratiSve();
 		
 	}
 	
+	@RequestMapping("")
+	public List<Proizvodi> vratiAktivne(){	
+		
+		return ps.vratiAktivne();
+		
+	}
 	@RequestMapping("/{id}")
 	public JsonWrapperProizvodi vratiProizvodPoID(@PathVariable String id)
 	{
