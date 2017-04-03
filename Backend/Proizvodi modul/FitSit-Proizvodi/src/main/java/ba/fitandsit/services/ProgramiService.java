@@ -26,6 +26,10 @@ public class ProgramiService {
 		return pr.findAll();
 	}
 	
+	public List<Programi>vratiAktivne()
+	{
+		return pr.findAktivne();
+	}
 	public JsonWrapperProgrami vratiProgramPoID(Long id)
 	{
 		Programi p=pr.findOne(id);
@@ -36,7 +40,7 @@ public class ProgramiService {
 	public Boolean obrisiProgram(Long id)
 	{
 		Programi p=pr.findOne(id);
-		if(p==null)
+		if(p==null || p.getAktivan()==0)
 		{
 			return false;
 		}

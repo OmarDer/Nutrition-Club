@@ -24,13 +24,19 @@ public class NarudzbeController {
 	private NarudzbeService ns;
 	
 	
-	@RequestMapping("")
+	@RequestMapping("/all")
 	public List<Narudzbe> vratiSve(){	
 		
 		return ns.vratiSve();
 		
 	}
 	
+	@RequestMapping("")
+	public List<Narudzbe> vratiAktivne(){	
+		
+		return ns.vratiSveAktivne();
+		
+	}
 	@RequestMapping("/{id}")
 	public JsonWrapperNarudzbe vratiNarudzbuPoID(@PathVariable String id)
 	{

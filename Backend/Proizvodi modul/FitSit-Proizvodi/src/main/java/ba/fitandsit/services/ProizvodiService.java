@@ -24,7 +24,7 @@ public class ProizvodiService {
 	public Boolean obrisiProizvod(Long id)
 	{
 		Proizvodi p=pr.findOne(id);
-		if(p==null)
+		if(p==null || p.getAktivan()==0)
 		{
 			return false;
 		}

@@ -26,6 +26,10 @@ public class NarudzbeService {
 		return nr.findAll();
 	}
 	
+	public List<Narudzbe> vratiSveAktivne()
+	{
+		return nr.findAktivne();
+	}
 	public JsonWrapperNarudzbe vratiNarudzbuPoID(Long id)
 	{
 		Narudzbe n=nr.findOne(id);
@@ -36,7 +40,7 @@ public class NarudzbeService {
 	public Boolean obrisiNarudzbu(Long id)
 	{
 		Narudzbe n=nr.findOne(id);
-		if(n==null)
+		if(n==null || n.getAktivan()==0)
 		{
 			return false;
 		}

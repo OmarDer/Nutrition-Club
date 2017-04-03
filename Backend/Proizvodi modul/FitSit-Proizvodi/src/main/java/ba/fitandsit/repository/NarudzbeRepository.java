@@ -18,4 +18,7 @@ public interface NarudzbeRepository extends JpaRepository<Narudzbe,Long> {
 	
 	@Query("select n from Narudzbe n where n.prodavacID = :id ")
 	List<Narudzbe> findByprodavacID(@Param("id")long id);
+	
+	@Query("select n from Narudzbe n where n.aktivan = :1 ")
+	List<Narudzbe> findAktivne();
 }

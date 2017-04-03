@@ -16,6 +16,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import ba.fitandsit.repository.ProgramiRepository;
 import ba.fitandsit.services.ProgramiService;
+import ba.fitandsit.model.Narudzbe;
 import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
 
@@ -26,13 +27,19 @@ public class ProgramiController {
 	@Autowired
 	private ProgramiService ps;
 	
-	@RequestMapping("")
+	@RequestMapping("/all")
 	public List<Programi> vratiSve(){	
 		
 		return ps.vratiSve();
 		
 	}
 	
+	@RequestMapping("")
+	public List<Programi> vratiAktivne(){	
+		
+		return ps.vratiAktivne();
+		
+	}
 	@RequestMapping("/{id}")
 	public JsonWrapperProgrami vratiProgramPoID(@PathVariable String id)
 	{
