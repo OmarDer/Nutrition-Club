@@ -43,6 +43,14 @@ public class ProgramiController {
 	@Autowired
 	private ProgramiService ps;
 	
+	private DiscoveryClient discoveryClient;
+	
+	@Autowired
+	public void setDiscoveryClient(DiscoveryClient discoveryClient) {
+		this.discoveryClient = discoveryClient;
+	}
+
+	
 	@RequestMapping("/all")
 	public List<Programi> vratiSve(){	
 		
@@ -103,14 +111,11 @@ public class ProgramiController {
 		
 	}
 	
-	
-	private DiscoveryClient discoveryClient;
-	
-	@Autowired
-	public void setDiscoveryClient(DiscoveryClient discoveryClient) {
-		this.discoveryClient = discoveryClient;
+	@RequestMapping(value="/korisnik/{id}")
+	public JsonWrapperProgrami vratiProgramZaKorisnika(@PathVariable Long id)
+	{
+		return ps.vratiProgramZaKorisnika(id);
 	}
-
 	public String serviceUrl() {
 	    List<ServiceInstance> list = discoveryClient.getInstances("KORISNICI");
 	    if (list != null && list.size() > 0 ) {

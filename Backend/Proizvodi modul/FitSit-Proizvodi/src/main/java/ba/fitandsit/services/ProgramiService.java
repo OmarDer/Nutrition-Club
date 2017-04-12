@@ -126,4 +126,16 @@ public class ProgramiService {
 		ps.getProizvodiList().remove(p);
 		return new JsonWrapperProgrami("Success","",pr.save(ps));
 	}
+	
+	public JsonWrapperProgrami vratiProgramZaKorisnika(Long id)
+	{
+		Programi p=pr.findByUser(id);
+		
+		if(p==null)
+		{
+			return new JsonWrapperProgrami("Success","Korisnik ne konzumira niti jedan program!",null);
+		}
+		return new JsonWrapperProgrami("Success","",p);
+		
+	}
 }

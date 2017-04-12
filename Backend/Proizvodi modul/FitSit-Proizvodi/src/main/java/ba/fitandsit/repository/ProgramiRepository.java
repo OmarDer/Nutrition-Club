@@ -22,4 +22,7 @@ public interface ProgramiRepository extends JpaRepository<Programi, Long>{
 	
 	@Query("select p from Programi p where p.aktivan = 1 ")
 	List<Programi> findAktivne();
+	
+	@Query("select p from Programi p where p.autorID = :id")
+	Programi findByUser(@Param("id") Long id);
 }
