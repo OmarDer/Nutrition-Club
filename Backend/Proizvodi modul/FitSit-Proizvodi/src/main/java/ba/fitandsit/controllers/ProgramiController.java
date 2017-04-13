@@ -1,5 +1,7 @@
 package ba.fitandsit.controllers;
 import ba.fitandsit.wrappers.*;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,9 +34,11 @@ import org.springframework.http.ResponseEntity;
 
 import ba.fitandsit.repository.ProgramiRepository;
 import ba.fitandsit.services.ProgramiService;
+import ba.fitandsit.services.UsersCommunicationService;
 import ba.fitandsit.model.Narudzbe;
 import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
+import ba.fitandsit.servicediscovery.*;
 
 @RestController
 @RequestMapping("/programi")
@@ -43,13 +47,11 @@ public class ProgramiController {
 	@Autowired
 	private ProgramiService ps;
 	
-	private DiscoveryClient discoveryClient;
+	@Autowired
+	private UsersCommunicationService ucm;
 	
 	@Autowired
-	public void setDiscoveryClient(DiscoveryClient discoveryClient) {
-		this.discoveryClient = discoveryClient;
-	}
-
+	private ServiceUrl su;
 	
 	@RequestMapping("/all")
 	public List<Programi> vratiSve(){	
@@ -116,6 +118,22 @@ public class ProgramiController {
 	{
 		return ps.vratiProgramZaKorisnika(id);
 	}
+	
+	@RequestMapping(value="/{id}/korisnik",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String dajKorisnikaZaProgram(@PathVariable Long id) 
+	{
+		
+		return ucm.dajKorisnikaZaProgram(id);
+	}
+	
+	/*
+	private DiscoveryClient discoveryClient;
+	
+	@Autowired
+	public void setDiscoveryClient(DiscoveryClient discoveryClient) {
+		this.discoveryClient = discoveryClient;
+	}
+	
 	public String serviceUrl() {
 	    List<ServiceInstance> list = discoveryClient.getInstances("KORISNICI");
 	    if (list != null && list.size() > 0 ) {
@@ -123,17 +141,5 @@ public class ProgramiController {
 	    }
 	    return null;
 	}
-	
-	
-	@RequestMapping(value="/{id}/korisnik",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public String dajKorisnikaZaProgram(@PathVariable Long id) 
-	{
-		RestTemplate rt=new RestTemplate();
-		JsonWrapperProgrami p=ps.vratiProgramPoID(id);
-		String url=serviceUrl();
-		
-		return rt.getForObject(url+"/korisnici/"+p.getProgram().getAutorID(), String.class);
-		
-		
-	}
+	*/
 }

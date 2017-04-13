@@ -21,6 +21,9 @@ public class ProgramiService {
 	@Autowired
 	private ProizvodiRepository proz;
 	
+	@Autowired
+	private UsersCommunicationService ucm;
+	
 	public List<Programi> vratiSve()
 	{
 		return pr.findAll();
@@ -129,8 +132,12 @@ public class ProgramiService {
 	
 	public JsonWrapperProgrami vratiProgramZaKorisnika(Long id)
 	{
-		Programi p=pr.findByUser(id);
+		if(ucm.provjeriKorisnika(id)==false)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni korisnik ne postoji!",null);
+		}
 		
+		Programi p=pr.findByUser(id);
 		if(p==null)
 		{
 			return new JsonWrapperProgrami("Success","Korisnik ne konzumira niti jedan program!",null);
