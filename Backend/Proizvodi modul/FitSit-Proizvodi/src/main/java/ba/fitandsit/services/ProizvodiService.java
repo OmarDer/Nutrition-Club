@@ -15,6 +15,12 @@ public class ProizvodiService {
 	@Autowired
 	private ProizvodiRepository pr;
 	
+	@Autowired
+	private UsersCommunicationService ucm;
+	
+	@Autowired
+	private ProgramiRepository progRep; 
+	
 	public List<Proizvodi> vratiSve()
 	{
 		return pr.findAll();
@@ -48,6 +54,10 @@ public class ProizvodiService {
 			p1.setProizvod_ID((p.getProizvod_ID()!=null)?p.getProizvod_ID():sel.getProizvod_ID());
 			p1.setNaziv_proizvoda((p.getNaziv_proizvoda()!=null)?p.getNaziv_proizvoda():sel.getNaziv_proizvoda());
 			p1.setAktivan((p.getAktivan()!=null)?p.getAktivan():sel.getAktivan());
+			if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID())==false)
+			{
+				return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
+			}
 			p1.setAutor_ID((p.getAutor_ID()!=null)?p.getAutor_ID():sel.getAutor_ID());
 			p1.setCijena((p.getCijena()!=null)?p.getCijena():sel.getCijena());
 			p1.setOpis_proizvoda((p.getOpis_proizvoda()!=null)?p.getOpis_proizvoda():sel.getOpis_proizvoda());
@@ -62,6 +72,10 @@ public class ProizvodiService {
 	
 	public JsonWrapperProizvodi kreirajProizvod(Proizvodi p)
 	{
+		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID())==false)
+		{
+			return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
+		}
 		if(p.getProizvod_ID()!=null&&pr.findOne(p.getProizvod_ID())==null) return new JsonWrapperProizvodi("Success","",pr.save(p));
 		return new JsonWrapperProizvodi("Error","Uneseni proizvod vec postoji!",null);
 	}
@@ -72,8 +86,14 @@ public class ProizvodiService {
 		return new JsonWrapperProizvodi("Success","",p);
 	}
 	
-	public List<Proizvodi> izlistajProizvodePoProgramu(String programName){
-		return pr.findByProgramName(programName);
+	public JsonWrapperListProizvodi izlistajProizvodePoProgramu(String programName){
+		
+		if(progRep.findBynaziv_programa(programName)==null)
+		{
+			return new JsonWrapperListProizvodi("Error","Program sa unesenim imenom ne postoji!");
+		}
+		
+		return new JsonWrapperListProizvodi("Success","",pr.findByProgramName(programName));
 	}
 	
 	
