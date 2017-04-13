@@ -93,6 +93,13 @@ public class KorisniciController {
 		
 	}
 	
+	@RequestMapping(value = "/{id}/programi", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public String getProgrameKorisnika(@PathVariable(value="id") Long id){
+		
+		return korisnikService.getProgrameKorisnika(id);
+		
+	}
+	
 	
 
 }

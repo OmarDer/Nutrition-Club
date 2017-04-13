@@ -1,6 +1,6 @@
 package ba.sitandfit.korisnici.communication;
 
-public interface ProzvodiREST {
+public interface ProizvodiREST {
 	
 	String getProgramiByKorisnikId(Long korisnikId);
 

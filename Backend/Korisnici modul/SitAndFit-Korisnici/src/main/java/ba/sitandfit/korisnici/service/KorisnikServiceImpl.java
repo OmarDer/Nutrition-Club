@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ba.sitandfit.korisnici.communication.ProizvodiREST;
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
@@ -13,9 +14,14 @@ import ba.sitandfit.korisnici.repository.KorisnikRepository;
 @Service
 public class KorisnikServiceImpl implements KorisnikService {
 	
-
+	ProizvodiREST proizvodiREST;
 	KorisnikRepository korisnikRepository;
 	
+	@Autowired
+	public void setProizvodiREST(ProizvodiREST proizvodiREST) {
+		this.proizvodiREST = proizvodiREST;
+	}
+
 	@Autowired
 	public void setKorisnikRepository(KorisnikRepository korisnikRepository) {
 		this.korisnikRepository = korisnikRepository;
@@ -101,6 +107,11 @@ public class KorisnikServiceImpl implements KorisnikService {
 		
 		
 		return new RolaJSONWrapper("Success", "", x.getRola());
+	}
+
+	@Override
+	public String getProgrameKorisnika(Long id) {
+		return proizvodiREST.getProgramiByKorisnikId(id);
 	}
 
 }

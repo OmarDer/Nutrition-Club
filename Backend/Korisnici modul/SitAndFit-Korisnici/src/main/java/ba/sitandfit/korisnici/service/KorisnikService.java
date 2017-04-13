@@ -14,5 +14,6 @@ public interface KorisnikService {
 	Boolean deleteKorisnik(Long id);
 	List<Korisnik> getKorisnici();
 	RolaJSONWrapper getRolaKorisnika(Long idKorisnika);
+	String getProgrameKorisnika(Long id);
 
 }
