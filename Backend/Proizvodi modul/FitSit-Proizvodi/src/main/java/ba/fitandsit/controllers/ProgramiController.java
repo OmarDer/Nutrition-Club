@@ -135,6 +135,7 @@ public class ProgramiController {
 	}
 	
 	public String serviceUrl() {
+		
 	    List<ServiceInstance> list = discoveryClient.getInstances("KORISNICI");
 	    if (list != null && list.size() > 0 ) {
 	        return list.get(0).getUri().toString();
