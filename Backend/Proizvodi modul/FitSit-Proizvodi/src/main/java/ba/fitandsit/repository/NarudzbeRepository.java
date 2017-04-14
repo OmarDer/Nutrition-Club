@@ -14,10 +14,11 @@ import ba.fitandsit.model.Proizvodi;
 public interface NarudzbeRepository extends JpaRepository<Narudzbe,Long> {
 
 	List<Narudzbe> findAll();
-	@Query("select n from Narudzbe n where n.korisnikID = :id ")
+	
+	@Query("select n from Narudzbe n where n.korisnikID = :id and n.aktivan = 1")
 	List<Narudzbe> findBykorisnikID(@Param("id")long id);
 	
-	@Query("select n from Narudzbe n where n.prodavacID = :id ")
+	@Query("select n from Narudzbe n where n.prodavacID = :id and n.aktivan = 1")
 	List<Narudzbe> findByprodavacID(@Param("id")long id);
 	
 	@Query("select n from Narudzbe n where n.aktivan = 1 ")

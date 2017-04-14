@@ -15,10 +15,13 @@ import ba.fitandsit.model.Proizvodi;
 public interface ProizvodiRepository extends JpaRepository<Proizvodi,Long> {
 	
 	@Query("select pr.proizvodiList from Programi pr "
-			+ "where pr.naziv_programa = :name ")
+			+ "where pr.naziv_programa = :name and pr.aktivan = 1")
 	List<Proizvodi> findByProgramName(@Param("name") String name);
 	
 	@Query("select p from Proizvodi p where p.aktivan = 1 ")
 	List<Proizvodi> findAktivne();
+	
+	@Query("select p from Proizvodi p")
+	List<Proizvodi> findAll();
 
 }

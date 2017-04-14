@@ -53,6 +53,13 @@ public class ProgramiController {
 	@Autowired
 	private ServiceUrl su;
 	
+	@RequestMapping("")
+	public List<Programi> vratiAktivneBezKorisnika(){	
+		
+		return ps.vratiAktivne();
+		
+	}
+	
 	@RequestMapping("/all")
 	public List<Programi> vratiSve(){	
 		
@@ -60,12 +67,21 @@ public class ProgramiController {
 		
 	}
 	
-	@RequestMapping("")
-	public List<Programi> vratiAktivne(){	
+	@RequestMapping("/korisnici")
+	public List<Programi> vratiBezKorisnika(){	
 		
-		return ps.vratiAktivne();
+		return ps.vratiSaKorisnikom();
 		
 	}
+	//Vratiti sve programe koji imaju korisnike
+	@RequestMapping("/korisnici/all")
+	public List<Programi> vratiAktivne(){	
+		
+		return ps.vratiSaKorisnikomSve();
+		
+	}
+	
+	//Vratiti samo programe koji imaju korisnike
 	@RequestMapping("/{id}")
 	public JsonWrapperProgrami vratiProgramPoID(@PathVariable String id)
 	{
@@ -98,18 +114,18 @@ public class ProgramiController {
 		return ps.izlistajProgramPoImenu(name);
 	}
 	
-	@RequestMapping(value="/dodaj/{id}",method=RequestMethod.POST)
-	public JsonWrapperProgrami dodajProizvodeUProgram(@PathVariable String id, @RequestBody Identifikator p)
+	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.POST)
+	public JsonWrapperProgrami dodajProizvodeUProgram(@PathVariable Long id, @PathVariable Long idp)// @RequestBody Identifikator p)
 	{
-		Long Id=Long.parseLong(id);
-		return ps.dodajProizvodeUProgram(Id,p.getId());
+		//Long Id=Long.parseLong(id);
+		return ps.dodajProizvodeUProgram(id,idp);
 		
 	}
-	@RequestMapping(value="/obrisi/{id}",method=RequestMethod.POST)
-	public JsonWrapperProgrami obrisiProizvodeIzPrograma(@PathVariable String id, @RequestBody Identifikator p)
+	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.DELETE)
+	public JsonWrapperProgrami obrisiProizvodeIzPrograma(@PathVariable Long id, @PathVariable Long idp)//, @RequestBody Identifikator p)
 	{
-		Long Id=Long.parseLong(id);
-		return ps.obrisiProizvodeIzPrograma(Id,p.getId());
+		//Long Id=Long.parseLong(id);
+		return ps.obrisiProizvodeIzPrograma(id,idp);
 		
 	}
 	
