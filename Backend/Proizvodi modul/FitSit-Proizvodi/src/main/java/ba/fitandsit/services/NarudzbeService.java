@@ -152,7 +152,8 @@ public class NarudzbeService {
 		{
 			return new JsonWrapperNarudzbe("Error","Unesena narudzba ne postoji!",null);
 		}
-		
+		if(n.getAktivan()==0) return new JsonWrapperNarudzbe("Error","Unesena narudzba ne postoji!",null);
+		if(p.getAktivan()==0) return new JsonWrapperNarudzbe("Error","Uneseni proizvod ne postoji!",null); 
 		n.getProizvodiList().remove(p);
 		return new JsonWrapperNarudzbe("Success","",nr.save(n));
 	}

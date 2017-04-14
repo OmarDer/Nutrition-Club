@@ -29,10 +29,21 @@ public class ProgramiService {
 		return pr.findAll();
 	}
 	
+	public List<Programi> vratiSaKorisnikom()
+	{
+		return pr.findProgrameSaKorisnikom();
+	}
+	
+	public List<Programi>vratiSaKorisnikomSve()
+	{
+		return pr.findProgrameSaKorisnikomSve();
+	}
+	
 	public List<Programi>vratiAktivne()
 	{
 		return pr.findAktivne();
 	}
+	
 	public JsonWrapperProgrami vratiProgramPoID(Long id)
 	{
 		Programi p=pr.findOne(id);
@@ -112,7 +123,8 @@ public class ProgramiService {
 		{
 			return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
 		}
-		
+		if(p.getAktivan()==0) return new JsonWrapperProgrami("Error","Uneseni proizvod ne postoji!",null);
+		if(ps.getAktivan()==0) return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
 		ps.getProizvodiList().add(p);
 		return new JsonWrapperProgrami("Success","",pr.save(ps));
 	}
@@ -134,6 +146,8 @@ public class ProgramiService {
 		{
 			return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
 		}
+		if(p.getAktivan()==0) return new JsonWrapperProgrami("Error","Uneseni proizvod ne postoji!",null);
+		if(ps.getAktivan()==0) return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
 		
 		ps.getProizvodiList().remove(p);
 		return new JsonWrapperProgrami("Success","",pr.save(ps));

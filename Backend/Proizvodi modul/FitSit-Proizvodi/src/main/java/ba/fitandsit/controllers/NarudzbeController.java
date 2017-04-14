@@ -84,19 +84,19 @@ public class NarudzbeController {
 		return ns.izlistajNarudzbuZaProdavaca(id);
 	}
 	
-	@RequestMapping(value="/dodaj/{id}",method=RequestMethod.POST)
-	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(@PathVariable String id, @RequestBody Identifikator p)
+	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.POST)
+	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(@PathVariable Long id, @PathVariable Long idp)
 	{
-		Long Id=Long.parseLong(id);
-		return ns.dodajProizvodeUNarudzbu(Id,p.getId());
+		//Long Id=Long.parseLong(id);
+		return ns.dodajProizvodeUNarudzbu(id,idp);
 		
 	}
 	
-	@RequestMapping(value="/obrisi/{id}",method=RequestMethod.POST)
-	public JsonWrapperNarudzbe obrisiProizvodIzNarudzbe(@PathVariable String id, @RequestBody Identifikator p)
+	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.DELETE)
+	public JsonWrapperNarudzbe obrisiProizvodIzNarudzbe(@PathVariable Long id, @PathVariable Long idp)//@RequestBody Identifikator p)
 	{
-		Long Id=Long.parseLong(id);
-		return ns.obrisiProizvodIzNarudzbe(Id,p.getId());
+		//Long Id=Long.parseLong(id);
+		return ns.obrisiProizvodIzNarudzbe(id,idp);
 	}
 	
 	@RequestMapping(value="/{id}/kupac",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
