@@ -3,11 +3,12 @@ package com.fitandsit.discovery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import org.json.*;
-
+@Service
 public class discoveryService {
 	@Autowired
 	private DiscoveryClient discoveryClient;

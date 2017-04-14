@@ -14,6 +14,6 @@ public interface VijestiRepo extends PagingAndSortingRepository<vijesti,Long> {
 	@Query("select v from vijesti v where v.aktivan = 1 ")
 	List<vijesti> findAktivne();
 	
-	@Query("select v from vijesti v where v.autorid = :id ")
+	@Query("select v from vijesti v where v.AutorID = :id ")
 	List<vijesti> findByAutorID(@Param("id")Long id);
 }
