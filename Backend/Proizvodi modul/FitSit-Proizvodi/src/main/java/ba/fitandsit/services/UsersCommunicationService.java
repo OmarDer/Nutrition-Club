@@ -18,7 +18,7 @@ public class UsersCommunicationService {
 	private ProgramiService ps;
 	
 	@Autowired
-	private NarudzbeRepository nr;
+	private NarudzbeService ns;
 	
 	@Autowired
 	private ServiceUrl su;
@@ -147,6 +147,62 @@ public class UsersCommunicationService {
 			return json.getString("poruka");
 		} catch (JSONException e) {
 			return null;
+		}
+	}
+	
+	//Proslijediti ID korisnika iz narudzbe
+	public String vratiKupceZaNarudzbu(Long id)
+	{
+		JsonWrapperNarudzbe n=ns.vratiNarudzbuPoID(id);
+		RestTemplate rt=new RestTemplate();
+		String url=su.getUsersServiceUrl();
+		//Ukoliko ne postoji narudzba sa datim id-jem
+		if(n.getStatus().equals("Error"))
+		{
+			String poruka="{\"status\": \""+n.getStatus()+"\", \"poruka\":\""+n.getPoruka()+"\", \"korisnik\": null}";
+			return poruka;
+		}
+		try {
+			String korisnik=rt.getForObject(url+"/korisnici/"+id, String.class);
+			JSONObject jsonKorisnik=new JSONObject(korisnik);
+			if(vratiStatusZaMetode(jsonKorisnik).equals("Error"))
+			{
+				String poruka="{\"status\": \""+vratiStatusZaMetode(jsonKorisnik)+"\", \"poruka\":\""+vratiPorukuZaMetode(jsonKorisnik)+"\", \"korisnik\": null}";
+				return poruka;
+			}
+			return korisnik;
+			
+		} catch (JSONException e) {
+			String poruka="{\"status\": \"Error\", \"poruka\":\"Podaci su neispravni!\", \"korisnik\": null}";
+			return poruka;
+		}
+		
+	}
+	
+	public String vratiProdavacaZaNarudzbu(Long id)
+	{
+		JsonWrapperNarudzbe n=ns.vratiNarudzbuPoID(id);
+		RestTemplate rt=new RestTemplate();
+		String url=su.getUsersServiceUrl();
+		//Ukoliko ne postoji narudzba sa datim id-jem
+		if(n.getStatus().equals("Error"))
+		{
+			String poruka="{\"status\": \""+n.getStatus()+"\", \"poruka\":\""+n.getPoruka()+"\", \"korisnik\": null}";
+			return poruka;
+		}
+		try {
+			String korisnik=rt.getForObject(url+"/korisnici/"+id, String.class);
+			JSONObject jsonKorisnik=new JSONObject(korisnik);
+			if(vratiStatusZaMetode(jsonKorisnik).equals("Error"))
+			{
+				String poruka="{\"status\": \""+vratiStatusZaMetode(jsonKorisnik)+"\", \"poruka\":\""+vratiPorukuZaMetode(jsonKorisnik)+"\", \"korisnik\": null}";
+				return poruka;
+			}
+			return korisnik;
+			
+		} catch (JSONException e) {
+			String poruka="{\"status\": \"Error\", \"poruka\":\"Podaci su neispravni!\", \"korisnik\": null}";
+			return poruka;
 		}
 	}
 	

@@ -22,10 +22,16 @@ public class KategorijeVijestiController {
 	@Autowired
 	KategorijeVijestiService kvService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<kategorijavijesti> getAll(){
 		
 		return kvService.getKategorijeVijesti();
+		
+	}
+	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<kategorijavijesti> getAllActive(){
+		
+		return kvService.getAktivKategorijeVijesti();
 		
 	}
 	

@@ -12,4 +12,5 @@ public interface TipVijestiInterface {
 	tipvijestiJSONWrapper updatetipvijesti(Long id, tipvijesti tv);
 	Boolean deletetipvijesti(Long id);
 	List<tipvijesti> gettipvijestii();
+	List<tipvijesti> getAktivtipvijestii();
 }

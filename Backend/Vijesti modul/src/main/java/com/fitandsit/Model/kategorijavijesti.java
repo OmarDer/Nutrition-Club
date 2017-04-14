@@ -12,16 +12,16 @@ public class kategorijavijesti {
 
 	private String imeKategorije;
 
-	private Integer Arhiviran;
+	private Integer aktivan;
 
 	public kategorijavijesti(){
 	}
 	
-	public Integer getArhiviran(){
-		return this.Arhiviran;
+	public Integer getAktivan(){
+		return this.aktivan;
 	}
-	public void setArhiviran(Integer arhiviran){
-		this.Arhiviran = arhiviran;
+	public void setAktivan(Integer aktivan){
+		this.aktivan = aktivan;
 	}
 	
 	public Long getKategorijaID(){

@@ -21,6 +21,9 @@ public class NarudzbeService {
 	@Autowired
 	private ProizvodiRepository pr;
 	
+	@Autowired
+	private UsersCommunicationService ucm;
+	
 	public List<Narudzbe> vratiSve()
 	{
 		return nr.findAll();
@@ -62,7 +65,17 @@ public class NarudzbeService {
 			n1.setNarudzbaID((n.getNarudzbaID()!=null)? n.getNarudzbaID():sel.getNarudzbaID());
 			n1.setAktivan((n.getAktivan()!=null)? n.getAktivan():sel.getAktivan());
 			n1.setDatum((n.getDatum()!=null)? n.getDatum():sel.getDatum());
+			
+			if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID())==false)
+			{
+				return new JsonWrapperNarudzbe("Error","Uneseni korisnik ne postoji!",null);
+			}
 			n1.setKorisnikID((n.getKorisnikID()!=null)? n.getKorisnikID():sel.getKorisnikID());
+			
+			if(n.getProdavacID()!=null && ucm.provjeriKorisnika(n.getProdavacID())==false)
+			{
+				return new JsonWrapperNarudzbe("Error","Uneseni prodavac ne postoji!",null);
+			}
 			n1.setProdavacID((n.getProdavacID()!=null)? n.getProdavacID():sel.getProdavacID());
 			n1.setProizvodiList((n.getProizvodiList()!=null)? n.getProizvodiList():sel.getProizvodiList());
 			
@@ -74,14 +87,30 @@ public class NarudzbeService {
 	
 	public JsonWrapperNarudzbe kreirajNarudzbu(Narudzbe n)
 	{
-		
+		if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID())==false)
+		{
+			return new JsonWrapperNarudzbe("Error","Uneseni korisnik ne postoji!",null);
+		}
+		if(n.getProdavacID()!=null && ucm.provjeriKorisnika(n.getProdavacID())==false)
+		{
+			return new JsonWrapperNarudzbe("Error","Uneseni prodavac ne postoji!",null);
+		}
 		if(n.getNarudzbaID()!=null&& nr.findOne(n.getNarudzbaID())==null) return new JsonWrapperNarudzbe("Success","",nr.save(n));
 		return new JsonWrapperNarudzbe("Error","Unesena narudzba vec postoji!",null);
 	}
 
-	public List<Narudzbe> izlistajNarudzbuZaKupca(long id)
+	public JsonWrapperListNarudzbe izlistajNarudzbuZaKupca(Long id)
 	{
-		return nr.findBykorisnikID(id);
+		if(ucm.provjeriKorisnika(id)==false) return new JsonWrapperListNarudzbe("Error","Uneseni korisnik ne postoji!",null); 
+			
+		return new JsonWrapperListNarudzbe("Success","",nr.findBykorisnikID(id));
+	}
+	
+	public JsonWrapperListNarudzbe izlistajNarudzbuZaProdavaca(Long id)
+	{
+		if(ucm.provjeriKorisnika(id)==false) return new JsonWrapperListNarudzbe("Error","Uneseni prodavac ne postoji!",null); 
+		
+		return new JsonWrapperListNarudzbe("Success","",nr.findByprodavacID(id));
 	}
 
 	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(Long idn,Long idp)
@@ -126,5 +155,14 @@ public class NarudzbeService {
 		
 		n.getProizvodiList().remove(p);
 		return new JsonWrapperNarudzbe("Success","",nr.save(n));
+	}
+	public JsonWrapperListProizvodi vratiProizvodeZaNarudzbu(Long nid)
+	{
+		Narudzbe n=nr.findOne(nid);
+		if(n==null)
+		{
+			return new JsonWrapperListProizvodi("Error","Unesena narudzba ne postoji!",null);
+		}
+		return new JsonWrapperListProizvodi("Succes","",nr.findProizvodi(nid));
 	}
 }

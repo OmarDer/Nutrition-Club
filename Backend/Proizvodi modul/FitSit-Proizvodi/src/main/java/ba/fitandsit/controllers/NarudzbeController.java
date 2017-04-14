@@ -1,6 +1,7 @@
 package ba.fitandsit.controllers;
 import ba.fitandsit.wrappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ba.fitandsit.repository.NarudzbeRepository;
 import ba.fitandsit.services.NarudzbeService;
+import ba.fitandsit.services.ProizvodiService;
+import ba.fitandsit.services.UsersCommunicationService;
 import ba.fitandsit.model.Narudzbe;
 import ba.fitandsit.model.Programi;
 
@@ -23,6 +26,11 @@ public class NarudzbeController {
 	@Autowired
 	private NarudzbeService ns;
 	
+	@Autowired
+	private ProizvodiService ps;
+	
+	@Autowired
+	private UsersCommunicationService ucm;
 	
 	@RequestMapping("/all")
 	public List<Narudzbe> vratiSve(){	
@@ -63,13 +71,19 @@ public class NarudzbeController {
 		
 		return ns.azurirajNarudzbu(id,p);
 	}
-	@RequestMapping(value="/izlistaj/{id}",method=RequestMethod.GET)
-	public List<Narudzbe> izlistajNarudzbu(@PathVariable String id)
+	@RequestMapping(value="/kupac/{id}",method=RequestMethod.GET)
+	public JsonWrapperListNarudzbe izlistajNarudzbu(@PathVariable String id)
 	{
 		Long Id=Long.parseLong(id);
 		return ns.izlistajNarudzbuZaKupca(Id);
 	}
 
+	@RequestMapping(value="/prodavac/{id}",method=RequestMethod.GET)
+	public JsonWrapperListNarudzbe izlistajNarudzbuZaProdavaca(@PathVariable Long id)
+	{
+		return ns.izlistajNarudzbuZaProdavaca(id);
+	}
+	
 	@RequestMapping(value="/dodaj/{id}",method=RequestMethod.POST)
 	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(@PathVariable String id, @RequestBody Identifikator p)
 	{
@@ -77,10 +91,28 @@ public class NarudzbeController {
 		return ns.dodajProizvodeUNarudzbu(Id,p.getId());
 		
 	}
+	
 	@RequestMapping(value="/obrisi/{id}",method=RequestMethod.POST)
 	public JsonWrapperNarudzbe obrisiProizvodIzNarudzbe(@PathVariable String id, @RequestBody Identifikator p)
 	{
 		Long Id=Long.parseLong(id);
 		return ns.obrisiProizvodIzNarudzbe(Id,p.getId());
+	}
+	
+	@RequestMapping(value="/{id}/kupac",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String vratiKupcaZaNarudzbu(@PathVariable Long id)
+	{
+		return ucm.vratiKupceZaNarudzbu(id);
+	}
+	
+	@RequestMapping(value="/{id}/prodavac",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public String vratiProdavacaZaNarudzbu(@PathVariable Long id)
+	{
+		return ucm.vratiProdavacaZaNarudzbu(id);
+	}
+	@RequestMapping(value="/{nid}/proizvodi",method=RequestMethod.GET)
+	public JsonWrapperListProizvodi vratiProizvodeZaNarudzbu(@PathVariable Long nid)
+	{
+		return ns.vratiProizvodeZaNarudzbu(nid);
 	}
 }

@@ -63,6 +63,11 @@ public class ProgramiService {
 		{
 			p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
 			p1.setNaziv_programa((p.getNaziv_programa()!=null) ? p.getNaziv_programa():sel.getNaziv_programa());
+			if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID())==false)
+			{
+				return new JsonWrapperProgrami("Error","Program se azurira sa nepostojecim korisnikom!",null);
+				
+			}
 			p1.setAutorID((p.getAutorID()!=null) ? p.getAutorID():sel.getAutorID());
 			p1.setOpis_programa((p.getOpis_programa()!=null) ? p.getOpis_programa():sel.getOpis_programa());
 			p1.setAktivan((p.getAktivan()!=null) ? p.getAktivan():sel.getAktivan());
@@ -76,6 +81,10 @@ public class ProgramiService {
 	
 	public JsonWrapperProgrami kreirajProgram(Programi p)
 	{
+		if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID())==false)
+		{
+			return new JsonWrapperProgrami("Error","Uneseni korisnik ne postoji!",null);
+		}
 		if(p.getProgramID()!=null && pr.findOne(p.getProgramID())==null) return new JsonWrapperProgrami("Success","",pr.save(p));
 		return new JsonWrapperProgrami("Error","Uneseni program vec postoji!",null);
 	}

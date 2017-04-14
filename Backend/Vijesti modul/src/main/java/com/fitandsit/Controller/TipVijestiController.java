@@ -21,10 +21,17 @@ public class TipVijestiController {
 	@Autowired
 	TipVijestiService tvService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<tipvijesti> getAll(){
 		
 		return tvService.gettipvijestii();
+		
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<tipvijesti> getAllAktiv(){
+		
+		return tvService.getAktivtipvijestii();
 		
 	}
 	

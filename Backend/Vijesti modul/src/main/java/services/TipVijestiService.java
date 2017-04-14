@@ -46,7 +46,7 @@ public class TipVijestiService implements TipVijestiInterface {
 			return new tipvijestiJSONWrapper("Error","Tip vijesti ne postoji!", null);
 		
 		x.setNazivTipa(tv.getNazivTipa() != null ? tv.getNazivTipa() : x.getNazivTipa());
-		x.setArhiviran(tv.getArhiviran() != null ? tv.getArhiviran() : x.getArhiviran());
+		x.setAktivan(tv.getAktivan() != null ? tv.getAktivan() : x.getAktivan());
 
 		return new tipvijestiJSONWrapper("Success","", tipvijestirepo.save(x));
 		
@@ -60,7 +60,7 @@ public class TipVijestiService implements TipVijestiInterface {
 		if((x = tipvijestirepo.findOne(id) ) == null)
 			return false;
 		
-		x.setArhiviran(1);
+		x.setAktivan(0);
 		
 		tipvijestirepo.save(x);
 		
@@ -70,5 +70,10 @@ public class TipVijestiService implements TipVijestiInterface {
 	@Override
 	public List<tipvijesti> gettipvijestii(){
 		return tipvijestirepo.findAll();
+	}
+	
+	@Override
+	public List<tipvijesti> getAktivtipvijestii(){
+		return tipvijestirepo.findAktivne();
 	}
 }

@@ -68,7 +68,7 @@ public class ProizvodiController {
 		return ps.azurirajProizvod(id,p);
 	}
 	@RequestMapping(value="/izlistaj/{programName}",method=RequestMethod.GET)
-	public List<Proizvodi> izlistajProizvodePoProgramu(@PathVariable String programName)
+	public JsonWrapperListProizvodi izlistajProizvodePoProgramu(@PathVariable String programName)
 	{
 		return ps.izlistajProizvodePoProgramu(programName);
 	}

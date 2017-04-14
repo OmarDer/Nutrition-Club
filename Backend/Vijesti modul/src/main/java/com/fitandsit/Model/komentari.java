@@ -22,7 +22,7 @@ public class komentari {
 	@ManyToOne
 	private komentari komentar;
 	
-	private Integer Arhiviran;
+	private Integer aktivan;
 
 	public komentari(){
 	}
@@ -59,11 +59,11 @@ public class komentari {
 		this.Vijest = vijest;
 	}
 
-	public Integer getArhiviran(){
-		return this.Arhiviran;
+	public Integer getAktivan(){
+		return this.aktivan;
 	}
-	public void setArhiviran(Integer arhiviran){
-		this.Arhiviran = arhiviran;
+	public void setAktivan(Integer aktivan){
+		this.aktivan = aktivan;
 	}
 
 	public Integer getImaRoditelja(){
