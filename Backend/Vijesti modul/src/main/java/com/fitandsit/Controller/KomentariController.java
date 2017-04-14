@@ -1,7 +1,9 @@
 package com.fitandsit.Controller;
 
 import jsonwrappers.KomentariJSONWrapper;
+import jsonwrappers.KomentariListJSONWrapper;
 import jsonwrappers.VijestiJSONWrapper;
+import services.KorisniciCommunication;
 import services.komentariService;
 
 import com.fitandsit.Model.komentari;
@@ -22,10 +24,20 @@ public class KomentariController {
 	@Autowired
 	komentariService kService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@Autowired
+	KorisniciCommunication kc;
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<komentari> getAll(){
 		
 		return kService.getKomentari();
+		
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<komentari> getAllAktiv(){
+		
+		return kService.getAktivKomentari();
 		
 	}
 	
@@ -71,6 +83,19 @@ public class KomentariController {
 	public KomentariJSONWrapper getKomentarKomentara(@PathVariable(value="id") Long id){
 		
 		return kService.getchildkomentar(id);
+		
+	}
+	@RequestMapping(value = "/{id}/autorInfo/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public String getAutorKomentar(@PathVariable(value="id") Long id){
+		
+		return kc.getAutorKomentar(id);
+		
+	}
+	
+	@RequestMapping(value = "/{id}/autor/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KomentariListJSONWrapper getKomentarAutor(@PathVariable(value="id") Long id){
+		
+		return kService.getKomentarKorisnik(id);
 		
 	}
 }

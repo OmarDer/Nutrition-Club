@@ -2,7 +2,9 @@ package com.fitandsit.Controller;
 
 import jsonwrappers.KategorijeVijestiJSONWrapper;
 import jsonwrappers.VijestiJSONWrapper;
+import jsonwrappers.VijestiListJSONWrapper;
 import jsonwrappers.tipvijestiJSONWrapper;
+import services.KorisniciCommunication;
 import services.VijestiService;
 
 import com.fitandsit.Model.vijesti;
@@ -23,10 +25,20 @@ public class VijestiController {
 	@Autowired
 	VijestiService vService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@Autowired
+	KorisniciCommunication kc;
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<vijesti> getAll(){
 		
 		return vService.getVijestii();
+		
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<vijesti> getAllAktiv(){
+		
+		return vService.getAktivVijestii();
 		
 	}
 	
@@ -73,4 +85,19 @@ public class VijestiController {
 		return vService.getkategorijavijesti(id);
 		
 	}
+	
+	@RequestMapping(value = "/{id}/autorInfo/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public String getAutorVijest(@PathVariable(value="id") Long id){
+		
+		return kc.getAutorVijest(id);
+		
+	}
+	
+	@RequestMapping(value = "/{id}/autor/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public VijestiListJSONWrapper getVijestAutor(@PathVariable(value="id") Long id){
+		
+		return vService.getVijestKorisnik(id);
+		
+	}
+	
 }

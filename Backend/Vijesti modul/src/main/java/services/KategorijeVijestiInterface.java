@@ -12,4 +12,5 @@ public interface KategorijeVijestiInterface {
 	KategorijeVijestiJSONWrapper updatekategorijevijesti(Long id, kategorijavijesti kv);
 	Boolean deletevijesti(Long id);
 	List<kategorijavijesti> getKategorijeVijesti();
+	List<kategorijavijesti> getAktivKategorijeVijesti();
 }

@@ -13,7 +13,7 @@ private Long tipID;
 
 private String nazivTipa;
 
-private Integer Arhiviran;
+private Integer aktivan;
 
 public tipvijesti(){
 }
@@ -24,11 +24,11 @@ public void setTipID(Long tipID){
 	this.tipID = tipID;
 }
 
-public Integer getArhiviran(){
-	return this.Arhiviran;
+public Integer getAktivan(){
+	return this.aktivan;
 }
-public void setArhiviran(Integer arhiviran){
-	this.Arhiviran = arhiviran;
+public void setAktivan(Integer aktivan){
+	this.aktivan = aktivan;
 }
 
 public String getNazivTipa(){

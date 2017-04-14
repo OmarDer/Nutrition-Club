@@ -45,7 +45,7 @@ public class KategorijeVijestiService implements KategorijeVijestiInterface {
 			return new KategorijeVijestiJSONWrapper("Error", "Kategorija vijesti ne postoji", null);
 		
 		x.setNazivTipa(kv.getImeKategorije() != null ? kv.getImeKategorije() : x.getImeKategorije());
-		x.setArhiviran(kv.getArhiviran() != null ? kv.getArhiviran() : x.getArhiviran());
+		x.setAktivan(kv.getAktivan() != null ? kv.getAktivan() : x.getAktivan());
 		
 	   return new KategorijeVijestiJSONWrapper("Succcess", "", kategorijevijestirepo.save(x));
 		
@@ -57,7 +57,7 @@ public class KategorijeVijestiService implements KategorijeVijestiInterface {
 		kategorijavijesti kv = null;
 		if((kv=kategorijevijestirepo.findOne(id)) ==null)
 			return false;
-		kv.setArhiviran(1);
+		kv.setAktivan(0);
 		kategorijevijestirepo.save(kv);
 		return true;
 	}
@@ -66,6 +66,11 @@ public class KategorijeVijestiService implements KategorijeVijestiInterface {
 	@Override
 	public List<kategorijavijesti> getKategorijeVijesti(){
 		return kategorijevijestirepo.findAll();
+	}
+	
+	@Override
+	public List<kategorijavijesti> getAktivKategorijeVijesti(){
+		return kategorijevijestirepo.findAktivne();
 	}
 	
 }

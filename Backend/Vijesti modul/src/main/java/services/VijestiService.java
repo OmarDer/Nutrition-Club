@@ -10,12 +10,16 @@ import com.fitandsit.Repository.VijestiRepo;
 
 import jsonwrappers.KategorijeVijestiJSONWrapper;
 import jsonwrappers.VijestiJSONWrapper;
+import jsonwrappers.VijestiListJSONWrapper;
 import jsonwrappers.tipvijestiJSONWrapper;
 
 @Service
 public class VijestiService implements VijestiInterface {
 	
 	VijestiRepo vijestirepo;
+	
+	@Autowired
+	public KorisniciCommunication kc;
 	
 	@Autowired
 	public void setVijestiRepo(VijestiRepo vijestirepo) {
@@ -26,6 +30,11 @@ public class VijestiService implements VijestiInterface {
 	public VijestiJSONWrapper createvijesti(vijesti v){
 		if (v.getVijestID()!=null && vijestirepo.findOne(v.getVijestID()) != null)
 			return new VijestiJSONWrapper("Error", "Vijesti već postoji!", v);
+		
+		if(v.getAutorID()!=null && kc.checkKorisnik(v.getAutorID())==false)
+		{
+			return new VijestiJSONWrapper("Error","Uneseni korisnik ne postoji!",null);
+		}
 		
 		return new VijestiJSONWrapper("Success", "", vijestirepo.save(v));
 	}
@@ -47,11 +56,15 @@ public class VijestiService implements VijestiInterface {
 		if((x = vijestirepo.findOne(id)) == null)
 			return new VijestiJSONWrapper("Error","Vijest ne postoji!", null);
 		
+		if(v.getAutorID()!=null && kc.checkKorisnik(v.getAutorID())==false)
+		{
+			return new VijestiJSONWrapper("Error","Uneseni korisnik ne postoji!",null);
+		}
 		x.setAutorID(v.getAutorID() != null ? v.getAutorID() : x.getAutorID());
 		x.setDatum(v.getDatum() != null ? v.getDatum() : x.getDatum());
 		x.setTextvVijesti(v.getNazivVijesti() != null ? v.getNazivVijesti() : x.getNazivVijesti());
 		x.setNazivVijesti(v.getNazivVijesti() != null ? v.getNazivVijesti() : x.getNazivVijesti());
-		x.setArhiviran(v.getArhiviran() != null ? v.getArhiviran() : x.getArhiviran());
+		x.setAktivan(v.getAktivan() != null ? v.getAktivan() : x.getAktivan());
 
 		return new VijestiJSONWrapper("Success","", vijestirepo.save(x));
 		
@@ -64,7 +77,7 @@ public class VijestiService implements VijestiInterface {
 		if((x = vijestirepo.findOne(id) ) == null)
 			return false;
 		
-		x.setArhiviran(1);
+		x.setAktivan(0);
 		
 		vijestirepo.save(x);
 		
@@ -74,6 +87,11 @@ public class VijestiService implements VijestiInterface {
 	@Override
 	public List<vijesti> getVijestii(){
 		return vijestirepo.findAll();
+	}
+	
+	@Override
+	public List<vijesti> getAktivVijestii(){
+		return vijestirepo.findAktivne();
 	}
 	
 	@Override
@@ -98,4 +116,19 @@ vijesti x = null;
 		
 		return new KategorijeVijestiJSONWrapper("Success", "", x.getKategorijaVijesti());
 	}
+	
+	@Override
+	public VijestiListJSONWrapper getVijestKorisnik(Long id){
+		if(kc.checkKorisnik(id)==false)
+		{
+			return new VijestiListJSONWrapper("Error","Uneseni korisnik ne postoji!",null);
+		}
+		List<vijesti> v = vijestirepo.findByAutorID(id);
+		
+		if (v==null){
+			return new VijestiListJSONWrapper("Success","Korisnik nije napisao ni jednu vijest!",null);
+		}
+		return new VijestiListJSONWrapper("Success","",v);
+	}
+	
 }

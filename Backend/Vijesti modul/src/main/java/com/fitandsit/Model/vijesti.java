@@ -35,7 +35,7 @@ public
 	@ManyToOne
 	private kategorijavijesti KategorijaVijesti;
 	
-	private Integer Arhivirano;
+	private Integer aktivan;
 
 	public vijesti(){
 	}
@@ -56,11 +56,11 @@ public
 		this.AutorID = AutorID;
 	}
 
-	public Integer getArhiviran(){
-		return this.Arhivirano;
+	public Integer getAktivan(){
+		return this.aktivan;
 	}
-	public void setArhiviran(Integer arhiviran){
-		this.Arhivirano = arhiviran;
+	public void setAktivan(Integer aktivan){
+		this.aktivan = aktivan;
 	}
 
 	public String getNazivVijesti(){
