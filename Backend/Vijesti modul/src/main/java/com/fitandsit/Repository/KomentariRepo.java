@@ -14,6 +14,6 @@ public interface KomentariRepo extends PagingAndSortingRepository<komentari, Lon
 	@Query("select k from komentari k where k.aktivan = 1 ")
 	List<komentari> findAktivne();
 	
-	@Query("select k from komentari k where k.autorid = :id ")
+	@Query("select k from komentari k where k.AutorID = :id ")
 	List<komentari> findByAutorID(@Param("id")Long id);
 }

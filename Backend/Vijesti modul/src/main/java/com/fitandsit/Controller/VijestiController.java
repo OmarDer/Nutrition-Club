@@ -86,14 +86,14 @@ public class VijestiController {
 		
 	}
 	
-	@RequestMapping(value = "/{id}/autorInfo/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}/autorInfo", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public String getAutorVijest(@PathVariable(value="id") Long id){
 		
 		return kc.getAutorVijest(id);
 		
 	}
 	
-	@RequestMapping(value = "/{id}/autor/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{id}/autor", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public VijestiListJSONWrapper getVijestAutor(@PathVariable(value="id") Long id){
 		
 		return vService.getVijestKorisnik(id);

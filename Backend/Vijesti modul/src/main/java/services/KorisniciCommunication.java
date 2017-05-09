@@ -1,6 +1,7 @@
 package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fitandsit.discovery.discoveryService;
@@ -9,7 +10,7 @@ import jsonwrappers.KomentariJSONWrapper;
 import jsonwrappers.VijestiJSONWrapper;
 
 import org.json.*;
-
+@Service
 public class KorisniciCommunication {
 	
 	@Autowired
