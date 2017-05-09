@@ -39,9 +39,18 @@ public class KorisniciController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public KorisnikJSONWrapper getKorisnik(@PathVariable(value="id") Long id){
+	public KorisnikJSONWrapper getKorisnik(@PathVariable(value="id") String id){
 		
-		return korisnikService.getKorisnik(id);
+		try{
+			
+			Long x = Long.parseLong(id);
+			return korisnikService.getKorisnik(x);
+			
+		}catch(Exception e){
+			
+		}
+		
+		return korisnikService.getKorisnikByUserName(id);
 		
 	}
 	
@@ -55,7 +64,9 @@ public class KorisniciController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public KorisnikJSONWrapper updateKorisnik(@PathVariable(value="id") Long id, @RequestBody Korisnik k){
 		
-		return korisnikService.updateKorisnik(id, k);
+		
+			return korisnikService.updateKorisnik(id, k);
+		
 		
 	}
 	
@@ -97,13 +108,6 @@ public class KorisniciController {
 	public String getProgrameKorisnika(@PathVariable(value="id") Long id){
 		
 		return korisnikService.getProgrameKorisnika(id);
-		
-	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public KorisnikJSONWrapper getKorisnikByUserName(@RequestParam(value = "username") String userName){
-		
-		return korisnikService.getKorisnikByUserName(userName);
 		
 	}
 	
