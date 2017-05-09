@@ -15,5 +15,6 @@ public interface KorisnikService {
 	List<Korisnik> getKorisnici();
 	RolaJSONWrapper getRolaKorisnika(Long idKorisnika);
 	String getProgrameKorisnika(Long id);
+	KorisnikJSONWrapper getKorisnikByUserName(String userName);
 
 }
