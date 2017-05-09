@@ -33,7 +33,7 @@ public class KorisniciController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Korisnik> getKorisnici(){
-		
+
 		return korisnikService.getKorisnici();
 		
 	}
@@ -97,6 +97,13 @@ public class KorisniciController {
 	public String getProgrameKorisnika(@PathVariable(value="id") Long id){
 		
 		return korisnikService.getProgrameKorisnika(id);
+		
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KorisnikJSONWrapper getKorisnikByUserName(@RequestParam(value = "username") String userName){
+		
+		return korisnikService.getKorisnikByUserName(userName);
 		
 	}
 	

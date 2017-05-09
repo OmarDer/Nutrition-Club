@@ -114,4 +114,14 @@ public class KorisnikServiceImpl implements KorisnikService {
 		return proizvodiREST.getProgramiByKorisnikId(id);
 	}
 
+	@Override
+	public KorisnikJSONWrapper getKorisnikByUserName(String userName) {
+		
+		Korisnik x;
+		if((x = korisnikRepository.findByUserName(userName)) == null)
+			return new KorisnikJSONWrapper("Error","Korisnik ne postoji", null);
+		
+		return new KorisnikJSONWrapper("Success","", x);
+	}
+
 }
