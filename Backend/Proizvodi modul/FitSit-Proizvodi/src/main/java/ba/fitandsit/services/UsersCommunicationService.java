@@ -206,4 +206,11 @@ public class UsersCommunicationService {
 		}
 	}
 	
+	public String vratiKorisnikaZaUsername(String username)
+	{
+		RestTemplate rt=new RestTemplate();
+		String url=su.getUsersServiceUrl();
+		return null;
+	}
+	
 }
