@@ -12,14 +12,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import ba.sitandfit.korisnici.model.Korisnik;
 import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.repository.KorisnikRepository;
+import ba.sitandfit.korisnici.service.KorisnikServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 import static java.util.Collections.emptyList;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class TokenAuthenticationService {
@@ -29,14 +32,14 @@ public class TokenAuthenticationService {
 		static final String TOKEN_PREFIX = "Bearer";
 		static final String HEADER_STRING = "Authorization";
 		
-		@Autowired
-		static private KorisnikRepository korisnikRepo;
 		
-public static void addAuthentication(HttpServletResponse res, String username//,String rola
+public static void addAuthentication(HttpServletResponse res, String username,String rola
 		) {
+		List<String> role= new ArrayList<String>();
+		role.add(rola);
 		
     	String JWT = Jwts.builder()
-    			.setSubject(username)//.claim("role", rola)
+    			.setSubject(username).claim("authorities", role)
     			.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
     			.signWith(SignatureAlgorithm.HS512, SECRET)
     			.compact();
@@ -52,23 +55,19 @@ public static Authentication getAuthentication(HttpServletRequest request) {
     				.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
     				.getBody()
     				.getSubject();
-    		/*
-    		String rola=(String) Jwts.parser()
+    	
+    		String rola= Jwts.parser()
     				.setSigningKey(SECRET)
     				.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
     				.getBody()
-    				.get("role");
-    		if (korisnikRepo.findByUserName(user)==null)return null;
+    				.get("authorities").toString();
     		
-    		String role=korisnikRepo.findByUserName(user).getRola().getNazivRole();
     		Collection<GrantedAuthority> prava = new HashSet<GrantedAuthority>();
-    		prava.add(new SimpleGrantedAuthority(role));
-    		
-    		new UsernamePasswordAuthenticationToken(user, null, prava);
-    		*/
-    		return user != null ?
-    				new UsernamePasswordAuthenticationToken(user, null, emptyList()) :
-    				null;
+    		//Zbog toga sto postoji samo jedna rola za korisnika i njen naziv se nalazi izmedju uglastih zagrada koje treba otkloniti
+    		rola=rola.substring(1, rola.length()-1);
+    		prava.add(new SimpleGrantedAuthority(rola));
+    	
+    		return new UsernamePasswordAuthenticationToken(user, null, prava);
     	}
     	return null;
   }

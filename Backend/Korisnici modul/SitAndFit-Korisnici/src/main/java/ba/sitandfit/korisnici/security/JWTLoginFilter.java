@@ -1,8 +1,10 @@
 package ba.sitandfit.korisnici.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Iterables;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 //import org.hibernate.mapping.Collection;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +16,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,51 +32,22 @@ import ba.sitandfit.korisnici.model.Korisnik;
 import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.repository.*;
 import ba.sitandfit.korisnici.service.KorisnikService;
+import ba.sitandfit.korisnici.service.KorisnikServiceImpl;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
-
-	private KorisnikRepository kr;
 	
-	
-	@Autowired
-	public KorisnikRepository getKr() {
-		return kr;
-	}
-
-	@Autowired
-	public void setKr(KorisnikRepository kr) {
-		this.kr = kr;
-	}
-	
-
 public JWTLoginFilter(String url, AuthenticationManager authManager) 
   {
     super(new AntPathRequestMatcher(url));
     setAuthenticationManager(authManager);
+    
   }
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)throws AuthenticationException, IOException, ServletException {
-	//RoleServiceHelper kr=new RoleServiceHelper();
 	
 	LoginData logdata = new ObjectMapper().readValue(req.getInputStream(), LoginData.class);
-	/*
-	Korisnik k=kr.findByUserName(logdata.getUsername());
-	if (k!=null)
-	{
-		String rola=k.getRola().getNazivRole();
-		Collection<GrantedAuthority> prava = new HashSet<GrantedAuthority>();
-		prava.add(new SimpleGrantedAuthority(rola));
-		
-		return getAuthenticationManager().authenticate( new UsernamePasswordAuthenticationToken(
-	    		logdata.getUsername(),
-	    		logdata.getPassword(),
-	    		prava  
-	        )
-	    );
-		
-	}	
-	*/
+	
     return getAuthenticationManager().authenticate( new UsernamePasswordAuthenticationToken(
     		logdata.getUsername(),
     		logdata.getPassword(),
@@ -82,17 +56,12 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
     );
   }
 
-  @Override
+ @Override
   protected void successfulAuthentication(
       HttpServletRequest req,
       HttpServletResponse res, FilterChain chain,
       Authentication auth) throws IOException, ServletException {
-	  /*
-	  //RoleServiceHelper kr=new RoleServiceHelper();
-	  Korisnik k=kr.findByUserName(auth.getName());
-	  String rola=k.getRola().getNazivRole();
-	  TokenAuthenticationService.addAuthentication(res, auth.getName(),rola);
-	  */
-	  TokenAuthenticationService.addAuthentication(res, auth.getName());
+	  
+	TokenAuthenticationService.addAuthentication(res, auth.getName(),Iterables.get(auth.getAuthorities(),0).getAuthority().toString());
   }
 }

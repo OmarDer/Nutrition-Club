@@ -28,25 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception
 	{
 		
-		/*http
-			.authorizeRequests()
-				.antMatchers("/korisnici").hasRole("ADMIN")
-				.anyRequest().authenticated()
-				.and()
-			.formLogin()
-				.usernameParameter("userName")
-				.and()
-			.logout();
-		*/
-		
 		http
 		 	.csrf().disable().authorizeRequests()
-		 		.antMatchers("/korisnici").hasRole("ADMIN")
-		 		.antMatchers("/stanjakorisnika").hasAnyRole("ADMIN","PRODAVAC")
+		 		.antMatchers("/korisnici").hasAuthority("ROLE_ADMIN")
+		 		.antMatchers("/stanjakorisnika").hasAnyAuthority("ROLE_ADMIN","ROLE_PRODAVAC")
 		 		.antMatchers("/").permitAll()
 		 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		 		.anyRequest().authenticated()
-		 		
 	        .and()
 	        
 	        	.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
