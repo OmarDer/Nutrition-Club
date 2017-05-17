@@ -66,7 +66,7 @@ public class ProgramiService {
 		}
 	}
 	
-	public JsonWrapperProgrami azurirajProgram(Long id,Programi p)
+	public JsonWrapperProgrami azurirajProgram(Long id,Programi p,String token)
 	{
 		Programi p1=new Programi();
 		Programi sel=pr.findOne(id);
@@ -74,7 +74,7 @@ public class ProgramiService {
 		{
 			p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
 			p1.setNaziv_programa((p.getNaziv_programa()!=null) ? p.getNaziv_programa():sel.getNaziv_programa());
-			if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID())==false)
+			if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID(),token)==false)
 			{
 				return new JsonWrapperProgrami("Error","Program se azurira sa nepostojecim korisnikom!",null);
 				
@@ -90,9 +90,9 @@ public class ProgramiService {
 		return new JsonWrapperProgrami("Error","Uneseni program ne postoji!",null);
 	}
 	
-	public JsonWrapperProgrami kreirajProgram(Programi p)
+	public JsonWrapperProgrami kreirajProgram(Programi p, String token)
 	{
-		if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID())==false)
+		if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID(),token)==false)
 		{
 			return new JsonWrapperProgrami("Error","Uneseni korisnik ne postoji!",null);
 		}
@@ -153,9 +153,9 @@ public class ProgramiService {
 		return new JsonWrapperProgrami("Success","",pr.save(ps));
 	}
 	
-	public JsonWrapperProgrami vratiProgramZaKorisnika(Long id)
+	public JsonWrapperProgrami vratiProgramZaKorisnika(Long id,String token)
 	{
-		if(ucm.provjeriKorisnika(id)==false)
+		if(ucm.provjeriKorisnika(id,token)==false)
 		{
 			return new JsonWrapperProgrami("Error","Uneseni korisnik ne postoji!",null);
 		}

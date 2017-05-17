@@ -17,6 +17,7 @@ import com.netflix.ribbon.proxy.annotation.Http.HttpMethod;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -91,9 +92,9 @@ public class ProgramiController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public JsonWrapperProgrami kreirajProgram(@RequestBody Programi p)
+	public JsonWrapperProgrami kreirajProgram(@RequestBody Programi p, @RequestHeader("Authorization") String token)
 	{
-		return ps.kreirajProgram(p);
+		return ps.kreirajProgram(p, token);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -104,9 +105,9 @@ public class ProgramiController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
-	public JsonWrapperProgrami azurirajProgram(@PathVariable Long id,@RequestBody Programi p){
+	public JsonWrapperProgrami azurirajProgram(@PathVariable Long id,@RequestBody Programi p, @RequestHeader("Authorization") String token){
 		
-		return ps.azurirajProgram(id,p);
+		return ps.azurirajProgram(id,p,token);
 	}
 	@RequestMapping(value="/izlistaj/{name}",method=RequestMethod.GET)
 	public JsonWrapperProgrami izlistajProgramPoImenu(@PathVariable String name)
@@ -117,29 +118,24 @@ public class ProgramiController {
 	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.POST)
 	public JsonWrapperProgrami dodajProizvodeUProgram(@PathVariable Long id, @PathVariable Long idp)// @RequestBody Identifikator p)
 	{
-		//Long Id=Long.parseLong(id);
-		return ps.dodajProizvodeUProgram(id,idp);
-		
+		return ps.dodajProizvodeUProgram(id,idp);	
 	}
 	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.DELETE)
 	public JsonWrapperProgrami obrisiProizvodeIzPrograma(@PathVariable Long id, @PathVariable Long idp)//, @RequestBody Identifikator p)
 	{
-		//Long Id=Long.parseLong(id);
-		return ps.obrisiProizvodeIzPrograma(id,idp);
-		
+		return ps.obrisiProizvodeIzPrograma(id,idp);	
 	}
 	
 	@RequestMapping(value="/korisnik/{id}")
-	public JsonWrapperProgrami vratiProgramZaKorisnika(@PathVariable Long id)
+	public JsonWrapperProgrami vratiProgramZaKorisnika(@PathVariable Long id, @RequestHeader("Authorization") String token)
 	{
-		return ps.vratiProgramZaKorisnika(id);
+		return ps.vratiProgramZaKorisnika(id,token);
 	}
 	
 	@RequestMapping(value="/{id}/korisnik",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public String dajKorisnikaZaProgram(@PathVariable Long id) 
+	public String dajKorisnikaZaProgram(@PathVariable Long id, @RequestHeader("Authorization") String token ) 
 	{
-		
-		return ucm.dajKorisnikaZaProgram(id);
+		return ucm.dajKorisnikaZaProgram(id,token);
 	}
 	
 	/*

@@ -45,7 +45,7 @@ public class ProizvodiService {
 		}
 	}
 	
-	public JsonWrapperProizvodi azurirajProizvod(Long id,Proizvodi p)
+	public JsonWrapperProizvodi azurirajProizvod(Long id,Proizvodi p,String token)
 	{
 		Proizvodi p1=new Proizvodi();
 		Proizvodi sel=pr.findOne(id);
@@ -54,7 +54,7 @@ public class ProizvodiService {
 			p1.setProizvod_ID((p.getProizvod_ID()!=null)?p.getProizvod_ID():sel.getProizvod_ID());
 			p1.setNaziv_proizvoda((p.getNaziv_proizvoda()!=null)?p.getNaziv_proizvoda():sel.getNaziv_proizvoda());
 			p1.setAktivan((p.getAktivan()!=null)?p.getAktivan():sel.getAktivan());
-			if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID())==false)
+			if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID(),token)==false)
 			{
 				return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
 			}
@@ -70,9 +70,9 @@ public class ProizvodiService {
 		return new JsonWrapperProizvodi("Error","Uneseni proizvod ne postoji!",null);
 	}
 	
-	public JsonWrapperProizvodi kreirajProizvod(Proizvodi p)
+	public JsonWrapperProizvodi kreirajProizvod(Proizvodi p, String token)
 	{
-		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID())==false)
+		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID(),token)==false)
 		{
 			return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
 		}

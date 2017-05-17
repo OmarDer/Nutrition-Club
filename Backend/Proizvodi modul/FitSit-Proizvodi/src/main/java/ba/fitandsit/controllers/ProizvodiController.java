@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,9 @@ public class ProizvodiController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public JsonWrapperProizvodi kreirajProizvod(@RequestBody Proizvodi p)
+	public JsonWrapperProizvodi kreirajProizvod(@RequestBody Proizvodi p, @RequestHeader("Authorization") String token)
 	{
-		return ps.kreirajProizvod(p);
+		return ps.kreirajProizvod(p,token);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -63,9 +64,9 @@ public class ProizvodiController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
-	public JsonWrapperProizvodi azurirajProizvod(@PathVariable Long id, @RequestBody Proizvodi p){
+	public JsonWrapperProizvodi azurirajProizvod(@PathVariable Long id, @RequestBody Proizvodi p, @RequestHeader("Authorization") String token){
 		
-		return ps.azurirajProizvod(id,p);
+		return ps.azurirajProizvod(id,p,token);
 	}
 	@RequestMapping(value="/izlistaj/{programName}",method=RequestMethod.GET)
 	public JsonWrapperListProizvodi izlistajProizvodePoProgramu(@PathVariable String programName)

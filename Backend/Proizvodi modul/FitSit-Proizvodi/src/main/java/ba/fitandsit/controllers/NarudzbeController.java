@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -60,9 +61,9 @@ public class NarudzbeController {
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public JsonWrapperNarudzbe kreirajNarudzbu(@RequestBody Narudzbe p)
+	public JsonWrapperNarudzbe kreirajNarudzbu(@RequestBody Narudzbe p, @RequestHeader("Authorization") String token)
 	{
-		return ns.kreirajNarudzbu(p);
+		return ns.kreirajNarudzbu(p, token);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
@@ -75,24 +76,24 @@ public class NarudzbeController {
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
-	public JsonWrapperNarudzbe azurirajNarudzbu(@PathVariable Long id,@RequestBody Narudzbe p){
+	public JsonWrapperNarudzbe azurirajNarudzbu(@PathVariable Long id,@RequestBody Narudzbe p, @RequestHeader("Authorization") String token){
 		
-		return ns.azurirajNarudzbu(id,p);
+		return ns.azurirajNarudzbu(id,p, token);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="/kupac/{id}",method=RequestMethod.GET)
-	public JsonWrapperListNarudzbe izlistajNarudzbu(@PathVariable String id)
+	public JsonWrapperListNarudzbe izlistajNarudzbu(@PathVariable String id, @RequestHeader("Authorization") String token)
 	{
 		Long Id=Long.parseLong(id);
-		return ns.izlistajNarudzbuZaKupca(Id);
+		return ns.izlistajNarudzbuZaKupca(Id,token);
 	}
 
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="/prodavac/{id}",method=RequestMethod.GET)
-	public JsonWrapperListNarudzbe izlistajNarudzbuZaProdavaca(@PathVariable Long id)
+	public JsonWrapperListNarudzbe izlistajNarudzbuZaProdavaca(@PathVariable Long id, @RequestHeader("Authorization") String token)
 	{
-		return ns.izlistajNarudzbuZaProdavaca(id);
+		return ns.izlistajNarudzbuZaProdavaca(id, token);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
@@ -114,16 +115,16 @@ public class NarudzbeController {
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="/{id}/kupac",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public String vratiKupcaZaNarudzbu(@PathVariable Long id)
+	public String vratiKupcaZaNarudzbu(@PathVariable Long id,@RequestHeader("Authorization") String token)
 	{
-		return ucm.vratiKupceZaNarudzbu(id);
+		return ucm.vratiKupceZaNarudzbu(id,token);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="/{id}/prodavac",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public String vratiProdavacaZaNarudzbu(@PathVariable Long id)
+	public String vratiProdavacaZaNarudzbu(@PathVariable Long id,@RequestHeader("Authorization") String token)
 	{
-		return ucm.vratiProdavacaZaNarudzbu(id);
+		return ucm.vratiProdavacaZaNarudzbu(id,token);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})

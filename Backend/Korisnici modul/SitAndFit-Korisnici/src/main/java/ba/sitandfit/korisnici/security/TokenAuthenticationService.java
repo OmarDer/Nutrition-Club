@@ -22,6 +22,7 @@ import java.util.List;
 
 import static java.util.Collections.emptyList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -34,7 +35,7 @@ public class TokenAuthenticationService {
 		
 		
 public static void addAuthentication(HttpServletResponse res, String username,String rola
-		) {
+		) throws IOException {
 		List<String> role= new ArrayList<String>();
 		role.add(rola);
 		
@@ -44,6 +45,7 @@ public static void addAuthentication(HttpServletResponse res, String username,St
     			.signWith(SignatureAlgorithm.HS512, SECRET)
     			.compact();
     	res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+    	res.getWriter().write("\"token\":\"Tokenback\"");
  }
 
 public static Authentication getAuthentication(HttpServletRequest request) {
