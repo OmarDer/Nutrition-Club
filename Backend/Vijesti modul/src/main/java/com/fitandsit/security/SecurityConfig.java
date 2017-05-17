@@ -22,12 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	{
 		http
 	 	.csrf().disable().authorizeRequests()
-	 		.antMatchers("/programi/all").hasAuthority("ROLE_ADMIN")
-	 		.antMatchers("/narudzbe/all").hasAuthority("ROLE_ADMIN")
-	 		.antMatchers("/proizvodi/all").hasAuthority("ROLE_ADMIN")
-	 		.antMatchers("/programi/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PRODAVAC")
-	 		.antMatchers("/proizvodi/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PRODAVAC")
-	 		.antMatchers("/narudzbe/**").hasAnyAuthority("ROLE_ADMIN","ROLE_PRODAVAC")
+	 		.antMatchers("/komentari/all").hasAuthority("ROLE_ADMIN")
+	 		.antMatchers("/tipvijesti/all").hasAuthority("ROLE_ADMIN")
+	 		.antMatchers("/vijesti/all").hasAuthority("ROLE_ADMIN")
+	 		.antMatchers("/kategorijevijesti/all").hasAuthority("ROLE_ADMIN")
+	 		
+	 		.antMatchers("/kategorijevijesti/**").hasAnyAuthority("ROLE_ADMIN","ROLE_AUTOR")
+	 		.antMatchers("/komentari/**").hasAnyAuthority("ROLE_ADMIN","ROLE_AUTOR")
+	 		.antMatchers("/tipvijesti/**").hasAnyAuthority("ROLE_ADMIN","ROLE_AUTOR")
+	 		.antMatchers("/vijesti/**").hasAnyAuthority("ROLE_ADMIN","ROLE_AUTOR")
 	 		.antMatchers("/").permitAll()
 	 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 	 		.anyRequest().authenticated()
