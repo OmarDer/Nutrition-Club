@@ -1,6 +1,11 @@
 package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,7 +25,58 @@ public class KorisniciCommunication {
 	private VijestiService vs;
 	
 	@Autowired
-	private discoveryService su;
+	private discoveryService ds;
+	
+	private static final String communicationUsername = "Komunikacija";
+	private static final String communicationPassword = "Mikroservis";
+	
+	private String communicationToken(){
+		RestTemplate rt = new RestTemplate();
+		String url = ds.getUsersServiceUrl();
+		
+		String body = "{\"username\":\""+communicationUsername+"\",\"password\":\""+communicationPassword+"\"}";
+		
+		HttpHeaders headers=new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity entity=new HttpEntity(body,headers);
+		
+		String konekcija=url+"/login";
+		
+		ResponseEntity<String> response = rt.exchange(konekcija, HttpMethod.POST, entity, String.class);
+		
+		return response.getHeaders().get("Authorization").get(0);
+	}
+	
+	private String getKorisnikRemote(String url, long id){
+		RestTemplate rt=new RestTemplate();
+		
+		HttpHeaders header = new HttpHeaders();
+		String tokenHeader=communicationToken();
+		
+		header.set("Authorization", tokenHeader);
+		HttpEntity entity=new HttpEntity(header);
+		String konekcija=url+id;
+		
+		ResponseEntity<String> response = rt.exchange(konekcija, HttpMethod.GET,entity,String.class);
+		String korisnik=response.getBody();
+		return korisnik;
+	}
+	
+	private String getKorisnik(String url, Long id){
+		RestTemplate rt=new RestTemplate();
+		
+		HttpHeaders header = new HttpHeaders();
+		String tokenHeader=communicationToken();
+		
+		header.set("Authorization", tokenHeader);
+		HttpEntity entity=new HttpEntity(header);
+		String konekcija=url+id;
+		
+		ResponseEntity<String> response = rt.exchange(konekcija, HttpMethod.GET,entity,String.class);
+		String korisnik=response.getBody();
+		return korisnik;
+	}
 	
 	public String getAutorVijest(Long id)
 	{
@@ -32,21 +88,22 @@ public class KorisniciCommunication {
 			String msg="{\"status\": \""+k.getStatus()+"\", \"poruka\":\""+k.getMsg()+"\", \"Vijest\": null}";
 			return msg;
 		}
-		String url=su.getUsersServiceUrl();
+		String url=ds.getUsersServiceUrl();
 		if(k.getvijest().getAutorID()==null)
 		{
-			String msg="{\"status\": \"Error\", \"poruka\":\"Vijest nema nijednog korisnika!\", \"Vijest\": null}";
+			String msg="{\"status\": \"Error\", \"poruka\":\"Vijest nema nijednog autora!\", \"Vijest\": null}";
 			return msg;
 		}
-		return rt.getForObject(url+"/korisnici/"+k.getvijest().getAutorID(), String.class);
+		String korisnik = getKorisnik(url+"/korisnici/",k.getvijest().getAutorID());
+		return korisnik;
 	}
 	
 	public JSONObject getKorisnikByID(Long id)
 	{
 		RestTemplate rt=new RestTemplate();
 		
-		String url=su.getUsersServiceUrl();
-		String korisnik=rt.getForObject(url+"/korisnici/"+id, String.class);
+		String url=ds.getUsersServiceUrl();
+		String korisnik=getKorisnik(url+"/korisnici/",id);
 		JSONObject jsonKorisnik;
 		try {
 				jsonKorisnik= new JSONObject(korisnik);
@@ -66,8 +123,8 @@ public class KorisniciCommunication {
 	{
 		
 		RestTemplate rt=new RestTemplate();
-		String url=su.getUsersServiceUrl();
-		String korisnik=rt.getForObject(url+"/korisnici/"+id, String.class);
+		String url=ds.getUsersServiceUrl();
+		String korisnik=getKorisnik(url+"/korisnici/",id);
 		
 		JSONObject jsonKorisnik;
 		try {
@@ -89,8 +146,8 @@ public class KorisniciCommunication {
 	public String getStatus(Long id)
 	{
 		RestTemplate rt=new RestTemplate();
-		String url=su.getUsersServiceUrl();
-		String korisnik=rt.getForObject(url+"/korisnici/"+id, String.class);
+		String url=ds.getUsersServiceUrl();
+		String korisnik=getKorisnik(url+"/korisnici/",id);
 		try {
 			JSONObject jsonKorisnik=new JSONObject(korisnik);
 			return getStatusMetod(jsonKorisnik);
@@ -104,8 +161,8 @@ public class KorisniciCommunication {
 	public String getMsg(Long id)
 	{
 		RestTemplate rt=new RestTemplate();
-		String url=su.getUsersServiceUrl();
-		String korisnik=rt.getForObject(url+"/korisnici/"+id, String.class);
+		String url=ds.getUsersServiceUrl();
+		String korisnik=getKorisnik(url+"/korisnici/",id);
 		try {
 			JSONObject jsonKorisnik=new JSONObject(korisnik);
 			return getMsgMetod(jsonKorisnik);
@@ -149,12 +206,12 @@ public class KorisniciCommunication {
 		}
 	}
 	
-	//Proslijediti ID korisnika iz narudzbe
+	//Proslijediti ID korisnika iz vijesti
 	public String getAutorKomentar(Long id)
 	{
 		KomentariJSONWrapper k=ks.getKomentar(id);
 		RestTemplate rt=new RestTemplate();
-		String url=su.getUsersServiceUrl();
+		String url=ds.getUsersServiceUrl();
 		//Ukoliko ne postoji Komentar sa datim id-jem
 		if(k.getStatus().equals("Error"))
 		{
@@ -162,7 +219,7 @@ public class KorisniciCommunication {
 			return msg;
 		}
 		try {
-			String autor=rt.getForObject(url+"/korisnici/"+id, String.class);
+			String autor=getKorisnik(url+"/korisnici/",k.getkomentar().getAutorID());
 			JSONObject jsonKorisnik=new JSONObject(autor);
 			if(getStatusMetod(jsonKorisnik).equals("Error"))
 			{
