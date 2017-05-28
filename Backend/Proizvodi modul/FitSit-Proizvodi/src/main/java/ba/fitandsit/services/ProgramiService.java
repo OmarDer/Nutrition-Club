@@ -11,6 +11,7 @@ import ba.fitandsit.model.Narudzbe;
 import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
 import ba.fitandsit.repository.*;
+import ba.fitandsit.security.TokenAuthenticationService;
 
 @Service
 public class ProgramiService {
@@ -70,6 +71,7 @@ public class ProgramiService {
 	{
 		Programi p1=new Programi();
 		Programi sel=pr.findOne(id);
+		
 		if(sel!=null)
 		{
 			p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());

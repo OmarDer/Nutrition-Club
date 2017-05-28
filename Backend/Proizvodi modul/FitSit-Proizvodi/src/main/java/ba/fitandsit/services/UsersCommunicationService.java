@@ -1,6 +1,7 @@
 package ba.fitandsit.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.json.*;
 import ba.fitandsit.repository.*;
+import ba.fitandsit.security.CommunicationRole;
 import ba.fitandsit.security.LoginData;
 import ba.fitandsit.servicediscovery.*;
 import ba.fitandsit.wrappers.*;
@@ -31,13 +33,18 @@ public class UsersCommunicationService {
 	@Autowired
 	private ServiceUrl su;
 	
+	
 	private static final String communicationUsername = "Komunikacija";
 	private static final String communicationPassword = "Mikroservis";
 	
 	private String napraviTokenZaKomunikaciju()
 	{
+		//String username=env.getProperty("korisnickoIme");
+		//String password=env.getProperty("lozinka");
 		RestTemplate rt=new RestTemplate();
 		String url = su.getUsersServiceUrl();
+		
+		CommunicationRole cr=new CommunicationRole();
 			
 		String body = "{\"username\":\""+communicationUsername+"\",\"password\":\""+communicationPassword+"\"}";
 		

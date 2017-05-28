@@ -61,7 +61,8 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
       HttpServletRequest req,
       HttpServletResponse res, FilterChain chain,
       Authentication auth) throws IOException, ServletException {
-	  
-	TokenAuthenticationService.addAuthentication(res, auth.getName(),Iterables.get(auth.getAuthorities(),0).getAuthority().toString());
+	  final UserDetailsServiceImpl k = (UserDetailsServiceImpl)auth.getPrincipal();
+	  Korisnik kor=k.getKorisnik();
+	TokenAuthenticationService.addAuthentication(res, auth.getName(),Iterables.get(auth.getAuthorities(),0).getAuthority().toString(),kor.getId());
   }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ba.fitandsit.model.Programi;
 import ba.fitandsit.model.Proizvodi;
 import ba.fitandsit.repository.*;
+import ba.fitandsit.security.TokenAuthenticationService;
 
 @Service
 public class ProizvodiService {
@@ -49,6 +50,7 @@ public class ProizvodiService {
 	{
 		Proizvodi p1=new Proizvodi();
 		Proizvodi sel=pr.findOne(id);
+		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
 		if(pr.findOne(p.getProizvod_ID())!=null)
 		{
 			p1.setProizvod_ID((p.getProizvod_ID()!=null)?p.getProizvod_ID():sel.getProizvod_ID());
@@ -72,11 +74,19 @@ public class ProizvodiService {
 	
 	public JsonWrapperProizvodi kreirajProizvod(Proizvodi p, String token)
 	{
-		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID(),token)==false)
+		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
+		
+		Long id=Long.parseLong(userId);
+		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(id,token)==false)
 		{
 			return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
 		}
-		if(p.getProizvod_ID()!=null&&pr.findOne(p.getProizvod_ID())==null) return new JsonWrapperProizvodi("Success","",pr.save(p));
+		if(p.getProizvod_ID()!=null&&pr.findOne(p.getProizvod_ID())==null) 	
+		{
+				p.setAutor_ID(id);
+				return new JsonWrapperProizvodi("Success","",pr.save(p));
+		}
+			
 		return new JsonWrapperProizvodi("Error","Uneseni proizvod vec postoji!",null);
 	}
 

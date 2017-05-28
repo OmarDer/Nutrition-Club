@@ -1,6 +1,7 @@
 package ba.fitandsit.services;
 import ba.fitandsit.wrappers.*;
 import ba.fitandsit.repository.*;
+import ba.fitandsit.security.TokenAuthenticationService;
 
 import java.util.List;
 
@@ -87,6 +88,7 @@ public class NarudzbeService {
 	
 	public JsonWrapperNarudzbe kreirajNarudzbu(Narudzbe n, String token)
 	{
+		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
 		if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID(), token)==false)
 		{
 			return new JsonWrapperNarudzbe("Error","Uneseni korisnik ne postoji!",null);

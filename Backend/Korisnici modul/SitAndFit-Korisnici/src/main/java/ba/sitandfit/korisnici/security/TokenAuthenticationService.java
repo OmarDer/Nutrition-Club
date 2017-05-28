@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
 
 import ba.sitandfit.korisnici.model.Korisnik;
 import ba.sitandfit.korisnici.model.Rola;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Service
 public class TokenAuthenticationService {
 	
 		static final long EXPIRATIONTIME = 864_000_000; // 10 dana, mjera je u ms!
@@ -33,14 +35,14 @@ public class TokenAuthenticationService {
 		static final String TOKEN_PREFIX = "Bearer";
 		static final String HEADER_STRING = "Authorization";
 		
-		
-public static void addAuthentication(HttpServletResponse res, String username,String rola
+	
+	
+public static  void addAuthentication(HttpServletResponse res, String username,String rola,Long id
 		) throws IOException {
 		List<String> role= new ArrayList<String>();
-		role.add(rola);
-		
+		role.add(rola);	
     	String JWT = Jwts.builder()
-    			.setSubject(username).claim("authorities", role)
+    			.setSubject(username).claim("authorities", role).claim("id",id)
     			.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
     			.signWith(SignatureAlgorithm.HS512, SECRET)
     			.compact();

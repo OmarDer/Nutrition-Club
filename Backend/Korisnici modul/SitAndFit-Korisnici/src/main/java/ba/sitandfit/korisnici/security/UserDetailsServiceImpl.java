@@ -17,6 +17,14 @@ public class UserDetailsServiceImpl implements UserDetails{
 	@Autowired
 	private Korisnik korisnik;
 	
+	public Korisnik getKorisnik() {
+		return korisnik;
+	}
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> prava = new HashSet<GrantedAuthority>();

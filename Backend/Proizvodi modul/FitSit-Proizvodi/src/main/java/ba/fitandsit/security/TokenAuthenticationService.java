@@ -46,4 +46,15 @@ public static Authentication getAuthentication(HttpServletRequest request) {
     	return null;
   }
 
+public static String vratiIdKorisnika(String token)
+{
+	String userId= Jwts.parser()
+			.setSigningKey(SECRET)
+			.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+			.getBody()
+			.get("id").toString();
+	
+	return userId;
+}
+
 }
