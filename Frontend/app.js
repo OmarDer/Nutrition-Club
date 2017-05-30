@@ -2,7 +2,7 @@
 	
 	var app = angular.module("SitAndFit", ["ngRoute"]);
 
-	app.config(function($routeProvider){
+	app.config(function($routeProvider, $httpProvider){
 
 		$routeProvider
 			.when("/", {
@@ -18,6 +18,11 @@
 			.otherwise({redirectTo: "/error"});
 
 
+		$httpProvider.defaults.headers.common = {};
+		$httpProvider.defaults.headers.post = {};
+		$httpProvider.defaults.headers.get = {};
+		$httpProvider.defaults.headers.put = {};
+		$httpProvider.defaults.headers.patch = {};
 	});
 
 	var AppController = function($scope){
