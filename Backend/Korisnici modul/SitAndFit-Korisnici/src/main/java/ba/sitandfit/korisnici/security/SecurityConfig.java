@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.AntPathMatcher;
 
@@ -33,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		String pattern=ant.combine("/korisnici", "{id}");
 		
 		http
+		.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin","*")).and()
 		 	.csrf().disable().authorizeRequests()
 		 		.antMatchers(pattern).hasAnyAuthority("ROLE_ADMIN","ROLE_COMMUNICATION")
 		 		.antMatchers("/korisnici/**").hasAuthority("ROLE_ADMIN")

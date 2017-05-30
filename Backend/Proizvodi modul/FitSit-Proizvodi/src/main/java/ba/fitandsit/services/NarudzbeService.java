@@ -67,13 +67,13 @@ public class NarudzbeService {
 			n1.setAktivan((n.getAktivan()!=null)? n.getAktivan():sel.getAktivan());
 			n1.setDatum((n.getDatum()!=null)? n.getDatum():sel.getDatum());
 			
-			if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID(),token)==false)
+			if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID())==false)
 			{
 				return new JsonWrapperNarudzbe("Error","Uneseni korisnik ne postoji!",null);
 			}
 			n1.setKorisnikID((n.getKorisnikID()!=null)? n.getKorisnikID():sel.getKorisnikID());
 			
-			if(n.getProdavacID()!=null && ucm.provjeriKorisnika(n.getProdavacID(),token)==false)
+			if(n.getProdavacID()!=null && ucm.provjeriKorisnika(n.getProdavacID())==false)
 			{
 				return new JsonWrapperNarudzbe("Error","Uneseni prodavac ne postoji!",null);
 			}
@@ -89,11 +89,11 @@ public class NarudzbeService {
 	public JsonWrapperNarudzbe kreirajNarudzbu(Narudzbe n, String token)
 	{
 		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
-		if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID(), token)==false)
+		if(n.getKorisnikID()!=null && ucm.provjeriKorisnika(n.getKorisnikID())==false)
 		{
 			return new JsonWrapperNarudzbe("Error","Uneseni korisnik ne postoji!",null);
 		}
-		if(n.getProdavacID()!=null && ucm.provjeriKorisnika(n.getProdavacID(), token)==false)
+		if(n.getProdavacID()!=null && ucm.provjeriKorisnika(n.getProdavacID())==false)
 		{
 			return new JsonWrapperNarudzbe("Error","Uneseni prodavac ne postoji!",null);
 		}
@@ -103,14 +103,14 @@ public class NarudzbeService {
 
 	public JsonWrapperListNarudzbe izlistajNarudzbuZaKupca(Long id,String token)
 	{
-		if(ucm.provjeriKorisnika(id,token)==false) return new JsonWrapperListNarudzbe("Error","Uneseni korisnik ne postoji!",null); 
+		if(ucm.provjeriKorisnika(id)==false) return new JsonWrapperListNarudzbe("Error","Uneseni korisnik ne postoji!",null); 
 			
 		return new JsonWrapperListNarudzbe("Success","",nr.findBykorisnikID(id));
 	}
 	
 	public JsonWrapperListNarudzbe izlistajNarudzbuZaProdavaca(Long id, String token)
 	{
-		if(ucm.provjeriKorisnika(id, token)==false) return new JsonWrapperListNarudzbe("Error","Uneseni prodavac ne postoji!",null); 
+		if(ucm.provjeriKorisnika(id)==false) return new JsonWrapperListNarudzbe("Error","Uneseni prodavac ne postoji!",null); 
 		
 		return new JsonWrapperListNarudzbe("Success","",nr.findByprodavacID(id));
 	}
