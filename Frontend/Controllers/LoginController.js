@@ -14,9 +14,9 @@
 		}
 
 
-		if($scope.loggedIn){
-			$location.path("/");
-		}
+		//if($scope.loggedIn){
+		//	$location.path("/");
+		//}
 
 		$scope.login = function(username, password){
 
@@ -32,9 +32,9 @@
 				    		sessionStorage.loggedIn = true;
 				    		sessionStorage.authentication_token = response.data;
 
-				    		$http.get('http://localhost:8084/korisnici').then(function(response){
+				    		$http.get('http://localhost:8084/korisnici/' + username).then(function(response){
 
-				    			alert(response.data[0].ime);
+				    			sessionStorage.user = response.data.korisnik;
 
 				    		});
 				    	}
