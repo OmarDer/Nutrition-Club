@@ -47,7 +47,8 @@ public static  void addAuthentication(HttpServletResponse res, String username,S
     			.signWith(SignatureAlgorithm.HS512, SECRET)
     			.compact();
     	res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
-    	res.getWriter().write("\"token\":\"Tokenback\"");
+    	//res.addHeader("Access-Control-Allow-Origin", "*");
+    	res.getWriter().write(TOKEN_PREFIX + " " + JWT);
  }
 
 public static Authentication getAuthentication(HttpServletRequest request) {
