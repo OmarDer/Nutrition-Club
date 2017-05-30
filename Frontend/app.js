@@ -15,6 +15,11 @@
 				controller: 'LoginController'
 
 			})
+            .when("/registration",{
+            templateUrl:'Views/userregistration.html',
+            controller: 'RegistrationController' 
+            
+            })
 			.otherwise({redirectTo: "/error"});
 
 
