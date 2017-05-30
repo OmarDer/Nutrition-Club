@@ -31,7 +31,7 @@
 
 				    		sessionStorage.loggedIn = true;
 				    		sessionStorage.authentication_token = response.data;
-
+                            
 				    		$http.get('http://localhost:8084/korisnici').then(function(response){
 
 				    			alert(response.data[0].ime);
