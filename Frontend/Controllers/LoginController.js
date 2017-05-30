@@ -31,15 +31,10 @@
 
 				    		sessionStorage.loggedIn = true;
 				    		sessionStorage.authentication_token = response.data;
-<<<<<<< HEAD
-                            
-				    		$http.get('http://localhost:8084/korisnici').then(function(response){
-=======
 
 				    		$http.get('http://localhost:8084/korisnici/' + username).then(function(response){
->>>>>>> 69ac2adab3268c4fb44ec0cd54ef9f3f87685041
 
-				    			sessionStorage.user = response.data.korisnik;
+				    			sessionStorage.user = JSON.stringify(response.data.korisnik);
 
 				    		});
 				    	}
