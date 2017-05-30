@@ -2,7 +2,21 @@
 	
 	var app = angular.module("SitAndFit");
 
-	var LoginController = function($scope, $http){
+	var LoginController = function($scope, $http, $location){
+
+		$scope.loggedIn = false;
+
+		if(sessionStorage.loggedIn){
+
+		    $scope.authentication_token = sessionStorage.authentication_token;
+		    $scope.loggedIn = sessionStorage.loggedIn;
+
+		}
+
+
+		if($scope.loggedIn){
+			$location.path("/");
+		}
 
 		$scope.login = function(username, password){
 
@@ -10,32 +24,35 @@
 				    var data = {username: username, password: password};
 				    $http.post(url, data).then(function(response){
 
-				    	alert(response.data);
+				    	if(response.status == 200){
+				    		
+				    		$http.defaults.headers.common['Authorization'] = response.data;
+				    		$scope.loginMsg = "";
 
-				    	$http({
-						    method: 'GET',
-						    url: 'http://localhost:8084/korisnici',
-						    headers: {
-						        'Authorization': response.data
-						         //or
-						         //'Authorization': 'Basic ' + 'token'
-						    }
-						}).then(function successCallback(response) {
-						    alert(response.data)
-						}, function errorCallback(response) {
-						    if(response.status = 401){ // If you have set 401
-						        
-						    }
-						});
+				    		sessionStorage.loggedIn = true;
+				    		sessionStorage.authentication_token = response.data;
+
+				    		$http.get('http://localhost:8084/korisnici').then(function(response){
+
+				    			alert(response.data[0].ime);
+
+				    		});
+				    	}
+
+				    	
+				    }, function(response){
+
+				    	if(response.status == 401){
+				    		$scope.loginMsg = response.data.message;
+				    		$scope.authentication_token = null;
+				    	}
 
 				    });
-
-					//alert(username + " " + password + " " + $scope.authentication_token);
 
 					};
 
 	}
 
-	app.controller('LoginController', ['$scope', '$http', LoginController]);
+	app.controller('LoginController', ['$scope', '$http','$location', LoginController]);
 
 }());
