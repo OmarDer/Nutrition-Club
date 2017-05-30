@@ -51,12 +51,13 @@ public class ProizvodiService {
 		Proizvodi p1=new Proizvodi();
 		Proizvodi sel=pr.findOne(id);
 		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
+		
 		if(pr.findOne(p.getProizvod_ID())!=null)
 		{
 			p1.setProizvod_ID((p.getProizvod_ID()!=null)?p.getProizvod_ID():sel.getProizvod_ID());
 			p1.setNaziv_proizvoda((p.getNaziv_proizvoda()!=null)?p.getNaziv_proizvoda():sel.getNaziv_proizvoda());
 			p1.setAktivan((p.getAktivan()!=null)?p.getAktivan():sel.getAktivan());
-			if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID(),token)==false)
+			if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(p.getAutor_ID())==false)
 			{
 				return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
 			}
@@ -77,13 +78,13 @@ public class ProizvodiService {
 		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
 		
 		Long id=Long.parseLong(userId);
-		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(id,token)==false)
+		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(id)==false)
 		{
 			return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
 		}
 		if(p.getProizvod_ID()!=null&&pr.findOne(p.getProizvod_ID())==null) 	
 		{
-				p.setAutor_ID(id);
+				//p.setAutor_ID(id);
 				return new JsonWrapperProizvodi("Success","",pr.save(p));
 		}
 			

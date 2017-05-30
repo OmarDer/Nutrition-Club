@@ -119,7 +119,7 @@ public class UsersCommunicationService {
 	
 	
 	//Metoda namjenjena za provjeru u klasi ProgramiService pri kreiranju novog programa, azuriranju, itd.
-	public Boolean provjeriKorisnika(Long id, String token)
+	public Boolean provjeriKorisnika(Long id)
 	{
 		String url=su.getUsersServiceUrl();
 		String korisnik=nadjiKorisnika(url+"/korisnici/",id);

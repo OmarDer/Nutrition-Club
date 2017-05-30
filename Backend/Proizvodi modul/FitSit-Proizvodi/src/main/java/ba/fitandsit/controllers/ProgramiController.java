@@ -92,9 +92,9 @@ public class ProgramiController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
-	public JsonWrapperProgrami kreirajProgram(@RequestBody Programi p, @RequestHeader("Authorization") String token)
+	public JsonWrapperProgrami kreirajProgram(@RequestBody Programi p)
 	{
-		return ps.kreirajProgram(p, token);
+		return ps.kreirajProgram(p);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)

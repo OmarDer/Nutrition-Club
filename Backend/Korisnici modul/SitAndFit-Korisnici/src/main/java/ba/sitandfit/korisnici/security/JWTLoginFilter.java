@@ -3,6 +3,8 @@ package ba.sitandfit.korisnici.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 //import org.hibernate.mapping.Collection;
@@ -48,12 +50,16 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
 	
 	LoginData logdata = new ObjectMapper().readValue(req.getInputStream(), LoginData.class);
 	
+	//String username= req.getParameter("username");
+	//String password=req.getParameter("password");
     return getAuthenticationManager().authenticate( new UsernamePasswordAuthenticationToken(
     		logdata.getUsername(),
     		logdata.getPassword(),
+    		
     		Collections.emptyList()   
         )
     );
+    
   }
 
  @Override

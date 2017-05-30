@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		AntPathMatcher ant= new AntPathMatcher();
 		String pattern=ant.combine("/korisnici", "{id}");
 		
+
 		
 		
 		//http

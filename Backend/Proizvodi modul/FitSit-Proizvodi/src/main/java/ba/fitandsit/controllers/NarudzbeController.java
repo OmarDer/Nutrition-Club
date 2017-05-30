@@ -2,7 +2,7 @@ package ba.fitandsit.controllers;
 import ba.fitandsit.wrappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +34,7 @@ public class NarudzbeController {
 	@Autowired
 	private UsersCommunicationService ucm;
 	
-	@Secured("ROLE_ADMIN")
+	
 	@RequestMapping("/all")
 	public List<Narudzbe> vratiSve(){	
 		
@@ -42,7 +42,7 @@ public class NarudzbeController {
 		
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping("")
 	public List<Narudzbe> vratiAktivne(){	
 		
@@ -50,7 +50,7 @@ public class NarudzbeController {
 		
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping("/{id}")
 	public JsonWrapperNarudzbe vratiNarudzbuPoID(@PathVariable String id)
 	{
@@ -59,14 +59,14 @@ public class NarudzbeController {
 		
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="",method=RequestMethod.POST,consumes="application/json",produces="application/json")
 	public JsonWrapperNarudzbe kreirajNarudzbu(@RequestBody Narudzbe p, @RequestHeader("Authorization") String token)
 	{
 		return ns.kreirajNarudzbu(p, token);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public Boolean obrisiNarudzbu(@PathVariable String id)
 	{
@@ -74,14 +74,14 @@ public class NarudzbeController {
 		return ns.obrisiNarudzbu(Id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
 	public JsonWrapperNarudzbe azurirajNarudzbu(@PathVariable Long id,@RequestBody Narudzbe p, @RequestHeader("Authorization") String token){
 		
 		return ns.azurirajNarudzbu(id,p, token);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/kupac/{id}",method=RequestMethod.GET)
 	public JsonWrapperListNarudzbe izlistajNarudzbu(@PathVariable String id, @RequestHeader("Authorization") String token)
 	{
@@ -89,14 +89,14 @@ public class NarudzbeController {
 		return ns.izlistajNarudzbuZaKupca(Id,token);
 	}
 
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/prodavac/{id}",method=RequestMethod.GET)
 	public JsonWrapperListNarudzbe izlistajNarudzbuZaProdavaca(@PathVariable Long id, @RequestHeader("Authorization") String token)
 	{
 		return ns.izlistajNarudzbuZaProdavaca(id, token);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.POST)
 	public JsonWrapperNarudzbe dodajProizvodeUNarudzbu(@PathVariable Long id, @PathVariable Long idp)
 	{
@@ -105,7 +105,7 @@ public class NarudzbeController {
 		
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/{id}/proizvod/{idp}",method=RequestMethod.DELETE)
 	public JsonWrapperNarudzbe obrisiProizvodIzNarudzbe(@PathVariable Long id, @PathVariable Long idp)//@RequestBody Identifikator p)
 	{
@@ -113,21 +113,20 @@ public class NarudzbeController {
 		return ns.obrisiProizvodIzNarudzbe(id,idp);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/{id}/kupac",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public String vratiKupcaZaNarudzbu(@PathVariable Long id,@RequestHeader("Authorization") String token)
 	{
 		return ucm.vratiKupceZaNarudzbu(id,token);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
+	
 	@RequestMapping(value="/{id}/prodavac",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public String vratiProdavacaZaNarudzbu(@PathVariable Long id,@RequestHeader("Authorization") String token)
 	{
 		return ucm.vratiProdavacaZaNarudzbu(id,token);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_PRODAVAC"})
 	@RequestMapping(value="/{nid}/proizvodi",method=RequestMethod.GET)
 	public JsonWrapperListProizvodi vratiProizvodeZaNarudzbu(@PathVariable Long nid)
 	{
