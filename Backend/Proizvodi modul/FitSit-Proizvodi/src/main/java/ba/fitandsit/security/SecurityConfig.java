@@ -23,11 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		AntPathMatcher ant= new AntPathMatcher();
 		String pattern=ant.combine("/programi/korisnik", "{id}");
 		http
-		.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin","*"))
-				  .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"))
-		.and()
+		//.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin","*"))
+				  //.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"))
+		//.and()
 	 	.csrf().disable().authorizeRequests()
-	 		//.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+	 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 	 		.antMatchers(pattern).hasAnyAuthority("ROLE_ADMIN","ROLE_COMMUNICATION")
 	 		.antMatchers("/programi/all").hasAuthority("ROLE_ADMIN")
 	 		.antMatchers("/narudzbe/all").hasAuthority("ROLE_ADMIN")
