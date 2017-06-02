@@ -47,7 +47,14 @@
 
 	var AppController = function($scope){
 
-		$scope.authentication_token = null;
+		$scope.loggedInUser = "Gost";
+
+		if(sessionStorage.loggedIn){
+
+			$scope.user = JSON.parse(sessionStorage.user);
+			$scope.loggedInUser = $scope.user.ime + " " + $scope.user.prezime;
+
+		}
 
 	};
 

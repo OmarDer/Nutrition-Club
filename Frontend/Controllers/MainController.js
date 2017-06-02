@@ -4,7 +4,7 @@
 
 	var MainController = function($scope){
 
-		$scope.yourName = "Anonymous user";
+
 
 	};
 
