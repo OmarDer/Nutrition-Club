@@ -20,26 +20,32 @@
 
 		$scope.login = function(username, password){
 
+                    //$http.defaults.headers.common['Content-Type']='application/json';
 					var url = 'http://localhost:8084/login';
 				    var data = {username: username, password: password};
-				    $http.post(url, data).then(function(response){
+				    $http({method:"POST", url: url,data:data,headers:{'Content-Type':" application/json"}}).then(function(response){
 
 				    	if(response.status == 200){
 				    		
 				    		$http.defaults.headers.common['Authorization'] = response.data;
+                            console.log(response);
 				    		$scope.loginMsg = "";
 
 				    		sessionStorage.loggedIn = true;
 				    		sessionStorage.authentication_token = response.data;
-<<<<<<< HEAD
-                            
-				    		$http.get('http://localhost:8084/korisnici').then(function(response){
-=======
+                            alert('Uspjesan login');
+                        
+				    		//$http.get('http://localhost:8084/korisnici').then(function(response){
+
 
 				    		$http.get('http://localhost:8084/korisnici/' + username).then(function(response){
->>>>>>> 69ac2adab3268c4fb44ec0cd54ef9f3f87685041
-
-				    			sessionStorage.user = response.data.korisnik;
+				    			user = {
+                                    id: response.data.korisnik.id,
+                                    username: response.data.korisnik.userName,
+                                    rola: response.data.korisnik.rola.nazivRole
+                                    
+                                }
+                               
 
 				    		});
 				    	}

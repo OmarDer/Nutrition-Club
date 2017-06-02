@@ -1,6 +1,12 @@
 (function(){
 	
 	var app = angular.module("SitAndFit", ["ngRoute"]);
+    
+    user={
+        id: 0,
+        username: "",
+        rola: ""
+    };
 
 	app.config(function($routeProvider, $httpProvider){
 
@@ -20,14 +26,23 @@
             controller: 'RegistrationController' 
             
             })
+            .when("/programs/insert",{
+            templateUrl:'Views/insertprograms.html',
+            controller:'ProgramiInsertController'
+            })
+            .when("/proizvodi/insert",{
+            templateUrl:'Views/insertproducts.html',
+            controller:'ProizvodiInsertController'
+            })
+        
 			.otherwise({redirectTo: "/error"});
 
 
-		$httpProvider.defaults.headers.common = {};
+		/*$httpProvider.defaults.headers.common = {};
 		$httpProvider.defaults.headers.post = {};
 		$httpProvider.defaults.headers.get = {};
 		$httpProvider.defaults.headers.put = {};
-		$httpProvider.defaults.headers.patch = {};
+		$httpProvider.defaults.headers.patch = {};*/
 	});
 
 	var AppController = function($scope){

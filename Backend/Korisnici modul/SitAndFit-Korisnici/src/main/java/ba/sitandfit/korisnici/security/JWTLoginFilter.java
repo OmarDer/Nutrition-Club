@@ -47,11 +47,11 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)throws AuthenticationException, IOException, ServletException {
-	
-	LoginData logdata = new ObjectMapper().readValue(req.getInputStream(), LoginData.class);
-	
-	//String username= req.getParameter("username");
-	//String password=req.getParameter("password");
+
+		LoginData logdata=null;
+		if(req.getContentLength()>0)
+		logdata = new ObjectMapper().readValue(req.getInputStream(), LoginData.class);
+	if(logdata==null) return null; 
     return getAuthenticationManager().authenticate( new UsernamePasswordAuthenticationToken(
     		logdata.getUsername(),
     		logdata.getPassword(),
@@ -59,7 +59,7 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
     		Collections.emptyList()   
         )
     );
-    
+
   }
 
  @Override

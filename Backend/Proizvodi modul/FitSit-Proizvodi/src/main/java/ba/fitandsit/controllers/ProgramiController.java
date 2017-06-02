@@ -54,7 +54,7 @@ public class ProgramiController {
 	@Autowired
 	private ServiceUrl su;
 	
-	@RequestMapping("")
+	@RequestMapping(value="", produces="application/json")
 	public List<Programi> vratiAktivneBezKorisnika(){	
 		
 		return ps.vratiAktivne();
@@ -75,7 +75,7 @@ public class ProgramiController {
 		
 	}
 	//Vratiti sve programe koji imaju korisnike
-	@RequestMapping("/korisnici/all")
+	@RequestMapping(value="/korisnici/all", produces="application/json")
 	public List<Programi> vratiAktivne(){	
 		
 		return ps.vratiSaKorisnikomSve();

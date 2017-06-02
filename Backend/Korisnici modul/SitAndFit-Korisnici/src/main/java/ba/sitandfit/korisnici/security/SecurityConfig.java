@@ -39,11 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//http
 		 //	.csrf().disable().authorizeRequests()
 		
-		http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"))
+		/*http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"))
 					  .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"))
-			.and()
-			.csrf().disable().authorizeRequests()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+					  .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE"))
+					  .addHeaderWriter(new StaticHeadersWriter("Access-Control-Expose-Headers", "Authorization"))
+					  .and()*/
+			http.csrf().disable().authorizeRequests()
+//				.antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
+     			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		 		.antMatchers(pattern).hasAnyAuthority("ROLE_ADMIN","ROLE_COMMUNICATION")
 		 		.antMatchers("/korisnici/**").hasAuthority("ROLE_ADMIN")
 		 		.antMatchers("/stanjakorisnika").hasAnyAuthority("ROLE_ADMIN","ROLE_PRODAVAC")

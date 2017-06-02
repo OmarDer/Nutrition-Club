@@ -23,7 +23,7 @@ public class Proizvodi {
 
 	@Id
 	@Column(name="`Proizvod_ID`")
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long proizvod_ID;
 
 	private Integer aktivan;

@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				  .addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"))
 		.and()
 	 	.csrf().disable().authorizeRequests()
+	 		//.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 	 		.antMatchers(pattern).hasAnyAuthority("ROLE_ADMIN","ROLE_COMMUNICATION")
 	 		.antMatchers("/programi/all").hasAuthority("ROLE_ADMIN")
 	 		.antMatchers("/narudzbe/all").hasAuthority("ROLE_ADMIN")

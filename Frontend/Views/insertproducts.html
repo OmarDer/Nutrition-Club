@@ -1,0 +1,63 @@
+<div class="container">
+
+<form class="well form-horizontal" id="contact_form" ng-submit="insertFun()">
+<fieldset>
+    
+<!-- Form Name -->
+<legend><center><h2><b>Unesi novi proizvod</b></h2></center></legend><br>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">Naziv proizvoda:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+  <input  name="program_name" placeholder="Naziv proizvoda" class="form-control" ng-model="naziv" type="text">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >Opis proizvoda:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+  <input name="program_desc" placeholder="Opis proizvoda" class="form-control"  type="text" ng-model="opis">
+    </div>
+  </div>
+</div>
+    
+    <div class="form-group">
+  <label class="col-md-4 control-label" >Cijena proizvoda:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+  <input name="program_desc" placeholder="Cijena" class="form-control"  type="text" ng-model="cijena">
+    </div>
+  </div>
+</div>
+    
+<div class="form-group">
+    <label class="col-md-4 control-label" >Slika:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+    <input name="program_desc" placeholder="Slika" class="form-control"  type="text" ng-model="slika">
+    </div>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4"><br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPOTVRDI <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+  </div>
+</div>
+</fieldset>
+</form>
+    
+</div>

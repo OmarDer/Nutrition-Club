@@ -23,7 +23,7 @@ public class Narudzbe {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long narudzbaID;
 
 	private Integer aktivan;

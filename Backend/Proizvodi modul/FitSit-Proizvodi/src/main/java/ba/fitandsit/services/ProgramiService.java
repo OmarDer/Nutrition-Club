@@ -74,7 +74,7 @@ public class ProgramiService {
 		
 		if(sel!=null)
 		{
-			p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
+			//p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
 			p1.setNaziv_programa((p.getNaziv_programa()!=null) ? p.getNaziv_programa():sel.getNaziv_programa());
 			if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID())==false)
 			{
@@ -98,8 +98,9 @@ public class ProgramiService {
 		{
 			return new JsonWrapperProgrami("Error","Uneseni korisnik ne postoji!",null);
 		}
-		if(p.getProgramID()!=null && pr.findOne(p.getProgramID())==null) return new JsonWrapperProgrami("Success","",pr.save(p));
-		return new JsonWrapperProgrami("Error","Uneseni program vec postoji!",null);
+		//if(p.getProgramID()!=null && pr.findOne(p.getProgramID())==null) 
+			return new JsonWrapperProgrami("Success","",pr.save(p));
+		//return new JsonWrapperProgrami("Error","Uneseni program vec postoji!",null);
 	}
 
 	public JsonWrapperProgrami izlistajProgramPoImenu(String name) {
