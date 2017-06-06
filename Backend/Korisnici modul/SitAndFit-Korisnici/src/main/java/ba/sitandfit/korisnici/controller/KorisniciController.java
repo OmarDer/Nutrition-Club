@@ -1,6 +1,11 @@
 package ba.sitandfit.korisnici.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
@@ -26,6 +33,7 @@ import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.service.KorisnikService;
 import ba.sitandfit.korisnici.service.RolaService;
 import ba.sitandfit.korisnici.service.StanjeService;
+
 
 @RestController
 @CrossOrigin
@@ -118,5 +126,26 @@ public class KorisniciController {
 		return korisnikService.getProgrameKorisnika(id);
 		
 	}
+	
+
+	@RequestMapping(value="/{id}/slika", method = RequestMethod.POST)
+    public void UploadFile(@PathVariable(value="id") Long id, MultipartHttpServletRequest request) throws IOException {
+
+        Iterator<String> itr=request.getFileNames();
+        MultipartFile file=request.getFile(itr.next());
+        String fileName=file.getOriginalFilename();
+        File dir = new File("C:\\file");
+        if (dir.isDirectory())
+        {
+            File serverFile = new File(dir,fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(file.getBytes());
+            stream.close();
+        }else {
+            System.out.println("not");
+        }
+
+    }
 	
 }
