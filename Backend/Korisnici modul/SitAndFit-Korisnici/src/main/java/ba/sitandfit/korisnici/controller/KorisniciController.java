@@ -134,7 +134,8 @@ public class KorisniciController {
         Iterator<String> itr=request.getFileNames();
         MultipartFile file=request.getFile(itr.next());
         String fileName=file.getOriginalFilename();
-        File dir = new File("C:\\file");
+        System.out.println(fileName);
+        File dir = new File("src/main/resources/uploadedImages");
         if (dir.isDirectory())
         {
             File serverFile = new File(dir,fileName);

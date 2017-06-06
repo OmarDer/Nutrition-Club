@@ -1,6 +1,6 @@
 (function(){
 	
-	var app = angular.module("SitAndFit", ["ngRoute"]);
+	var app = angular.module("SitAndFit", ["ngRoute", "angularFileUpload"]);
     
     user={
         id: 0,
