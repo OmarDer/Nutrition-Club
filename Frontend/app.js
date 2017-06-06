@@ -34,6 +34,10 @@
             templateUrl:'Views/insertproducts.html',
             controller:'ProizvodiInsertController'
             })
+            .when("/upload",{
+            templateUrl:'Views/imageupload.html',
+            controller:'UploadController'
+            })
         
 			.otherwise({redirectTo: "/error"});
 
