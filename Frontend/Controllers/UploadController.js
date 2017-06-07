@@ -2,21 +2,28 @@
 	
 	var app = angular.module("SitAndFit");
 
-	var UploadController = function($scope, FileUploader, $http, $location){
+	var UploadController = function($scope, uploadService, FileUploader, $http, $location){
+        
+        
+
         
         $scope.errorMsg = "";
         
+        /*
         var uploader = $scope.uploader = new FileUploader({
             url: 'http://localhost:8084/korisnici/1/slika',
             headers: {'Authorization': sessionStorage.authentication_token}
         
         });
+        */
+        
+        var uploader = $scope.uploader = uploadService.createUploader('http://localhost:8084/korisnici/1/slika');
 
         // FILTERS
 
         uploader.filters.push({
             name: 'customFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
+            fn: function(item , options) {
                 
                 $scope.errorMsg = "";
                 return true;
@@ -26,7 +33,7 @@
 
         // CALLBACKS
 
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        uploader.onWhenAddingFileFailed = function(item , filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
         uploader.onAfterAddingFile = function(fileItem) {
@@ -81,6 +88,6 @@
 
 	}
 
-	app.controller('UploadController', ['$scope', 'FileUploader', '$http','$location', UploadController]);
+	app.controller('UploadController', ['$scope', 'uploadService','FileUploader', '$http','$location', UploadController]);
 
 }())

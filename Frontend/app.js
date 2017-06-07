@@ -35,16 +35,16 @@
             controller:'ProizvodiInsertController'
             })
             .when("/upload",{
-<<<<<<< HEAD
+
             templateUrl:'Views/upload.html',
             controller:'uploadController'
-        })
-=======
+            })
+            .when("/upload",{
             templateUrl:'Views/imageupload.html',
             controller:'UploadController'
             })
         
->>>>>>> 1266ab22bf985d22ca31caf115b60ce44c9cd110
+
 			.otherwise({redirectTo: "/error"});
 
 
