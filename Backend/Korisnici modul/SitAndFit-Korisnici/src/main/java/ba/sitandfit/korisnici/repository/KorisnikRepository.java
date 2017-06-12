@@ -11,4 +11,5 @@ import ba.sitandfit.korisnici.model.Korisnik;
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
 	
 	Korisnik findByUserName(@Param("userName") String userName);
+	Korisnik findByEmail(@Param("email") String email);
 }

@@ -1,5 +1,6 @@
 package ba.sitandfit.korisnici.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,20 @@ import ba.sitandfit.korisnici.communication.ProizvodiREST;
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
+import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.repository.KorisnikRepository;
+import ba.sitandfit.korisnici.repository.RolaRepository;
 
 @Service
 public class KorisnikServiceImpl implements KorisnikService {
 	
 	ProizvodiREST proizvodiREST;
 	KorisnikRepository korisnikRepository;
+	@Autowired
+	RolaRepository rolaRepository;
+	
+	@Autowired
+	EmailSendService emailService;
 	
 	@Autowired
 	public void setProizvodiREST(ProizvodiREST proizvodiREST) {
@@ -33,7 +41,11 @@ public class KorisnikServiceImpl implements KorisnikService {
 		
 		if (k.getId() != null && korisnikRepository.findOne(k.getId()) != null)
 			return new KorisnikJSONWrapper("Error", "Korisnik već postoji!", k);
-		
+		//Uslovi da se username bude unique i da ne moze korisnik sa istim mailom da se prijavi više puta
+		if(k.getUserName()!=null && korisnikRepository.findByUserName(k.getUserName())!=null)
+			return new KorisnikJSONWrapper("Error","Korisnik sa unesenim usernameom već postoji!",null);
+		if(k.getEmail()!=null && korisnikRepository.findByEmail(k.getEmail())!=null)
+			return new KorisnikJSONWrapper("Error","Korisnik sa unesenom mail adresom već postoji!",null);
 		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(k));
 		
 	}
@@ -122,6 +134,46 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return new KorisnikJSONWrapper("Error","Korisnik ne postoji", null);
 		
 		return new KorisnikJSONWrapper("Success","", x);
+	}
+
+	@Override
+	public KorisnikJSONWrapper aktivirajKorisnika(Long id) {
+		
+		String rola="ROLE_USER";
+		Korisnik kor=korisnikRepository.findOne(id);
+		kor.setAktivan(true);
+		Rola r=rolaRepository.findByNazivRole(rola);
+		kor.setRola(r);
+		return new KorisnikJSONWrapper("Success","",korisnikRepository.save(kor));
+	}
+
+	@Override
+	public KorisnikJSONWrapper odobriRegistrovanogKorisnika(Long id) {
+		
+		Korisnik kor=korisnikRepository.findOne(id);
+		try {
+			emailService.sendEmail(id);
+		} 
+		catch (UnsupportedEncodingException e) 
+		{	
+			return new KorisnikJSONWrapper("Error", "Slanje verifikacijskog maila nije uspjesno!", null); 
+		}
+		kor.setOdobren(1);
+		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(kor));
+	}
+
+	@Override
+	public KorisnikJSONWrapper dodajRoluKorisniku(Long idk, Long idr) {
+		
+		Korisnik k = korisnikRepository.findOne(idk);
+		Rola r = rolaRepository.findOne(idr);
+		
+		if(k==null) return new KorisnikJSONWrapper("Error","Nepostojeći korisnik!",null);
+		if(r==null) return new KorisnikJSONWrapper("Error","Nepostojeća rola!",null);
+		
+		k.setRola(r);
+		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(k));
+		
 	}
 
 }

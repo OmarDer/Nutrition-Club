@@ -1,4 +1,5 @@
-package ba.sitandfit.korisnici.security;
+package com.fitandsit.security;
+
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

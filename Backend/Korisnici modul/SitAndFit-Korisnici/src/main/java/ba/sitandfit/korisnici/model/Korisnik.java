@@ -34,6 +34,7 @@ public class Korisnik {
 	private String userName;
 	private String password;
 	private String email;
+	private int odobren;
 	
 	public String getEmail() {
 		return email;
@@ -145,4 +146,11 @@ public class Korisnik {
 		this.rola = rola;
 	}
 	
+	public int getOdobren() {
+		return odobren;
+	}
+
+	public void setOdobren(int odobren) {
+		this.odobren = odobren;
+	}
 }

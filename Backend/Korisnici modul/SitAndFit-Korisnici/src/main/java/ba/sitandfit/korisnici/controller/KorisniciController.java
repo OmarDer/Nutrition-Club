@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.apache.commons.lang.RandomStringUtils;
 
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
+import ba.sitandfit.korisnici.model.KorisnikSubmit;
 import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.service.KorisnikService;
+import ba.sitandfit.korisnici.service.KorisnikSubmitService;
 import ba.sitandfit.korisnici.service.RolaService;
 import ba.sitandfit.korisnici.service.StanjeService;
 
@@ -46,6 +49,9 @@ public class KorisniciController {
 	StanjeService stanjeService;
 	@Autowired
 	RolaService rolaService;
+	@Autowired 
+	KorisnikSubmitService korisnikSubmitService;
+	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Korisnik> getKorisnici(){
@@ -76,6 +82,24 @@ public class KorisniciController {
 		return korisnikService.createKorisnik(k);
 		
 	}
+	
+	@RequestMapping(value = "/registriraj", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KorisnikJSONWrapper registerKorisnik(@RequestBody Korisnik k){
+		
+		String generatedString = RandomStringUtils.randomAlphanumeric(15).toLowerCase();
+		KorisnikSubmit kor= korisnikSubmitService.getKorisnikSubmitByGenString(generatedString).getKs();
+		while(kor!=null)
+		{
+			generatedString = RandomStringUtils.randomAlphanumeric(15).toLowerCase();
+		}
+		k.setOdobren(0);
+		k.setAktivan(false);
+		KorisnikJSONWrapper korisnik = korisnikService.createKorisnik(k);
+		if(korisnik.getStatus()!="Error") korisnikSubmitService.createKorisnikSubmitByValues(generatedString,korisnik.getKorisnik().getId());
+		return korisnik;
+	}
+	
+	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public KorisnikJSONWrapper updateKorisnik(@PathVariable(value="id") Long id, @RequestBody Korisnik k){
@@ -147,5 +171,13 @@ public class KorisniciController {
         }
 
     }
+	
+	@RequestMapping(value = "/odobri/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KorisnikJSONWrapper odobriRegistrovanogKorisnika(@PathVariable(value="id") Long id){
+		
+		return korisnikService.odobriRegistrovanogKorisnika(id);
+		
+	}
+	
 	
 }

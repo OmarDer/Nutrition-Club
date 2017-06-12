@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //				.antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
      			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
      			.antMatchers(HttpMethod.OPTIONS, "/korisnici/**").permitAll()
+     			.antMatchers(HttpMethod.POST,"/korisnici/registriraj").permitAll()
+     			.antMatchers(HttpMethod.GET,"/submit/potvrdi/**").permitAll()
 		 		.antMatchers(pattern).hasAnyAuthority("ROLE_ADMIN","ROLE_COMMUNICATION")
 		 		.antMatchers("/korisnici/**").hasAuthority("ROLE_ADMIN")
 		 		.antMatchers("/stanjakorisnika").hasAnyAuthority("ROLE_ADMIN","ROLE_PRODAVAC")
