@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
@@ -154,11 +158,33 @@ public class KorisniciController {
 
 	@RequestMapping(value="/{id}/slika", method = RequestMethod.POST)
     public void UploadFile(@PathVariable(value="id") Long id, MultipartHttpServletRequest request) throws IOException {
-
+		
+		
         Iterator<String> itr=request.getFileNames();
         MultipartFile file=request.getFile(itr.next());
         String fileName=file.getOriginalFilename();
-        File dir = new File("C:\\file");
+        
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+        		  "cloud_name", "sitandfitpictures",
+        		  "api_key", "334879857999493",
+        		  "api_secret", "yoaBNdV36K2ZNNdjBGtIwpZfKro"));
+        
+        
+        File serverFile = new File(fileName);
+        BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+        stream.write(file.getBytes());
+        stream.close();
+            
+        Map uploadResult = cloudinary.uploader().upload(serverFile, ObjectUtils.emptyMap());
+            
+        System.out.println(uploadResult.get("url"));
+            
+        
+        
+        
+        /*
+        File dir = new File("src/main/resources/uploadedImages");
         if (dir.isDirectory())
         {
             File serverFile = new File(dir,fileName);
@@ -166,9 +192,15 @@ public class KorisniciController {
                     new FileOutputStream(serverFile));
             stream.write(file.getBytes());
             stream.close();
+            
+            Map uploadResult = cloudinary.uploader().upload(serverFile, ObjectUtils.emptyMap());
+            
+            System.out.println(uploadResult.toString());
+            
         }else {
             System.out.println("not");
         }
+        */
 
     }
 	

@@ -1,6 +1,6 @@
 (function(){
 	
-	var app = angular.module("SitAndFit", ["ngRoute"]);
+	var app = angular.module("SitAndFit", ["ngRoute", "angularFileUpload"]);
     
     user={
         id: 0,
@@ -33,10 +33,18 @@
             controller:'ProizvodiInsertController'
             })
             .when("/upload",{
+<<<<<<< HEAD
             templateUrl:'Views/upload.html',
             controller:'uploadController'
             })
             .when("/uploadimage",{
+=======
+
+            templateUrl:'Views/upload.html',
+            controller:'uploadController'
+            })
+            .when("/upload",{
+>>>>>>> 88dbeb092afdda8622791ab866151592b848a4e2
             templateUrl:'Views/imageupload.html',
             controller:'UploadController'
             })
