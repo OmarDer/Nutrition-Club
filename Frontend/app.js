@@ -1,6 +1,6 @@
 (function(){
 	
-	var app = angular.module("SitAndFit", ["ngRoute"]);
+	var app = angular.module("SitAndFit", ["ngRoute", "angularFileUpload"]);
     
     user={
         id: 0,
@@ -12,19 +12,17 @@
 
 		$routeProvider
 			.when("/", {
-				templateUrl: 'Views/main.html',
-				controller: 'MainController'
+				templateUrl: 'index.html',
+				controller: 'AppController'
 
 			})
 			.when("/login", {
 				templateUrl: 'Views/login.html',
 				controller: 'LoginController'
-
 			})
             .when("/registration",{
             templateUrl:'Views/userregistration.html',
             controller: 'RegistrationController' 
-            
             })
             .when("/programs/insert",{
             templateUrl:'Views/insertprograms.html',
@@ -34,7 +32,26 @@
             templateUrl:'Views/insertproducts.html',
             controller:'ProizvodiInsertController'
             })
+            .when("/upload",{
+
+            templateUrl:'Views/upload.html',
+            controller:'uploadController'
+            })
+            .when("/uploadimage",{
+
+            templateUrl:'Views/upload.html',
+            controller:'uploadController'
+            })
+            .when("/upload",{
+            templateUrl:'Views/imageupload.html',
+            controller:'UploadController'
+            })
+            .when("/verification/:str",{
+            templateUrl:'Views/submitmail.html',
+            controller:'SubmitController'
+            })
         
+
 			.otherwise({redirectTo: "/error"});
 
 

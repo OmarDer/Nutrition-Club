@@ -1,4 +1,4 @@
-package ba.fitandsit.security;
+package com.fitandsit.security;
 
 
 import javax.servlet.Filter;
@@ -32,8 +32,12 @@ class CorsFilter implements Filter {
     response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Authorization, Content-Type");
     response.setHeader("Access-Control-Max-Age", "3600");
     //if (request.getMethod()!="OPTIONS") {
+      if(request.getMethod()=="OPTIONS")
+      {
+    	  response.setStatus(200);
+      }
       chain.doFilter(req, res);
-   // } else {
+    //} else {
     //}
   }
 	@Override

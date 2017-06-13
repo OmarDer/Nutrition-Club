@@ -10,11 +10,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages={"com.fitandsit.Controller","com.fitandsit.jsonwrappers","com.fitandsit.services"})
+@SpringBootApplication(scanBasePackages={"com.fitandsit.Controller","com.fitandsit.jsonwrappers","com.fitandsit.services","com.fitandsit.security"})
 @Configuration
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@ComponentScan({"com.fitandsit.Controller","jsonwrappers","com.fitandsit.discovery","services.KorisniciCommunication","services"})
+@ComponentScan({"com.fitandsit.Controller","jsonwrappers","com.fitandsit.discovery","services.KorisniciCommunication","services","com.fitandsit.security"})
 @EntityScan("com.fitandsit.Model")
 @EnableJpaRepositories(basePackages ="com.fitandsit.Repository")
 public class FitAndSitApplication extends SpringBootServletInitializer{

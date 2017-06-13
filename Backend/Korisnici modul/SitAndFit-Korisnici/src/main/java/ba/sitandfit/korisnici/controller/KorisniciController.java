@@ -1,7 +1,13 @@
 package ba.sitandfit.korisnici.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +24,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.apache.commons.lang.RandomStringUtils;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
+import ba.sitandfit.korisnici.model.KorisnikSubmit;
 import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.service.KorisnikService;
+import ba.sitandfit.korisnici.service.KorisnikSubmitService;
 import ba.sitandfit.korisnici.service.RolaService;
 import ba.sitandfit.korisnici.service.StanjeService;
+
 
 @RestController
 @CrossOrigin
@@ -38,6 +53,9 @@ public class KorisniciController {
 	StanjeService stanjeService;
 	@Autowired
 	RolaService rolaService;
+	@Autowired 
+	KorisnikSubmitService korisnikSubmitService;
+	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Korisnik> getKorisnici(){
@@ -68,6 +86,24 @@ public class KorisniciController {
 		return korisnikService.createKorisnik(k);
 		
 	}
+	
+	@RequestMapping(value = "/registriraj", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KorisnikJSONWrapper registerKorisnik(@RequestBody Korisnik k){
+		
+		String generatedString = RandomStringUtils.randomAlphanumeric(15).toLowerCase();
+		KorisnikSubmit kor= korisnikSubmitService.getKorisnikSubmitByGenString(generatedString).getKs();
+		while(kor!=null)
+		{
+			generatedString = RandomStringUtils.randomAlphanumeric(15).toLowerCase();
+		}
+		k.setOdobren(0);
+		k.setAktivan(false);
+		KorisnikJSONWrapper korisnik = korisnikService.createKorisnik(k);
+		if(korisnik.getStatus()!="Error") korisnikSubmitService.createKorisnikSubmitByValues(generatedString,korisnik.getKorisnik().getId());
+		return korisnik;
+	}
+	
+	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public KorisnikJSONWrapper updateKorisnik(@PathVariable(value="id") Long id, @RequestBody Korisnik k){
@@ -118,5 +154,62 @@ public class KorisniciController {
 		return korisnikService.getProgrameKorisnika(id);
 		
 	}
+	
+
+	@RequestMapping(value="/{id}/slika", method = RequestMethod.POST)
+    public void UploadFile(@PathVariable(value="id") Long id, MultipartHttpServletRequest request) throws IOException {
+		
+		
+        Iterator<String> itr=request.getFileNames();
+        MultipartFile file=request.getFile(itr.next());
+        String fileName=file.getOriginalFilename();
+        
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+        		  "cloud_name", "sitandfitpictures",
+        		  "api_key", "334879857999493",
+        		  "api_secret", "yoaBNdV36K2ZNNdjBGtIwpZfKro"));
+        
+        
+        File serverFile = new File(fileName);
+        BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+        stream.write(file.getBytes());
+        stream.close();
+            
+        Map uploadResult = cloudinary.uploader().upload(serverFile, ObjectUtils.emptyMap());
+            
+        System.out.println(uploadResult.get("url"));
+            
+        
+        
+        
+        /*
+        File dir = new File("src/main/resources/uploadedImages");
+        if (dir.isDirectory())
+        {
+            File serverFile = new File(dir,fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(file.getBytes());
+            stream.close();
+            
+            Map uploadResult = cloudinary.uploader().upload(serverFile, ObjectUtils.emptyMap());
+            
+            System.out.println(uploadResult.toString());
+            
+        }else {
+            System.out.println("not");
+        }
+        */
+
+    }
+	
+	@RequestMapping(value = "/odobri/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KorisnikJSONWrapper odobriRegistrovanogKorisnika(@PathVariable(value="id") Long id){
+		
+		return korisnikService.odobriRegistrovanogKorisnika(id);
+		
+	}
+	
 	
 }
