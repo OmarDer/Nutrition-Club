@@ -1,6 +1,196 @@
-<div>
-	<label>Name:</label>
-	<input type="text" ng-model="yourName" placeholder="Enter a name here">
-	<hr>
-	<h1>Hello {{yourName}}!</h1>
-</div>
+<body id="page-top">
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix-top">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+			</button>
+			<a class="navbar-brand page-scroll" href="#page-top">Fit and Sit - wellcome {{loggedInUser}}</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="" ng-show="logged">
+					<a class="page-scroll" href="#programs">Programs</a>
+				</li>
+				<li class="" ng-show="logged">
+					<a class="page-scroll" href="#products">Products</a>
+				</li>
+				<li class="">
+					<a class="page-scroll" href="#about">Users</a>
+				</li>
+				<li class="">
+					<a class="page-scroll" href="/#!/vijesti">News</a>
+				</li>
+				<li class="">
+					<a class="page-scroll" href="#services">Contact</a>
+				</li>
+				<li class="">
+					<a class="page-scroll" href="#contact">Portfolio</a>
+				</li>
+				<li class="" ng-hide="logged">
+					<a class="page-scroll" href="/#!/login">Login</a>
+				</li>
+				<li class="" ng-show="logged">
+					<a class="page-scroll" href="" ng-click="logout()">Logout</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav>
+
+<header>
+	<div class="header-content">
+		<div class="header-content-inner">
+			<h1 id="homeHeading" style="color:#979797;">Let's Get In Touch!</h1>
+			<hr>
+			<p style="color:#979797;">Start big in Your Life!</p>
+			<a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+		</div>
+	</div>
+</header>
+
+<section class="bg-primary" id="about">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 text-center">
+				<h2 class="section-heading">We've got what you need!</h2>
+				<hr class="light">
+				<p class="text-faded">Start with using high quality products with support given by professional personal traier and nutritionist!!</p>
+				<a href="#services" class="page-scroll btn btn-default btn-xl sr-button" data-sr-id="6" style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all 0.35s ease 0s, -webkit-transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; transition: all 0.35s ease 0s, transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; ">Get Started!</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="services">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading">At Your Service</h2>
+				<hr class="primary">
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 text-center">
+				<div class="service-box">
+					<i class="fa fa-4x fa-diamond text-primary sr-icons" data-sr-id="2" style="; visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+					<h3>Sturdy Templates</h3>
+					<p class="text-muted">Our team will give you professional support and training/eating plan.</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center">
+				<div class="service-box">
+					<i class="fa fa-4x fa-paper-plane text-primary sr-icons" data-sr-id="3" style="; visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+					<h3>Fast product shipping!</h3>
+					<p class="text-muted">Our products are beeing shipped in 24 hours!</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center">
+				<div class="service-box">
+					<i class="fa fa-4x fa-newspaper-o text-primary sr-icons" data-sr-id="4" style="; visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+					<h3>Daily healthy news</h3>
+					<p class="text-muted">Daily update from herbalife and useful articles about food, suplements, training, etc.</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center">
+				<div class="service-box">
+					<i class="fa fa-4x fa-heart text-primary sr-icons" data-sr-id="5" style="; visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+					<h3>Made with Love</h3>
+					<p class="text-muted">Our products are high quality brought to You with love!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<aside class="bg-dark">
+	<div class="container text-center">
+		<div class="call-to-action">
+			<h2>Start Your planning now!</h2>
+			<a href="/#!/login" class="btn btn-default btn-xl sr-button" data-sr-id="7" style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all 0.35s ease 0s, -webkit-transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; transition: all 0.35s ease 0s, transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; ">Login Now!</a>
+		</div>
+	</div>
+</aside>
+
+<section id="contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 text-center">
+				<h2 class="section-heading">Let's Get In Touch!</h2>
+				<hr class="primary">
+				<p>Ready to start transforming Your life? That's great! Register on our page and we will get back to you as soon as possible!</p>
+			</div>
+			<div class="col-lg-4 col-lg-offset-2 text-center">
+				<i class="fa fa-phone fa-3x sr-contact" data-sr-id="9" style="; visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+				<p>061-123-456</p>
+			</div>
+			<div class="col-lg-4 text-center">
+				<i class="fa fa-envelope-o fa-3x sr-contact" data-sr-id="10" style="; visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+				<p><a href="mailto:fitandsit@gmail.com">fitandsit@gmail.com</a></p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- jQuery -->
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<ul class="list-inline text-center">
+					<li>
+						<a href="/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+						</a>
+					</li>
+					<li>
+						<a href="/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+						</a>
+					</li>
+					<li>
+						<a href="/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+						</a>
+					</li>
+				</ul>
+				<p class="copyright text-muted">Copyright © SitAndFit 2017</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>

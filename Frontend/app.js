@@ -1,7 +1,10 @@
 (function(){
 	
-	var app = angular.module("SitAndFit", ["ngRoute", "angularFileUpload"]);
-    
+	var app = angular.module("SitAndFit", ["ngRoute"]);
+
+    vijestURL = "http://localhost:8088/";
+    korisnikURL = "http://localhost:8084/";
+    proizvodURL = "http://localhost:8083/";
     user={
         id: 0,
         username: "",
@@ -12,46 +15,66 @@
 
 		$routeProvider
 			.when("/", {
-				templateUrl: 'index.html',
-				controller: 'AppController'
+				templateUrl: 'Views/main.html',
+				controller: 'MainController'
 
 			})
 			.when("/login", {
 				templateUrl: 'Views/login.html',
 				controller: 'LoginController'
+
 			})
             .when("/registration",{
-            templateUrl:'Views/userregistration.html',
-            controller: 'RegistrationController' 
+                templateUrl:'Views/userregistration.html',
+                controller: 'RegistrationController'
             })
             .when("/programs/insert",{
-            templateUrl:'Views/insertprograms.html',
-            controller:'ProgramiInsertController'
+                templateUrl:'Views/insertprograms.html',
+                controller:'ProgramiInsertController'
             })
             .when("/proizvodi/insert",{
-            templateUrl:'Views/insertproducts.html',
-            controller:'ProizvodiInsertController'
+                templateUrl:'Views/insertproducts.html',
+                controller:'ProizvodiInsertController'
             })
             .when("/upload",{
 
-            templateUrl:'Views/upload.html',
-            controller:'uploadController'
+                templateUrl:'Views/upload.html',
+                controller:'uploadController'
             })
             .when("/uploadimage",{
 
-            templateUrl:'Views/upload.html',
-            controller:'uploadController'
+                templateUrl:'Views/upload.html',
+                controller:'uploadController'
             })
             .when("/upload",{
-            templateUrl:'Views/imageupload.html',
-            controller:'UploadController'
+                templateUrl:'Views/imageupload.html',
+                controller:'UploadController'
             })
             .when("/verification/:str",{
-            templateUrl:'Views/submitmail.html',
-            controller:'SubmitController'
+                templateUrl:'Views/submitmail.html',
+                controller:'SubmitController'
+            })
+            .when("/vijesti",{
+                templateUrl:'Views/News.html',
+                controller:'NewsController'
+            })
+            .when("/vijesti/details",{
+                templateUrl:'Views/NewsDetails.html',
+                controller:'NewsDetailsController'
+            })
+            .when("/vijesti/details/edit",{
+                templateUrl:'Views/NewsDetailsEdit.html',
+                controller:'NewsDetailsEditController'
+            })
+            .when("/vijesti/new",{
+                templateUrl:'Views/NewsCreate.html',
+                controller:'NewsCreateController'
+            })
+            .when("/korisnik",{
+                templateUrl:'Views/Korisnik.html',
+                controller:'KorisnikController'
             })
         
-
 			.otherwise({redirectTo: "/error"});
 
 
@@ -65,12 +88,14 @@
 	var AppController = function($scope){
 
 		$scope.loggedInUser = "Gost";
+		if(!sessionStorage.user) {
+            if (sessionStorage.loggedIn) {
 
-		if(sessionStorage.loggedIn){
-
-			$scope.user = JSON.parse(sessionStorage.user);
-			$scope.loggedInUser = $scope.user.ime + " " + $scope.user.prezime;
-
+                $scope.user = JSON.parse(sessionStorage.user);
+                $scope.loggedInUser = $scope.user.ime + " " + $scope.user.prezime;
+            }
+        } else {
+            $scope.loggedInUser = "Gost";
 		}
 
 	};

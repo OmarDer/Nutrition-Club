@@ -1,51 +1,52 @@
 <!doctype html>
 <html ng-app="SitAndFit">
   <head>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+      <title>Sit and Fit</title>
+
+      <!-- Bootstrap Core CSS -->
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom Fonts -->
+      <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+      <!-- Plugin CSS -->
+      <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+      <!-- Theme CSS -->
+      <link href="css/creative.css" rel="stylesheet">
+      <link href="css/clean-blog.css" rel="stylesheet">
+
+     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-    <script src="Services/angular-file-uploader.js"></script>
     <script src="app.js" type="text/javascript"></script>
-    <script src="Services/upload-service.js"></script>
     <script src="Controllers/MainController.js" type="text/javascript"></script>
     <script src="Controllers/LoginController.js" type="text/javascript"></script>
-    <script src="Controllers/RegistrationController.js" type="text/javascript"></script>
-    <script src="Controllers/ProgramiInsertController.js" type="text/javascript"></script>
-    <script src="Controllers/UploadController.js" type="text/javascript"></script>
-    <script src="Controllers/SubmitController.js" type="text/javascript"></script> 
+      <script src="Controllers/RegistrationController.js" type="text/javascript"></script>
+      <script src="Controllers/ProgramiInsertController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsDetailsController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsDetailsEditController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsCreateController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsDetailsController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsDetailsEditController.js" type="text/javascript"></script>
+      <script src="Controllers/NewsCreateController.js" type="text/javascript"></script>
+
 
   </head>
   <body ng-controller="AppController">
-    
-<style>
-.navbar-custom {
-    color: #00000;
-    background-color: #7FFF00;}
-    
-.navbar-brand{
- color: white;
-}
-    
-.boja {
-color:white;
-    }
-</style>
-    
-<nav class="navbar navbar-custom ">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#">Početna</a>
-    </div>
-    <div class="container">	
-   <ul class="nav navbar-nav">
-        <li class="active"><a href="#" class="boja">Programi <span class="sr-only">(current)</span></a></li>
-        <li><a href="#" class="boja">Proizvodi <span class="sr-only">(current)</span></a></li>
-        <li><a href="#" class="boja">Vijesti <span class="sr-only">(current)</span></a></li>
-        <li><a href="#" class="boja">Kontakt <span class="sr-only">(current)</span></a></li>
-        <li><a href="/#login" class="boja">Login/Registracija <span class="sr-only">(current)</span></a></li>
-   </ul>
-   		<li><p class="navbar-text navbar-right">Prijavljen kao: <a href="#" class="boja">{{loggedInUser}}</a></p></li>
-  </div>
-</nav>      
-      <div ng-view> </div>
+
+  <div ng-view> </div>
+
   </body>
 </html>
