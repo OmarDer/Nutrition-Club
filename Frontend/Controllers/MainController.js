@@ -6,18 +6,19 @@
 		vm = $scope;
 		vm.logged = false;
 		console.log(sessionStorage.loggedIn);
-		if(sessionStorage.loggedIn){
+		if(sessionStorage.loggedIn === 'true'){
 			vm.logged = true;
 		}
-		else{
-			vm.logged=false;
-		}
-		vm.logout = function(){
+		else {
+            vm.logged = false;
+        }
+		$scope.logout = function(){
                 sessionStorage.loggedIn=false;
                 sessionStorage.authentication_token = null;
                 sessionStorage.user = null;
 				vm.logged=false;
-				$window.location.reload();
+            	$location.path('/');
+            	$window.location.reload();
 		};
     };
 

@@ -74,6 +74,10 @@
                 templateUrl:'Views/Korisnik.html',
                 controller:'KorisnikController'
             })
+            .when("/proizvodi",{
+                templateUrl:'Views/products.html',
+                controller:'ProductsController'
+            })
         
 			.otherwise({redirectTo: "/error"});
 
@@ -87,16 +91,21 @@
 
 	var AppController = function($scope){
 
-		$scope.loggedInUser = "Gost";
-		if(!sessionStorage.user) {
-            if (sessionStorage.loggedIn) {
+		$scope.loggedInUser = "Guest";
 
+		if(sessionStorage.user == null) {
+            $scope.loggedInUser = "Guest";
+            console.log(sessionStorage.user);
+            } else {
+            if (sessionStorage.loggedIn === 'true') {
+                console.log(sessionStorage.loggedIn);
                 $scope.user = JSON.parse(sessionStorage.user);
                 $scope.loggedInUser = $scope.user.ime + " " + $scope.user.prezime;
+                console.log($scope.loggedInUser);
+            }else {
+                $scope.loggedInUser = "Guest";
             }
-        } else {
-            $scope.loggedInUser = "Gost";
-		}
+		 }
 
 	};
 

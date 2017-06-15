@@ -9,10 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Service;
-
 import io.jsonwebtoken.Jwts;
-@Service
+
 public class TokenAuthenticationService {
 	
 	//static final long EXPIRATIONTIME = 864_000_000; // 10 dana, mjera je u ms!
@@ -47,5 +45,16 @@ public static Authentication getAuthentication(HttpServletRequest request) {
     	}
     	return null;
   }
+
+public static String vratiIdKorisnika(String token)
+{
+	String userId= Jwts.parser()
+			.setSigningKey(SECRET)
+			.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+			.getBody()
+			.get("id").toString();
+	
+	return userId;
+}
 
 }

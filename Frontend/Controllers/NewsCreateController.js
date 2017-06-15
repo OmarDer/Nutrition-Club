@@ -14,8 +14,10 @@
         vm.tipovi = [];
         vm.kategorije = [];
         $scope.$log=sessionStorage.loggedIn;
-        if(sessionStorage.loggedIn){
+        if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
+            vm.authentication_token = sessionStorage.authentication_token;
+            vm.loggedIn = sessionStorage.loggedIn;
         }
         else{
             vm.logged=false;
@@ -23,9 +25,16 @@
         var url = vijestURL+'vijesti';
         var url1 = vijestURL+'tipvijesti';
         var url2 = vijestURL+'kategorijevijesti';
-        $http.get(url1,data).then(function successCallback(response) {
+        $http.get(url2).then(function successCallback(response) {
             console.log(response.data);
             vm.kategorije=response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+
+        $http.get(url1).then(function successCallback(response) {
+            console.log(response.data);
+            vm.tipovi=response.data;
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -45,7 +54,7 @@
             sessionStorage.authentication_token = null;
             sessionStorage.user = null;
             vm.logged=false;
-            location.path('');
+            location.path('/');
             $window.location.reload();
         };
 

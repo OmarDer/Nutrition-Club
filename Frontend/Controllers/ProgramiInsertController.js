@@ -17,7 +17,8 @@
         };
             
         console.log(sessionStorage.user);
-              
+        console.log($http.defaults.headers.common['Authorization']);
+            
          $http({ method: "post", url: 'http://localhost:8083/programi', data: data })
              .then(
          function(response){

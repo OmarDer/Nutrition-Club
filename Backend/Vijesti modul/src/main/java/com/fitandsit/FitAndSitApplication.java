@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@ComponentScan({"com.fitandsit.Controller","jsonwrappers","com.fitandsit.discovery","services.KorisniciCommunication","services","com.fitandsit.security"})
+@ComponentScan({"com.fitandsit.Controller","com.fitandsit.jsonwrappers","com.fitandsit.discovery","com.fitandsit.services","com.fitandsit.security"})
 @EntityScan("com.fitandsit.Model")
 @EnableJpaRepositories(basePackages ="com.fitandsit.Repository")
 public class FitAndSitApplication extends SpringBootServletInitializer{

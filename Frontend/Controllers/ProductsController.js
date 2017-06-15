@@ -2,10 +2,10 @@
 
     var app = angular.module("SitAndFit");
 
-    var KorisnikController = function($scope,$location,$window,$http){
+    var ProductsController = function($scope,$location,$window,$http){
         vm = $scope;
         vm.logged = false;
-        vm.korisnik=null;
+        vm.proizvodi=[];
         console.log(sessionStorage.loggedIn);
         if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
@@ -13,13 +13,17 @@
         else{
             vm.logged=false;
         }
-        var url=korisnikURL+'korisnici/'+sessionStorage.korisnikID;
+        var url=proizvodURL+'proizvodi';
         $http.get(url).then(function successCallback(response) {
-            vm.korisnik = response.data;
+            vm.proizvodi = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
             console.log(response);
         });
+
+        vm.productDetails = function () {
+            console.log('redirekt na detalje');
+        }
 
         vm.logout = function(){
             sessionStorage.loggedIn=false;
@@ -30,6 +34,6 @@
         };
     };
 
-    app.controller('KorisnikController', ['$scope','$location','$window','$http', KorisnikController]);
+    app.controller('ProductsController', ['$scope','$location','$window','$http', ProductsController]);
 
 }());

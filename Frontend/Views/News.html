@@ -17,7 +17,7 @@
                     <a class="page-scroll" href="#programs">Programs</a>
                 </li>
                 <li class="" ng-show="logged">
-                    <a class="page-scroll" href="#products">Products</a>
+                    <a class="page-scroll" href="/#!/proizvodi">Products</a>
                 </li>
                 <li class="">
                     <a class="page-scroll" href="#about">Users</a>
@@ -73,7 +73,7 @@
                         {{singleNews.textVijesti | limitTo:100}}
                     </h3>
                 </a>
-                <p class="post-meta">Posted by <a href="pickAuthor({{singleNews.autorID}})">{{singleNews.autorID}}</a> on {{singleNews.datum}}</p>
+                <p class="post-meta">Posted by <a href="" ng-click="pickAuthor(singleNews.autorID)">{{singleNews.autorID}}</a> on {{singleNews.datum}}</p>
             </div>
             <hr>
             <!-- Pager -->

@@ -2,17 +2,16 @@
 	
 	var app = angular.module("SitAndFit");
 
-	var LoginController = function($scope, $http, $location){
+	var LoginController = function($scope, $http, $location,$window){
 
 		$scope.loggedIn = false;
 
-		if(sessionStorage.loggedIn){
+/*		if(sessionStorage.loggedIn){
 
 		    $scope.authentication_token = sessionStorage.authentication_token;
 		    $scope.loggedIn = sessionStorage.loggedIn;
 
-		}
-
+		}*/
 
 		//if($scope.loggedIn){
 		//	$location.path("/");
@@ -36,6 +35,8 @@
 
 				    			sessionStorage.user = JSON.stringify(response.data.korisnik);
 
+                                $location.path('/');
+                                $window.location.reload();
 				    		});
 				    	}
 
@@ -53,7 +54,7 @@
 
 	}
 
-	app.controller('LoginController', ['$scope', '$http','$location', LoginController]);
+	app.controller('LoginController', ['$scope', '$http','$location','$window', LoginController]);
 
 }())
 

@@ -1,12 +1,11 @@
 package com.fitandsit.Controller;
 
-import jsonwrappers.KomentariJSONWrapper;
-import jsonwrappers.KomentariListJSONWrapper;
-import jsonwrappers.VijestiJSONWrapper;
-import services.KorisniciCommunication;
-import services.komentariService;
-
 import com.fitandsit.Model.komentari;
+import com.fitandsit.jsonwrappers.KomentariJSONWrapper;
+import com.fitandsit.jsonwrappers.KomentariListJSONWrapper;
+import com.fitandsit.jsonwrappers.VijestiJSONWrapper;
+import com.fitandsit.services.KorisniciCommunication;
+import com.fitandsit.services.komentariService;
 
 import java.util.List;
 

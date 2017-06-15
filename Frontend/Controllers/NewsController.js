@@ -7,7 +7,7 @@
         vm.allNews=[];
         vm.logged = false;
         vm.$log=sessionStorage.loggedIn;
-        if(sessionStorage.loggedIn){
+        if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
             vm.authentication_token = sessionStorage.authentication_token;
             vm.loggedIn = sessionStorage.loggedIn;
@@ -39,6 +39,7 @@
             sessionStorage.authentication_token = null;
             sessionStorage.user = null;
             vm.logged=false;
+            $location.path('/');
             $window.location.reload();
         };
     };

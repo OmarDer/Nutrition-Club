@@ -18,7 +18,7 @@
                     <a class="page-scroll" href="#programs">Programs</a>
                 </li>
                 <li class="" ng-show="logged">
-                    <a class="page-scroll" href="#products">Products</a>
+                    <a class="page-scroll" href="/#!/proizvodi">Products</a>
                 </li>
                 <li class="">
                     <a class="page-scroll" href="#about">Users</a>
@@ -54,7 +54,7 @@
                 <div class="post-heading">
                     <h1>{{singleNews.nazivVijesti}}</h1>
                     <h2 class="subheading">{{singleNews.tipVijesti.nazivTipa}}</h2>
-                    <span class="meta">Posted by <a href="#">{{singleNews.autorID}}</a> on {{singleNews.datum}}</span>
+                    <span class="meta">Posted by <a href="" ng-click="nadjiKorisnika(singleNews.autorID)">{{singleNews.autorID}}</a> on {{singleNews.datum}}</span>
                 </div>
             </div>
         </div>

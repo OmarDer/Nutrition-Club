@@ -1,9 +1,8 @@
 package com.fitandsit.Controller;
 
-import jsonwrappers.KategorijeVijestiJSONWrapper;
-import services.KategorijeVijestiService;
-
 import com.fitandsit.Model.kategorijavijesti;
+import com.fitandsit.jsonwrappers.KategorijeVijestiJSONWrapper;
+import com.fitandsit.services.KategorijeVijestiService;
 
 import java.util.List;
 
