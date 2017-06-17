@@ -51,6 +51,12 @@
 				    });
 
 					};
+        
+        $scope.registracija = function(){
+            
+          $location.path("/registration");  
+            
+        };
 
 	}
 

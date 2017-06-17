@@ -78,6 +78,10 @@
                 templateUrl:'Views/products.html',
                 controller:'ProductsController'
             })
+            .when("/admin",{
+                templateUrl:'Views/adminpanel.html',
+                controller:'AdminPanelController'
+            })
         
 			.otherwise({redirectTo: "/error"});
 
