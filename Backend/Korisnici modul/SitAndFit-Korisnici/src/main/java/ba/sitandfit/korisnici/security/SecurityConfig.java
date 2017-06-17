@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			http.csrf().disable().authorizeRequests()
 //				.antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
      			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-     			.antMatchers(HttpMethod.GET, "/korisnici/**").permitAll()
+     			.antMatchers(HttpMethod.OPTIONS, "/korisnici/**").permitAll()
      			.antMatchers(HttpMethod.POST,"/korisnici/registriraj").permitAll()
      			.antMatchers(HttpMethod.GET,"/submit/potvrdi/**").permitAll()
 		 		.antMatchers(pattern).hasAnyAuthority("ROLE_ADMIN","ROLE_COMMUNICATION")
