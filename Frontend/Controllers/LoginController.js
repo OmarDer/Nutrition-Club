@@ -51,13 +51,11 @@
 				    });
 
 					};
-        
-        $scope.registracija = function(){
-            
-          $location.path("/registration");  
-            
-        };
+                $scope.registracija = function(){
 
+                          $location.path("/registration");
+
+                        };
 	}
 
 	app.controller('LoginController', ['$scope', '$http','$location','$window', LoginController]);

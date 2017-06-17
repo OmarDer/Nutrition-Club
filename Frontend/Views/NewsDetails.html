@@ -8,7 +8,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="/">Fit and Sit - wellcome {{loggedInUser}}</a>
+            <a class="navbar-brand page-scroll" href="#page-top">Fit and Sit - wellcome {{loggedInUser}}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,20 +17,20 @@
                 <li class="" ng-show="logged">
                     <a class="page-scroll" href="#programs">Programs</a>
                 </li>
-                <li class="" ng-show="logged">
+                <li class="">
                     <a class="page-scroll" href="/#!/proizvodi">Products</a>
                 </li>
-                <li class="">
-                    <a class="page-scroll" href="#about">Users</a>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="/#!/korisnici">Users</a>
                 </li>
                 <li class="">
-                    <a class="page-scroll" href="#about">News</a>
+                    <a class="page-scroll" href="/#!/vijesti">News</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="profile()">My Profile</a>
                 </li>
                 <li class="">
-                    <a class="page-scroll" href="#services">Contact</a>
-                </li>
-                <li class="">
-                    <a class="page-scroll" href="#contact">Portfolio</a>
+                    <a class="page-scroll" href="#contact">Contact</a>
                 </li>
                 <li class="" ng-hide="logged">
                     <a class="page-scroll" href="/#!/login">Login</a>
@@ -44,6 +44,7 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
+
 
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->

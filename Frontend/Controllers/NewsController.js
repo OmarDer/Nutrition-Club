@@ -34,6 +34,11 @@
             $location.path('/korisnik');
         };
 
+        vm.profile = function () {
+            sessionStorage.korisnikID = vm.user.id;
+            $location.path('/korisnik');
+        };
+
         vm.logout = function(){
             sessionStorage.loggedIn=false;
             sessionStorage.authentication_token = null;

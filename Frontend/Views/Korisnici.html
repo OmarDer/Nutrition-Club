@@ -42,47 +42,47 @@
     <!-- /.container-fluid -->
 </nav>
 
-
-<div class="container">
-
-    <form class="well form-horizontal" id="contact_form" ng-submit="editNews(vijestTitle,vijestText)">
-        <fieldset>
-
-            <!-- Form Name -->
-            <legend><center><h2><b>Izmjeni Vijest</b></h2></center></legend><br>
-
-            <!-- Text input-->
-
-            <div class="form-group">
-                <label class="col-md-4 control-label">Naslov :</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
-                        <input  name="vijest_title" placeholder="Naslov vijesti .." value="{{vijestTitle}}" class="form-control" ng-model="vijestTitle" type="text">
-                    </div>
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h2 class="section-heading">Users</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Reg date</th>
+                            <th>Odobren</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="k in korisnici">
+                            <td><a ng-click="findUser(k.id)"><span>{{ k.userName }}</span></a></td>
+                            <td>{{ k.ime }}</td>
+                            <td>{{ k.prezime }}</td>
+                            <td>{{ k.email }}</td>
+                            <td>{{ k.kontaktTelefon }}</td>
+                            <td>{{ k.rola.nazivRole }}</td>
+                            <td>{{ k.datumRegistracije }}</td>
+                            <td>{{k.odobren}}</td>
+                            <td><a href="" ng-click="delUser(k.id)"><span>del</span></a><a href="" ng-show="k.odobren == 0" ng-click="accUser(k.id)"><span>accept</span></a> </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <!-- Text input-->
-
-            <div class="form-group">
-                <label class="col-md-4 control-label" >Text :</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
-                        <textarea name="program_desc" data-value="{{vijestText}}" placeholder="Text vijesti .." class="form-control" ng-model="vijestText" cols="40" rows="10"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Button -->
-            <div class="form-group">
-                <label class="col-md-4 control-label"></label>
-                <div class="col-md-4"><br>
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPOTVRDI <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
-                </div>
-            </div>
-        </fieldset>
-    </form>
-
-</div>
+    </div>
+</section>

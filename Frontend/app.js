@@ -82,7 +82,10 @@
                 templateUrl:'Views/adminpanel.html',
                 controller:'AdminPanelController'
             })
-        
+            .when("/korisnici",{
+                templateUrl:'Views/Korisnici.html',
+                controller:'KorisniciController'
+            })
 			.otherwise({redirectTo: "/error"});
 
 

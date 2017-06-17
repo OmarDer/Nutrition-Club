@@ -2,7 +2,7 @@
 
     var app = angular.module("SitAndFit");
 
-    var NewsDetailsEditController = function($scope,$location){
+    var NewsDetailsEditController = function($scope,$location,$http){
         vm = $scope;
         vm.logged = false;
         vm.vijestTitle='';
@@ -11,6 +11,7 @@
         vm.active = 1;
         vm.tipvijesti=null;
         vm.kategorijavijesti=null
+        vm.autor = 0;
 
         $scope.$log=sessionStorage.loggedIn;
         if(sessionStorage.loggedIn==='true'){
@@ -19,15 +20,35 @@
         else{
             vm.logged=false;
         }
+        var url = vijestURL+'vijesti/'+sessionStorage.newsID;
 
-        vm.editNews = function(vijestTitle,vijestText,date,active,tipvijesti,kategorijavijesti){
-            var data = {nazivVijesti: vijestTitle,textVijesti:vijestText ,datum:date, aktivan:active ,autorID:sessionStorage.user.id, tipVijesti:tipvijesti, kategorijaVijesti:kategorijavijesti };
+        $http.get(url).then(function successCallback(response) {
+            console.log(response.data);
+            vm.vijest = response.data.vijest;
+            vm.vijestTitle = vm.vijest.nazivVijesti;
+            vm.vijestText = vm.vijest.textVijesti;
+            vm.active =vm.vijest.aktivan;
+            vm.autor = vm.vijest.autorID;
+            vm.tipvijesti = vm.vijest.tipVijesti;
+            vm.kategorijavijesti = vm.vijest.kategorijaVijesti;
+
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+
+        vm.editNews = function(vijestTitle,vijestText){
+            var data = {nazivVijesti: vijestTitle,textVijesti:vijestText ,datum:vm.date, aktivan:vm.active ,autorID:vm.autor, tipVijesti:vm.tipvijesti, kategorijaVijesti:vm.kategorijavijesti };
             $http.post(url,data).then(function successCallback(response) {
                 console.log(response.data);
                 location.path('/vijesti');
             }, function errorCallback(response) {
                 console.log(response);
             });
+        };
+
+        vm.profile = function () {
+            sessionStorage.korisnikID = vm.user.id;
+            $location.path('/korisnik');
         };
 
         vm.logout = function(){
@@ -40,6 +61,6 @@
         };
     };
 
-    app.controller('NewsDetailsEditController', ['$scope','$location', NewsDetailsEditController]);
+    app.controller('NewsDetailsEditController', ['$scope','$location','$http', NewsDetailsEditController]);
 
 }());
