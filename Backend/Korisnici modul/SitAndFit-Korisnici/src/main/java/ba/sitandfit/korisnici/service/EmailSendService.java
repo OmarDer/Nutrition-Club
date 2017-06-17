@@ -41,7 +41,7 @@ public class EmailSendService {
 	    		String name = korisnik.getKorisnik().getIme();
 	    		String surname=korisnik.getKorisnik().getPrezime();
 	    		
-	    		String link="http://localhost/Frontend/#!/verification/";
+	    		String link="http://localhost/#!/verification/";
 	    		
 	    		String emailBody = "Poštovani korisniče, vaš mail je verificiran i potvrdom na adresu " + link + generatedString + " vaš račun će biti aktivan.";
 	    	

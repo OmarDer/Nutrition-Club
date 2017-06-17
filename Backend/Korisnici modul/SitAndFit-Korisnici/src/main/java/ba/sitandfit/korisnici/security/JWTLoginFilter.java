@@ -45,17 +45,18 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
     
   }
 
+
   @Override
   public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)throws AuthenticationException, IOException, ServletException {
 
 		LoginData logdata=null;
 		if(req.getContentLength()>0)
 		logdata = new ObjectMapper().readValue(req.getInputStream(), LoginData.class);
-	if(logdata==null) return null; 
+	if(logdata==null) return null;
+	
     return getAuthenticationManager().authenticate( new UsernamePasswordAuthenticationToken(
     		logdata.getUsername(),
     		logdata.getPassword(),
-    		
     		Collections.emptyList()   
         )
     );
@@ -69,6 +70,8 @@ public JWTLoginFilter(String url, AuthenticationManager authManager)
       Authentication auth) throws IOException, ServletException {
 	  final UserDetailsServiceImpl k = (UserDetailsServiceImpl)auth.getPrincipal();
 	  Korisnik kor=k.getKorisnik();
-	TokenAuthenticationService.addAuthentication(res, auth.getName(),Iterables.get(auth.getAuthorities(),0).getAuthority().toString(),kor.getId());
+	  if (kor.getRola()==null) TokenAuthenticationService.addAuthentication(res, auth.getName(), "NO_ROLE", kor.getId(),kor.getAktivan()); 
+	 else 
+		  TokenAuthenticationService.addAuthentication(res, auth.getName(),Iterables.get(auth.getAuthorities(),0).getAuthority().toString(),kor.getId(),kor.getAktivan());
   }
 }

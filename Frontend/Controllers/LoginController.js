@@ -28,16 +28,36 @@
 				    		$http.defaults.headers.common['Authorization'] = response.data;
 				    		$scope.loginMsg = "";
 
-				    		sessionStorage.loggedIn = true;
 				    		sessionStorage.authentication_token = response.data;
 
 				    		$http.get('http://localhost:8084/korisnici/' + username).then(function(response){
+<<<<<<< HEAD
+                                
+                                sessionStorage.loggedIn = true;
+				    			sessionStorage.user =JSON.stringify(response.data.korisnik);
+                                //JSON.stringify(response.data.korisnik);
+                                console.log(sessionStorage.user);
+                                console.log("U ovoj sam sekciji");
+                                $location.path('/');
+
+				    		},
+                            function(response){
+                                if(response.status==403)
+                            {
+                                $scope.loginMsg='Korisnički račun nije aktivan';
+                            }
+                            
+                            }
+                            
+                                                                                         );
+=======
 
 				    			sessionStorage.user = JSON.stringify(response.data.korisnik);
 
                                 $location.path('/');
                                 $window.location.reload();
 				    		});
+>>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
 				    	}
 
 				    	
@@ -47,6 +67,10 @@
 				    		$scope.loginMsg = response.data.message;
 				    		$scope.authentication_token = null;
 				    	}
+                        else if(response.status==403)
+                            {
+                                $scope.loginMsg=response.message;
+                            }
 
 				    });
 

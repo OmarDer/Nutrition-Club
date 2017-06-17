@@ -10,10 +10,12 @@
 		if(sessionStorage.loggedIn === 'true'){
 			vm.logged = true;
 			vm.user = JSON.parse(sessionStorage.user);
+
 		}
 		else {
             vm.logged = false;
         }
+
         
         vm.isAdmin = false;
         
@@ -24,6 +26,7 @@
             sessionStorage.korisnikID = vm.user.id;
             $location.path('/korisnik');
         };
+
 
 		$scope.logout = function(){
                 sessionStorage.loggedIn=false;

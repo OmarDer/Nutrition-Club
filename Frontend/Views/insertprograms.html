@@ -1,6 +1,53 @@
+
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default affix-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="/">Fit and Sit - wellcome {{loggedInUser}}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="#programs">Programs</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="#products">Products</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#about">Users</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#about">News</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#services">Contact</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#contact">Portfolio</a>
+                </li>
+                <li class="" ng-hide="logged">
+                    <a class="page-scroll" href="/#!/login">Login</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
 <div class="container">
 
-<form class="well form-horizontal" id="contact_form" ng-submit="insertFun()">
+<form class="well form-horizontal" id="contact_form" >
 <fieldset>
     
 <!-- Form Name -->
@@ -13,7 +60,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
-  <input  name="program_name" placeholder="Naziv programa" class="form-control" ng-model="naziv" type="text">
+  <input  name="program_name" placeholder="Naziv programa" class="form-control" ng-model="naziv" type="text" required>
     </div>
   </div>
 </div>
@@ -25,18 +72,38 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
-  <input name="program_desc" placeholder="Opis programa" class="form-control"  type="text" ng-model="opis">
+  <input name="program_desc" placeholder="Opis programa" class="form-control"  type="text" ng-model="opis" required>
     </div>
   </div>
 </div>
 
-<!-- Button -->
+    <!-- Button -->
 <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4"><br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPOTVRDI <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button ng-click="insertFun()" type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPOTVRDI PROGRAM<span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
   </div>
 </div>
+{{errorMsg}}
+    
+<div class="form-group">
+    <label class="col-md-4 control-label" >Proizvodi:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-apple"></i></span>
+    <select ng-model="proizvod" ng-options="x for x in proizvodi"></select>
+    </div>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4"><br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button ng-click="dodajFun()" type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDODAJ PROIZVOD <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+  </div>
+</div>   
+{{dodajMsg}}    
+
 </fieldset>
 </form>
     

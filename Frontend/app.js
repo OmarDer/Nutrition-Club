@@ -1,6 +1,6 @@
 (function(){
 	
-	var app = angular.module("SitAndFit", ["ngRoute"]);
+	var app = angular.module("SitAndFit", ["ngRoute","angularFileUpload"]);
 
     vijestURL = "http://localhost:8088/";
     korisnikURL = "http://localhost:8084/";
@@ -35,11 +35,6 @@
             .when("/proizvodi/insert",{
                 templateUrl:'Views/insertproducts.html',
                 controller:'ProizvodiInsertController'
-            })
-            .when("/upload",{
-
-                templateUrl:'Views/upload.html',
-                controller:'uploadController'
             })
             .when("/uploadimage",{
 
@@ -98,10 +93,17 @@
 
 	var AppController = function($scope){
 
+<<<<<<< HEAD
+		$scope.loggedInUser = "Gost";
+
+		if(sessionStorage.user == null) {
+            $scope.loggedInUser = "Gost";
+=======
 		$scope.loggedInUser = "Guest";
 
 		if(sessionStorage.user == null) {
             $scope.loggedInUser = "Guest";
+>>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
             console.log(sessionStorage.user);
             } else {
             if (sessionStorage.loggedIn === 'true') {
@@ -110,7 +112,11 @@
                 $scope.loggedInUser = $scope.user.ime + " " + $scope.user.prezime;
                 console.log($scope.loggedInUser);
             }else {
+<<<<<<< HEAD
+                $scope.loggedInUser = "Gost";
+=======
                 $scope.loggedInUser = "Guest";
+>>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
             }
 		 }
 

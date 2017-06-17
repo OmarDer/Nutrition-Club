@@ -39,7 +39,7 @@
         uploader.onAfterAddingFile = function(fileItem) {
             console.info('onAfterAddingFile', fileItem);
             
-            if(!(fileItem._file.type == "image/png" || fileItem._file.type == "image/jpg"))
+            if(!(fileItem._file.type == "image/png" || fileItem._file.type == "image/jpeg"))
             {
                 uploader.removeFromQueue(fileItem);
                 $scope.errorMsg = "Ekstenzija filea za upload mora biti jpg ili png."
