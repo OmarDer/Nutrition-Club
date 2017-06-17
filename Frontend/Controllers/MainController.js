@@ -6,7 +6,9 @@
 		vm = $scope;
 		vm.logged = false;
 		vm.user = null;
-		console.log(sessionStorage.loggedIn);
+		
+        console.log(sessionStorage.loggedIn);
+        
 		if(sessionStorage.loggedIn === 'true'){
 			vm.logged = true;
 			vm.user = JSON.parse(sessionStorage.user);
