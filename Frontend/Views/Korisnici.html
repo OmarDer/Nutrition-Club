@@ -46,7 +46,7 @@
     <div class="container">
         <div class="row">
             <div class="text-center">
-                <h2 class="section-heading">Users</h2>
+                <h2 class="section-heading">Postojeći korisnici</h2>
                 <hr class="primary">
             </div>
         </div>
@@ -85,4 +85,142 @@
                 </div>
             </div>
     </div>
+    
+    <div class="container">
+
+        <form class="form-horizontal" id="contact_form">
+        <fieldset>
+
+        <!-- Form Name -->
+            <legend></legend>
+            
+            <div class="text-center">
+                <h2 class="section-heading">Novi korisnik</h2>
+                <hr class="primary">
+            </div>
+            
+        <!-- Text input-->
+
+        <div class="form-group">
+
+          <label class="col-md-4 control-label">Ime</label>  
+          <div class="col-md-4 inputGroupContainer">
+              
+          <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              
+          <input  required name="first_name" placeholder="Ime" class="form-control" ng-model="ime" type="text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" >Prezime</label> 
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input required name="last_name" placeholder="Prezime" class="form-control"  type="text" ng-model="prezime">
+            </div>
+          </div>
+        </div>
+
+          <div class="form-group"> 
+          <label class="col-md-4 control-label">Adresa</label>
+            <div class="col-md-4 selectContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input required name="adress" placeholder="Adresa stanovanja" class="form-control"  type="text" ng-model="adresa">       
+          </div>
+        </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">E-Mail</label>  
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input required name="email" placeholder="E-Mail Address" class="form-control"  type="text" ng-model="email">
+            </div>
+          </div>
+        </div>
+
+            <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label">Kontakt telefon</label>  
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+          <input required name="Broj telefona" placeholder="(+387)" class="form-control" type="text" ng-model="tel">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label">Korisničko ime</label>  
+          <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input  required name="user_name" placeholder="Username" class="form-control"  type="text" ng-model="username">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" >Lozinka</label> 
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input required name="user_password" placeholder="Password" class="form-control"  type="password" ng-model="password">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" >Ponovljenja lozinka</label> 
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input required name="confirm_password" placeholder="Confirm Password" class="form-control"  type="password" ng-model="repPassword">
+            </div>
+          </div>
+        </div>
+            
+        <div class="form-group">
+          <label class="col-md-4 control-label" >Rola</label> 
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>         
+            <select 
+                    ng-model="selectedRola" 
+                    ng-options="rola.nazivRole for rola in roleDataSource">  
+            </select>
+        </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+                <p style="color:red">{{errorPoruka}}</p>
+            </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"></label>
+          <div class="col-md-4"><br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button ng-click="dodajNovogKorisnika(ime, prezime, adresa, email, tel, username, password, repPassword)" type="button" class="btn btn-info" >Dodaj korisnika</button>
+          </div>
+        </div>
+        </fieldset>
+        </form>
+
+</div>
 </section>

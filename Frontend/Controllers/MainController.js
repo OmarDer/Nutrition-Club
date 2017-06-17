@@ -14,6 +14,11 @@
 		else {
             vm.logged = false;
         }
+        
+        vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+            vm.isAdmin = true;
 
         vm.profile = function () {
             sessionStorage.korisnikID = vm.user.id;
@@ -34,7 +39,7 @@
 
 	app.directive('navbar',function () {
 		return{
-			templateUrl:navbar.html
+			//templateUrl:navbar.html
 		};
     })
 }());
