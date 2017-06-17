@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Method;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -41,6 +43,8 @@ import ba.sitandfit.korisnici.service.KorisnikSubmitService;
 import ba.sitandfit.korisnici.service.RolaService;
 import ba.sitandfit.korisnici.service.StanjeService;
 
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 @RestController
 @CrossOrigin
@@ -157,13 +161,12 @@ public class KorisniciController {
 	
 
 	@RequestMapping(value="/{id}/slika", method = RequestMethod.POST)
-    public void UploadFile(@PathVariable(value="id") Long id, MultipartHttpServletRequest request) throws IOException {
+    public String UploadFile(@PathVariable(value="id") Long id, MultipartHttpServletRequest request) throws IOException {
 		
 		
         Iterator<String> itr=request.getFileNames();
         MultipartFile file=request.getFile(itr.next());
         String fileName=file.getOriginalFilename();
-        
         Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
         		  "cloud_name", "sitandfitpictures",
         		  "api_key", "334879857999493",
@@ -171,14 +174,26 @@ public class KorisniciController {
         
         
         File serverFile = new File(fileName);
+        //file.transferTo(serverFile);
+        
+        
+        
         BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));
         stream.write(file.getBytes());
         stream.close();
-            
+           
+        
+        BufferedImage image = ImageIO.read(serverFile);
+        image=Scalr.resize(image,Method.BALANCED, Scalr.Mode.FIT_EXACT,320,150);
+        ImageIO.write(image, "jpg" , serverFile);
+        
         Map uploadResult = cloudinary.uploader().upload(serverFile, ObjectUtils.emptyMap());
             
-        System.out.println(uploadResult.get("url"));
+        String imageUrl = String.valueOf(uploadResult.get("url"));
+        System.out.println(imageUrl);
+        
+        return imageUrl;
             
         
         

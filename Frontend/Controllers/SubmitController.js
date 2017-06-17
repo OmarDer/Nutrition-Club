@@ -6,13 +6,13 @@
         $scope.routePar=$routeParams.str;
 		$scope.potvrdiMail = function(){
 
-			alert("Pozvano");
             
     		var url = "http://localhost:8084/submit/potvrdi/"+$scope.routePar;
 
 		    $http.get(url)
             .then(function(response){
                 alert("Uspjesna potvrda");
+                $location.path('/#!/login');
                 console.log($scope.routePar);
             },
             function(response){

@@ -78,17 +78,17 @@ public class ProizvodiService {
 		String userId=TokenAuthenticationService.vratiIdKorisnika(token);
 		
 		Long id=Long.parseLong(userId);
-		if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(id)==false)
-		{
-			return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
-		}
-		if(p.getProizvod_ID()!=null&&pr.findOne(p.getProizvod_ID())==null) 	
-		{
+		//if(p.getAutor_ID()!=null && ucm.provjeriKorisnika(id)==false)
+		//{
+		//	return new JsonWrapperProizvodi("Error","Uneseni kreator proizvoda ne postoji!",null);
+		//}
+		//if(p.getProizvod_ID()!=null && pr.findOne(p.getProizvod_ID())==null) 	
+		//{
 				//p.setAutor_ID(id);
 				return new JsonWrapperProizvodi("Success","",pr.save(p));
-		}
+		//}
 			
-		return new JsonWrapperProizvodi("Error","Uneseni proizvod vec postoji!",null);
+		//return new JsonWrapperProizvodi("Error","Uneseni proizvod vec postoji!",null);
 	}
 
 	public JsonWrapperProizvodi vratiProizvodPoID(Long id) {

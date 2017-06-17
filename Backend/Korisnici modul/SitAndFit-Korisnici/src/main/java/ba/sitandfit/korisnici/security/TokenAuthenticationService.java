@@ -37,18 +37,22 @@ public class TokenAuthenticationService {
 		
 	
 	
-public static  void addAuthentication(HttpServletResponse res, String username,String rola,Long id
+public static  void addAuthentication(HttpServletResponse res, String username,String rola,Long id,Boolean aktivan
 		) throws IOException {
-		List<String> role= new ArrayList<String>();
-		role.add(rola);	
-    	String JWT = Jwts.builder()
+	
+	//if(aktivan==true)
+	//{
+			List<String> role= new ArrayList<String>();
+			role.add(rola);	
+			String JWT = Jwts.builder()
     			.setSubject(username).claim("authorities", role).claim("id",id)
     			.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
     			.signWith(SignatureAlgorithm.HS512, SECRET)
     			.compact();
-    	res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
-    	//res.addHeader("Access-Control-Allow-Origin", "*");
-    	res.getWriter().write(TOKEN_PREFIX + " " + JWT);
+			res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+			//res.addHeader("Access-Control-Allow-Origin", "*");
+			res.getWriter().write(TOKEN_PREFIX + " " + JWT);
+		//}
  }
 
 public static Authentication getAuthentication(HttpServletRequest request) {

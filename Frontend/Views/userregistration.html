@@ -1,4 +1,46 @@
+<nav id="mainNav" class="navbar navbar-default  affix-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="/">Fit and Sit - wellcome {{loggedInUser}}</a>
+        </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="#programs">Programs</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="#products">Products</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#about">Users</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#about">News</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#services">Contact</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#contact">Portfolio</a>
+                </li>
+                <li class="" ng-hide="logged">
+                    <a class="page-scroll" href="/#!/login">Login</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 <div class="container">
 
 <form class="well form-horizontal" id="contact_form" ng-submit="registrationFun()">
@@ -14,7 +56,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input  name="first_name" placeholder="Ime" class="form-control" ng-model="ime" type="text">
+  <input  name="first_name" placeholder="Ime" class="form-control" ng-model="ime" type="text" required>
     </div>
   </div>
 </div>
@@ -26,7 +68,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input name="last_name" placeholder="Prezime" class="form-control"  type="text" ng-model="prezime">
+  <input name="last_name" placeholder="Prezime" class="form-control"  type="text" ng-model="prezime" required>
     </div>
   </div>
 </div>
@@ -36,7 +78,7 @@
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-        <input name="adress" placeholder="Adresa stanovanja" class="form-control"  type="text" ng-model="adresa">       
+        <input name="adress" placeholder="Adresa stanovanja" class="form-control"  type="text" ng-model="adresa" required>       
   </div>
 </div>
 </div>
@@ -47,7 +89,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text" ng-model="email">
+        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text" ng-model="email" required>
     </div>
   </div>
 </div>
@@ -59,7 +101,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-  <input name="Broj telefona" placeholder="(+387)" class="form-control" type="text" ng-model="broj">
+  <input name="Broj telefona" placeholder="(+387)" class="form-control" type="text" ng-model="broj" required>
     </div>
   </div>
 </div>
@@ -71,7 +113,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input  name="user_name" placeholder="Username" class="form-control"  type="text" ng-model="username">
+  <input  name="user_name" placeholder="Username" class="form-control"  type="text" ng-model="username" required>
     </div>
   </div>
 </div>
@@ -83,7 +125,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input name="user_password" placeholder="Password" class="form-control"  type="password" ng-model="password">
+  <input name="user_password" placeholder="Password" class="form-control"  type="password" ng-model="password" required>
     </div>
   </div>
 </div>
@@ -95,8 +137,10 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input name="confirm_password" placeholder="Confirm Password" class="form-control"  type="password" ng-model="repPassword">
+  <input name="confirm_password" placeholder="Confirm Password" class="form-control"  type="password" ng-model="repPassword" required>
+        
     </div>
+        <p ng-show="password!=repPassword" style="color:red">Passwordi se ne podudaraju!</p>
   </div>
 </div>
 
@@ -105,7 +149,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4"><br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button ng-disabled="password!=repPassword" type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span class="glyphicon glyphicon-send"></span><a href="/#!/"></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
   </div>
 </div>
 </fieldset>

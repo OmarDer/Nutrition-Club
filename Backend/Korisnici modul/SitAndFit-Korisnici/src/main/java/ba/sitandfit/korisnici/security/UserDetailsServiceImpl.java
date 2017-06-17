@@ -29,7 +29,8 @@ public class UserDetailsServiceImpl implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> prava = new HashSet<GrantedAuthority>();
 		Rola rola= korisnik.getRola();
-		prava.add(new SimpleGrantedAuthority(rola.getNazivRole()));
+		//Jer korisnik koji se registrira inicaijalno nema nikakvu rolu i tek nakon sto admin odobri ona se doda kao ROLE_USER.
+		if(rola != null) prava.add(new SimpleGrantedAuthority(rola.getNazivRole()));
 		return prava;
 	}
 
