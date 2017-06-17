@@ -1,0 +1,112 @@
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">Fit and Sit - wellcome {{loggedInUser}}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="#programs">Programs</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="/#!/proizvodi">Products</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="/#!/korisnici">Users</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="/#!/vijesti">News</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="profile()">My Profile</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#contact">Contact</a>
+                </li>
+                <li class="" ng-hide="logged">
+                    <a class="page-scroll" href="/#!/login">Login</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+    <form class="well form-horizontal" id="contact_form" ng-submit="createNews(vijestTitle,vijestText)">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend><center><h2><b>Izmjeni Vijest</b></h2></center></legend><br>
+
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Naslov :</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+                        <input  name="vijest_title" placeholder="Naslov vijesti" class="form-control" ng-model="vijestTitle" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" >Text :</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                        <textarea name="program_desc" placeholder="Text vijesti" class="form-control" ng-model="vijestText" cols="40" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single button -->
+            <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <button id="tip-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    Tip vijesti <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="single-button" role="menu">
+                    <li ng-repeat="choice in tipovi">
+                        <a href ng-click="odaberiTip(choice)">{{choice.nazivTipa}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Single button -->
+            <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <button id="kategorija-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    Kategorija vijesti <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="single-button" role="menu">
+                    <li ng-repeat="choice in tipovi">
+                        <a href ng-click="odaberiKategoriju(choice)">{{choice.imeKategorije}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4"><br>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPOTVRDI <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

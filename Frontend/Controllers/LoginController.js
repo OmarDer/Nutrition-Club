@@ -2,17 +2,16 @@
 	
 	var app = angular.module("SitAndFit");
 
-	var LoginController = function($scope, $http, $location){
+	var LoginController = function($scope, $http, $location,$window){
 
 		$scope.loggedIn = false;
 
-		if(sessionStorage.loggedIn){
+/*		if(sessionStorage.loggedIn){
 
 		    $scope.authentication_token = sessionStorage.authentication_token;
 		    $scope.loggedIn = sessionStorage.loggedIn;
 
-		}
-
+		}*/
 
 		//if($scope.loggedIn){
 		//	$location.path("/");
@@ -32,6 +31,7 @@
 				    		sessionStorage.authentication_token = response.data;
 
 				    		$http.get('http://localhost:8084/korisnici/' + username).then(function(response){
+<<<<<<< HEAD
                                 
                                 sessionStorage.loggedIn = true;
 				    			sessionStorage.user =JSON.stringify(response.data.korisnik);
@@ -50,6 +50,14 @@
                             }
                             
                                                                                          );
+=======
+
+				    			sessionStorage.user = JSON.stringify(response.data.korisnik);
+
+                                $location.path('/');
+                                $window.location.reload();
+				    		});
+>>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
 				    	}
 
 				    	
@@ -67,10 +75,14 @@
 				    });
 
 					};
+                $scope.registracija = function(){
 
+                          $location.path("/registration");
+
+                        };
 	}
 
-	app.controller('LoginController', ['$scope', '$http','$location', LoginController]);
+	app.controller('LoginController', ['$scope', '$http','$location','$window', LoginController]);
 
 }())
 

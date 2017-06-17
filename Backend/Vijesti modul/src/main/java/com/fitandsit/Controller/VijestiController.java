@@ -1,13 +1,12 @@
 package com.fitandsit.Controller;
 
-import jsonwrappers.KategorijeVijestiJSONWrapper;
-import jsonwrappers.VijestiJSONWrapper;
-import jsonwrappers.VijestiListJSONWrapper;
-import jsonwrappers.tipvijestiJSONWrapper;
-import services.KorisniciCommunication;
-import services.VijestiService;
-
 import com.fitandsit.Model.vijesti;
+import com.fitandsit.jsonwrappers.KategorijeVijestiJSONWrapper;
+import com.fitandsit.jsonwrappers.VijestiJSONWrapper;
+import com.fitandsit.jsonwrappers.VijestiListJSONWrapper;
+import com.fitandsit.jsonwrappers.tipvijestiJSONWrapper;
+import com.fitandsit.services.KorisniciCommunication;
+import com.fitandsit.services.VijestiService;
 
 import java.util.List;
 

@@ -1,9 +1,8 @@
 package com.fitandsit.Controller;
 
-import jsonwrappers.tipvijestiJSONWrapper;
-import services.TipVijestiService;
-
 import com.fitandsit.Model.tipvijesti;
+import com.fitandsit.jsonwrappers.tipvijestiJSONWrapper;
+import com.fitandsit.services.TipVijestiService;
 
 import java.util.List;
 

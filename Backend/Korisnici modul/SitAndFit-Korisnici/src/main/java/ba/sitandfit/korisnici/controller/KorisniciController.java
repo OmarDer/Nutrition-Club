@@ -195,27 +195,6 @@ public class KorisniciController {
         
         return imageUrl;
             
-        
-        
-        
-        /*
-        File dir = new File("src/main/resources/uploadedImages");
-        if (dir.isDirectory())
-        {
-            File serverFile = new File(dir,fileName);
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(file.getBytes());
-            stream.close();
-            
-            Map uploadResult = cloudinary.uploader().upload(serverFile, ObjectUtils.emptyMap());
-            
-            System.out.println(uploadResult.toString());
-            
-        }else {
-            System.out.println("not");
-        }
-        */
 
     }
 	

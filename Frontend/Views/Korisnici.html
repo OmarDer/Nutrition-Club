@@ -1,0 +1,88 @@
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">Fit and Sit - wellcome {{loggedInUser}}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="#programs">Programs</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="/#!/proizvodi">Products</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="/#!/korisnici">Users</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="/#!/vijesti">News</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="profile()">My Profile</a>
+                </li>
+                <li class="">
+                    <a class="page-scroll" href="#contact">Contact</a>
+                </li>
+                <li class="" ng-hide="logged">
+                    <a class="page-scroll" href="/#!/login">Login</a>
+                </li>
+                <li class="" ng-show="logged">
+                    <a class="page-scroll" href="" ng-click="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h2 class="section-heading">Users</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Reg date</th>
+                            <th>Odobren</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="k in korisnici">
+                            <td><a ng-click="findUser(k.id)"><span>{{ k.userName }}</span></a></td>
+                            <td>{{ k.ime }}</td>
+                            <td>{{ k.prezime }}</td>
+                            <td>{{ k.email }}</td>
+                            <td>{{ k.kontaktTelefon }}</td>
+                            <td>{{ k.rola.nazivRole }}</td>
+                            <td>{{ k.datumRegistracije }}</td>
+                            <td>{{k.odobren}}</td>
+                            <td><a href="" ng-click="delUser(k.id)"><span>del</span></a><a href="" ng-show="k.odobren == 0" ng-click="accUser(k.id)"><span>accept</span></a> </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+</section>

@@ -1,5 +1,4 @@
 package com.fitandsit.security;
-
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -27,4 +26,4 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 		  
 	    filterChain.doFilter(request,response);
 	  }
-}
+	}

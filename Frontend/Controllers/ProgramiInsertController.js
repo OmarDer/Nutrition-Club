@@ -44,7 +44,14 @@
             opis_programa:$scope.opis,
             aktivan: $scope.aktivan
         };
+<<<<<<< HEAD
                
+=======
+            
+        console.log(sessionStorage.user);
+        console.log($http.defaults.headers.common['Authorization']);
+            
+>>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
          $http({ method: "post", url: 'http://localhost:8083/programi', data: data })
              .then(
          function(response){
