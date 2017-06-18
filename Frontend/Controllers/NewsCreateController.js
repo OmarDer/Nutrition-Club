@@ -14,12 +14,13 @@
         vm.tipovi = [];
         vm.kategorije = [];
         vm.user = null;
-        $scope.$log=sessionStorage.loggedIn;
         if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
             vm.authentication_token = sessionStorage.authentication_token;
             vm.loggedIn = sessionStorage.loggedIn;
             vm.user = JSON.parse(sessionStorage.user);
+            $http.defaults.headers.common['Authorization'] =vm.authentication_token;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
         }
         else{
             vm.logged=false;
@@ -33,28 +34,6 @@
         }, function errorCallback(response) {
             console.log(response);
         });
-        
-        vm.odaberiTip = function (choice) {
-            vm.tipvijesti=choice;
-        }
-
-        vm.odaberiKategoriju = function (choice) {
-            vm.kategorijavijesti = choice;
-        }
-
-        vm.status = {
-            isopen: false
-        };
-
-        vm.toggled = function(open) {
-            console.log('Dropdown is now: ', open);
-        };
-
-        vm.toggleDropdown = function($event) {
-            vm.preventDefault();
-            vm.stopPropagation();
-            vm.status.isopen = !$scope.status.isopen;
-        };
 
         $http.get(url1).then(function successCallback(response) {
             console.log(response.data);
@@ -64,10 +43,10 @@
         });
 
         vm.createNews = function(vijestTitle,vijestText,tipvijesti,kategorijavijesti){
-             var data = {nazivVijesti: vijestTitle,textVijesti:vijestText ,datum:vm.date, aktivan:1 ,autorID:sessionStorage.user.id, tipVijesti:vm.tipvijesti, kategorijaVijesti:vm.kategorijavijesti };
-            $http.put(url,data).then(function successCallback(response) {
+             var data = {nazivVijesti: vijestTitle,textVijesti:vijestText ,datum:vm.date, aktivan:1 ,autorID:vm.user.id, tipVijesti:vm.tipvijesti, kategorijaVijesti:vm.kategorijavijesti };
+            $http.post(url,data).then(function successCallback(response) {
                 console.log(response.data);
-                location.path('/vijesti');
+                $location.path('/vijesti');
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -83,7 +62,7 @@
             sessionStorage.authentication_token = null;
             sessionStorage.user = null;
             vm.logged=false;
-            location.path('/');
+            $location.path('/');
             $window.location.reload();
         };
 

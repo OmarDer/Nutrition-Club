@@ -6,19 +6,21 @@
         vm = $scope;
         vm.allNews=[];
         vm.logged = false;
-        vm.$log=sessionStorage.loggedIn;
         if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
             vm.authentication_token = sessionStorage.authentication_token;
             vm.loggedIn = sessionStorage.loggedIn;
+            vm.user = JSON.parse(sessionStorage.user);
+            $http.defaults.headers.common['Authorization'] =vm.authentication_token;
         }else {
             vm.logged = false;
         }
          vm.isAdmin = false;
         
-        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+        if(vm.user != null && vm.user.rola.nazivRole === "ROLE_ADMIN"){
             vm.isAdmin = true;
             vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
+        }
         
         vm.date = new Date();
         var url=vijestURL+'vijesti';

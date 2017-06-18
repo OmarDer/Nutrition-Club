@@ -10,6 +10,7 @@
         console.log(sessionStorage.user);
         if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
             vm.authentication_token = sessionStorage.authentication_token;
             vm.loggedIn = sessionStorage.loggedIn;
             vm.korisnik =  JSON.parse(sessionStorage.user);

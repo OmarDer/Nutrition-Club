@@ -49,7 +49,7 @@
         <fieldset>
 
             <!-- Form Name -->
-            <legend><center><h2><b>Izmjeni Vijest</b></h2></center></legend><br>
+            <legend><center><h2><b>Kreiraj Vijest</b></h2></center></legend><br>
 
             <!-- Text input-->
 
@@ -75,29 +75,32 @@
                 </div>
             </div>
 
-            <!-- Single button -->
-            <div class="btn-group" uib-dropdown is-open="status.isopen">
-                <button id="tip-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                    Tip vijesti <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="single-button" role="menu">
-                    <li ng-repeat="choice in tipovi">
-                        <a href ng-click="odaberiTip(choice)">{{choice.nazivTipa}}</a>
-                    </li>
-                </ul>
+            <div class="form-group">
+                <label class="col-md-4 control-label" >Kategorija vijesti:</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <select
+                                ng-model="kategorijavijesti"
+                                ng-options="k.imeKategorije for k in kategorije">
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <!-- Single button -->
-            <div class="btn-group" uib-dropdown is-open="status.isopen">
-                <button id="kategorija-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                    Kategorija vijesti <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="single-button" role="menu">
-                    <li ng-repeat="choice in tipovi">
-                        <a href ng-click="odaberiKategoriju(choice)">{{choice.imeKategorije}}</a>
-                    </li>
-                </ul>
+            <div class="form-group">
+                <label class="col-md-4 control-label" >Tip vijesti:</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <select
+                                ng-model="tipvijesti"
+                                ng-options="t.nazivTipa for t in tipovi">
+                        </select>
+                    </div>
+                </div>
             </div>
+
 
             <!-- Button -->
             <div class="form-group">

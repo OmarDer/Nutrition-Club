@@ -10,12 +10,18 @@
         vm.date=new Date();
         vm.active = 1;
         vm.tipvijesti=null;
-        vm.kategorijavijesti=null
+        vm.kategorijavijesti=null;
         vm.autor = 0;
+        vm.user=null;
 
         $scope.$log=sessionStorage.loggedIn;
         if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
+            vm.authentication_token = sessionStorage.authentication_token;
+            vm.loggedIn = sessionStorage.loggedIn;
+            vm.user = JSON.parse(sessionStorage.user);
+            $http.defaults.headers.common['Authorization'] =vm.authentication_token;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
         }
         else{
             vm.logged=false;
@@ -38,9 +44,9 @@
 
         vm.editNews = function(vijestTitle,vijestText){
             var data = {nazivVijesti: vijestTitle,textVijesti:vijestText ,datum:vm.date, aktivan:vm.active ,autorID:vm.autor, tipVijesti:vm.tipvijesti, kategorijaVijesti:vm.kategorijavijesti };
-            $http.post(url,data).then(function successCallback(response) {
+            $http.put(url,data).then(function successCallback(response) {
                 console.log(response.data);
-                location.path('/vijesti');
+                $location.path('/vijesti');
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -56,7 +62,7 @@
             sessionStorage.authentication_token = null;
             sessionStorage.user = null;
             vm.logged=false;
-            location.path('/');
+            $location.path('/');
             $window.location.reload();
         };
     };

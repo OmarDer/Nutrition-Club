@@ -73,14 +73,14 @@
                         {{singleNews.textVijesti | limitTo:100}}
                     </h3>
                 </a>
-                <p class="post-meta">Posted by <a href="" ng-click="pickAuthor(singleNews.autorID)">{{singleNews.autorID}}</a> on {{singleNews.datum}}</p>
+                <p class="post-meta">Posted by <a href="" ng-click="!logged||pickAuthor(singleNews.autorID)">{{singleNews.autorID}}</a> on {{singleNews.datum}}</p>
             </div>
             <hr>
             <!-- Pager -->
             <ul class="pager">
                 <li class="next">
                 <li class="next">
-                    <a href="/#!/vijesti/new">New News</a>
+                    <a href="/#!/vijesti/new" ng-show="logged && isAdmin">New News</a>
                 </li>
             </ul>
         </div>
