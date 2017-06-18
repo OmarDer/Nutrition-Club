@@ -1,6 +1,7 @@
 package ba.sitandfit.korisnici.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,16 @@ public class KorisnikServiceImpl implements KorisnikService {
 	@Override
 	public List<Korisnik> getKorisnici() {
 		
-		return korisnikRepository.findAll();
+		List<Korisnik> vraceni = (ArrayList<Korisnik>)korisnikRepository.findAll();
+		
+		/*List<Korisnik> zaVratit = new ArrayList<Korisnik>();
+		
+		for(Korisnik x : vraceni)
+			if(x.getAktivan())
+				zaVratit.add(x);
+		*/
+		return vraceni;
+							
 	}
 
 	@Override
@@ -159,6 +169,14 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return new KorisnikJSONWrapper("Error", "Slanje verifikacijskog maila nije uspjesno!", null); 
 		}
 		kor.setOdobren(1);
+		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(kor));
+	}
+	
+	@Override
+	public KorisnikJSONWrapper zabraniRegistrovanogKorisnika(Long id) {
+		
+		Korisnik kor=korisnikRepository.findOne(id);
+		kor.setOdobren(0);
 		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(kor));
 	}
 

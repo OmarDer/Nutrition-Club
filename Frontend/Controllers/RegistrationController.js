@@ -2,6 +2,10 @@
 	
 	var app = angular.module("SitAndFit");
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
 	var RegistrationController = function($scope,$http,$location){
 
 	//var RegistrationController = function($scope, $http){
@@ -33,14 +37,20 @@
             var url = 'http://localhost:8084/korisnici/registriraj';
             var data = {  
 
+<<<<<<< HEAD
             
            // var noviKorisnik = {
                 
+=======
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
                 ime: $scope.ime,
                 prezime: $scope.prezime,
                 adresaPrebivalista: $scope.adresa,
                 kontaktTelefon: $scope.broj,
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
                 email: $scope.email,
                 userName: $scope.username,
                 password: $scope.password
@@ -73,6 +83,7 @@
         $scope.password="";
         $scope.repPassword="";
 
+<<<<<<< HEAD
                 userName: $scope.username,
                 password: $scope.password,
                 email: $scope.email,
@@ -93,15 +104,23 @@
                 
             });
 
+=======
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
             
         }
         
 
 	};
+<<<<<<< HEAD
 */
         }
     };
 	app.controller('RegistrationController', ['$scope','$http','$location', RegistrationController]);
+=======
+
+	app.controller('RegistrationController', ['$scope','$http','$location', RegistrationController]);
+
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
 
 	//app.controller('RegistrationController', ['$scope', '$http', RegistrationController]);
 

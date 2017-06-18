@@ -3,16 +3,133 @@
     var app = angular.module("SitAndFit");
 
     var KorisniciController = function($scope,$location,$window,$http){
+        
+        $http.defaults.headers.common['Authorization'] = sessionStorage.authentication_token;
+        
         vm = $scope;
+        
+        vm.isAdmin = false;
+        
+        vm.user = JSON.parse(sessionStorage.user);
+        
+        if(vm.user.rola.nazivRole != "ROLE_ADMIN")
+            $location.path("/");
+        else
+            vm.isAdmin = true;
+        
         vm.logged = false;
         vm.korisnici=[];
-        console.log(sessionStorage.loggedIn);
+
         if(sessionStorage.loggedIn==='true'){
             vm.logged = true;
         }
         else{
             vm.logged=false;
         }
+        
+        
+        vm.errorPoruka = null;
+        
+        vm.dodajNovogKorisnika = function(ime, prezime, adresa, email, tel, username, password, repPassword){
+
+            if (password != repPassword){
+                vm.errorPoruka = "Unesene lozinke se na slažu!";
+                return;
+            }
+            
+             vm.errorPoruka = null;
+            
+            var datum = new Date();
+            
+            var noviKorisnik =  {
+
+                            ime: ime,
+                            prezime: prezime,
+                            adresaPrebivalista: adresa,
+                            kontaktTelefon: tel,
+                            userName: username,
+                            password: password,
+                            email: email,
+                            odobren: 1,
+                            datumRegistracije: datum,
+                            aktivan: true,
+                            rola: {
+                                id: vm.selectedRola.id,
+                                nazivRole: vm.selectedRola.nazivRole,
+                                opisRole: vm.selectedRola.opisRole,
+                                aktivna: true
+                    }
+            };
+            
+            
+            $http.post("http://localhost:8084/korisnici", noviKorisnik).then(function(response){
+                
+                var odgovor = response.data;
+                
+                if (odgovor.status == "Success"){
+                    vm.errorPoruka = "Dodavanje korisnika uspješno!";
+                }
+                else{
+                    vm.errorPoruka = odgovor.msg;
+                }
+                
+                $window.location.reload();
+            });
+            
+        };
+        
+        vm.selectedRola = null;
+        
+        vm.roleDataSource = null;
+        
+        $http.get("http://localhost:8084/role").then(function(response){
+            
+            vm.roleDataSource = JSON.stringify(response.data);
+            
+            vm.roleDataSource = JSON.parse(vm.roleDataSource);
+            
+            vm.selectedRola = vm.roleDataSource.filter(function( rola ) {
+                                                      return rola.nazivRole === "ROLE_USER";
+                                                    })[0];
+            
+        });
+        
+        
+        vm.deaktivirajKorisnika = function(id){
+            
+            var data = {aktivan:false};
+            
+            $http.put("http://localhost:8084/korisnici/"+id.toString(), data).then(function(response){
+                console.log(response.data);
+               $window.location.reload();
+                
+            });
+            
+        };
+        
+        vm.aktivirajKorisnika = function(id){
+            
+            var data = {aktivan:true};
+            
+            $http.put("http://localhost:8084/korisnici/"+id.toString(), data).then(function(response){
+                console.log(response.data);
+                $window.location.reload();
+                
+            });
+            
+        };
+        
+        vm.zabraniKorisnika = function(userID){
+            
+            $http.get(url+'zabrani/'+userID).then(function successCallback(response) {
+                console.log(response.data);
+                $window.location.reload();
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+            
+        };
+        
         var url=korisnikURL+'korisnici/';
         $http.get(url).then(function successCallback(response) {
             vm.korisnici = response.data;
@@ -22,8 +139,9 @@
         });
         
         vm.delUser = function (userID) {
-            $http.del(url+userID).then(function successCallback(response) {
+            $http.delete(url+userID).then(function successCallback(response) {
                 console.log(response.data);
+                $window.location.reload();
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -33,6 +151,7 @@
 
             $http.get(url+'odobri/'+userID).then(function successCallback(response) {
                 console.log(response.data);
+                $window.location.reload();
             }, function errorCallback(response) {
                 console.log(response);
             });

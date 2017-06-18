@@ -61,7 +61,10 @@
             aktivan: $scope.aktivan
         };
 
+<<<<<<< HEAD
             
+=======
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
          $http({ method: "post", url: 'http://localhost:8083/programi', data: data })
              .then(
          function(response){

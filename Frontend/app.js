@@ -109,12 +109,16 @@
 
 	var AppController = function($scope){
 
+<<<<<<< HEAD
 
 		$scope.loggedInUser = "Guest";
 
 		if(sessionStorage.user == null) {
             //$scope.loggedInUser = "Gost";
 
+=======
+
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
 		$scope.loggedInUser = "Guest";
 
 		if(sessionStorage.user == null) {
@@ -129,8 +133,11 @@
                 console.log($scope.loggedInUser);
             }else {
 
+<<<<<<< HEAD
                 //$scope.loggedInUser = "Gost";
 
+=======
+>>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
                 $scope.loggedInUser = "Guest";
 
             }
