@@ -81,6 +81,22 @@
                 templateUrl:'Views/Korisnici.html',
                 controller:'KorisniciController'
             })
+            .when("/programs/list",{
+                templateUrl:'Views/listaPrograma.html',
+                controller:'ProgramiListController'
+            })
+            .when("/programs/update",{
+                templateUrl:'Views/programiUpdate.html',
+                controller:'ProgramiUpdateController'
+            })
+            .when("/proizvodi/update",{
+                templateUrl:'Views/proizvodiUpdate.html',
+                controller:'ProizvodiUpdateController'
+            })
+            .when("/proizvodi/list",{
+                templateUrl:'Views/proizvodiList.html',
+                controller:'ProizvodiListController'
+            })
 			.otherwise({redirectTo: "/error"});
 
 
@@ -93,17 +109,17 @@
 
 	var AppController = function($scope){
 
-<<<<<<< HEAD
-		$scope.loggedInUser = "Gost";
+
+		$scope.loggedInUser = "Guest";
 
 		if(sessionStorage.user == null) {
-            $scope.loggedInUser = "Gost";
-=======
+            //$scope.loggedInUser = "Gost";
+
 		$scope.loggedInUser = "Guest";
 
 		if(sessionStorage.user == null) {
             $scope.loggedInUser = "Guest";
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
+
             console.log(sessionStorage.user);
             } else {
             if (sessionStorage.loggedIn === 'true') {
@@ -112,17 +128,17 @@
                 $scope.loggedInUser = $scope.user.ime + " " + $scope.user.prezime;
                 console.log($scope.loggedInUser);
             }else {
-<<<<<<< HEAD
-                $scope.loggedInUser = "Gost";
-=======
+
+                //$scope.loggedInUser = "Gost";
+
                 $scope.loggedInUser = "Guest";
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
+
             }
 		 }
-
+        }
 	};
 
 	app.controller("AppController", ["$scope", AppController]);
 
 
-}());
+}())

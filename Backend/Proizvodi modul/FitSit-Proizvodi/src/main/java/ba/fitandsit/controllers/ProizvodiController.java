@@ -54,7 +54,7 @@ public class ProizvodiController {
 		
 	}
 	
-	@RequestMapping("")
+	@RequestMapping(value="",produces="application/json")
 	public List<Proizvodi> vratiAktivne(){	
 		
 		return ps.vratiAktivne();

@@ -4,6 +4,20 @@
 
 	var ProgramiInsertController = function($scope,$http){
 
+        
+        vm = $scope;
+        vm.logged = false;
+        vm.proizvodi=[];
+        var userJson = JSON.parse(sessionStorage.user);
+       
+        if(sessionStorage.loggedIn==='true'){
+            vm.logged = true;
+        }
+        else{
+            vm.logged=false;
+        }
+        
+        
 		$scope.naziv = "";
         $scope.opis="";
         $scope.autorId="";
@@ -12,6 +26,8 @@
         $scope.proizvod="";
         $scope.errorMsg="";
         $scope.dodajMsg="";
+        
+        
         
         var url='http://localhost:8083/proizvodi';
         var dictionary={};
@@ -44,14 +60,8 @@
             opis_programa:$scope.opis,
             aktivan: $scope.aktivan
         };
-<<<<<<< HEAD
-               
-=======
+
             
-        console.log(sessionStorage.user);
-        console.log($http.defaults.headers.common['Authorization']);
-            
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
          $http({ method: "post", url: 'http://localhost:8083/programi', data: data })
              .then(
          function(response){
@@ -77,6 +87,14 @@
           
         };
         
+        vm.logout = function(){
+            sessionStorage.loggedIn=false;
+            sessionStorage.authentication_token = null;
+            sessionStorage.user = null;
+            vm.logged=false;
+            $location.path('/');
+            $window.location.reload();
+        };
         
         }
     

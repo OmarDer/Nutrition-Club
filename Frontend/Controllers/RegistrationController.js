@@ -2,12 +2,22 @@
 	
 	var app = angular.module("SitAndFit");
 
-<<<<<<< HEAD
 	var RegistrationController = function($scope,$http,$location){
-=======
-	var RegistrationController = function($scope, $http){
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
 
+	//var RegistrationController = function($scope, $http){
+
+        vm = $scope;
+        vm.logged = false;
+        vm.proizvodi=[];
+        var userJson = JSON.parse(sessionStorage.user);
+       
+        if(sessionStorage.loggedIn==='true'){
+            vm.logged = true;
+        }
+        else{
+            vm.logged=false;
+        }
+        
 		$scope.ime = "";
         $scope.prezime="";
         $scope.adresa="";
@@ -19,19 +29,18 @@
         
         $scope.registrationFun=function(){
             
-<<<<<<< HEAD
+
             var url = 'http://localhost:8084/korisnici/registriraj';
             var data = {  
-=======
+
             
-            var noviKorisnik = {
+           // var noviKorisnik = {
                 
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
                 ime: $scope.ime,
                 prezime: $scope.prezime,
                 adresaPrebivalista: $scope.adresa,
                 kontaktTelefon: $scope.broj,
-<<<<<<< HEAD
+
                 email: $scope.email,
                 userName: $scope.username,
                 password: $scope.password
@@ -53,10 +62,9 @@
                 
                 alert('Prijava nije uspjesna, pokusajte ponovno!');
                 
-            }
-            
-            )
-        $scope.ime = "";
+            });
+        
+/*$scope.ime = "";
         $scope.prezime="";
         $scope.adresa="";
         $scope.broj="";
@@ -64,7 +72,7 @@
         $scope.username="";
         $scope.password="";
         $scope.repPassword="";
-=======
+
                 userName: $scope.username,
                 password: $scope.password,
                 email: $scope.email,
@@ -84,17 +92,17 @@
                 }
                 
             });
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
+
             
         }
         
 
 	};
-
-<<<<<<< HEAD
+*/
+        }
+    };
 	app.controller('RegistrationController', ['$scope','$http','$location', RegistrationController]);
-=======
-	app.controller('RegistrationController', ['$scope', '$http', RegistrationController]);
->>>>>>> 71a37a8752f8d158c1c66bab1ac9d6331530dce2
 
-}());
+	//app.controller('RegistrationController', ['$scope', '$http', RegistrationController]);
+
+}())
