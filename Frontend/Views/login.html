@@ -90,10 +90,10 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="" ng-show="sessionStorage.loggedIn == true">
-                        <a class="page-scroll" href="#programs">Programs</a>
+                        <a class="page-scroll" href="/#!/programs/list">Programs</a>
                     </li>
                     <li class="" ng-show="sessionStorage.loggedIn == true">
-                        <a class="page-scroll" href="#products">Products</a>
+                        <a class="page-scroll" href="/#!/proizvodi">Products</a>
                     </li>
                     <li class="">
                         <a class="page-scroll" href="#about">Portfolio</a>
@@ -127,6 +127,8 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
             <p style="color: red">{{loginMsg}}</p>
         </form>
         <a href=""><p class="fgp">Forgot your password?</p></a>
-        <a ng-click="registracija()" href=""><p class="fgp">Don't have an account? --> Register</p></a>
+        <a href="/#!/registration"><p class="fgp">Don't have an account? --> Register</p></a>
+        
+        <!--<a ng-click="registracija()" href=""><p class="fgp">Don't have an account?  Register</p></a>-->
     </div>
 </div>

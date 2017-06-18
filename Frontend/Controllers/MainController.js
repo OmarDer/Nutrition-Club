@@ -11,6 +11,10 @@
         
 		if(sessionStorage.loggedIn === 'true'){
 			vm.logged = true;
+
+
+			vm.user = JSON.parse(sessionStorage.user);
+
 			vm.user = JSON.parse(sessionStorage.user);
             vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
 
@@ -19,17 +23,17 @@
             vm.logged = false;
         }
 
-        
+   
         vm.isAdmin = false;
         
         if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
             vm.isAdmin = true;
 
+
         vm.profile = function () {
             sessionStorage.korisnikID = vm.user.id;
             $location.path('/korisnik');
         };
-
 
 		$scope.logout = function(){
                 sessionStorage.loggedIn=false;
@@ -43,9 +47,9 @@
 
 	app.controller('MainController', ['$scope','$location','$window', MainController]);
 
-	app.directive('navbar',function () {
+	/*app.directive('navbar',function () {
 		return{
 			//templateUrl:navbar.html
 		};
-    })
+    })*/
 }());

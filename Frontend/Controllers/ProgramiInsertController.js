@@ -4,6 +4,25 @@
 
 	var ProgramiInsertController = function($scope,$http){
 
+        
+        vm = $scope;
+        vm.logged = false;
+        vm.proizvodi=[];
+        var userJson = JSON.parse(sessionStorage.user);
+       
+        if(sessionStorage.loggedIn==='true'){
+            vm.logged = true;
+        }
+        else{
+            vm.logged=false;
+        }
+        
+          vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+           {vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;}
+        
 		$scope.naziv = "";
         $scope.opis="";
         $scope.autorId="";
@@ -12,6 +31,8 @@
         $scope.proizvod="";
         $scope.errorMsg="";
         $scope.dodajMsg="";
+        
+        
         
         var url='http://localhost:8083/proizvodi';
         var dictionary={};
@@ -70,6 +91,14 @@
           
         };
         
+        vm.logout = function(){
+            sessionStorage.loggedIn=false;
+            sessionStorage.authentication_token = null;
+            sessionStorage.user = null;
+            vm.logged=false;
+            $location.path('/');
+            $window.location.reload();
+        };
         
         }
     

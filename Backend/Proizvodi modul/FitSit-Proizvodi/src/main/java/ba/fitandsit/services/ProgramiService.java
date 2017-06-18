@@ -67,14 +67,14 @@ public class ProgramiService {
 		}
 	}
 	
-	public JsonWrapperProgrami azurirajProgram(Long id,Programi p,String token)
+	public JsonWrapperProgrami azurirajProgram(Long id,Programi p)
 	{
 		Programi p1=new Programi();
 		Programi sel=pr.findOne(id);
 		
 		if(sel!=null)
 		{
-			//p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
+			p1.setProgramID((p.getProgramID()!=null) ? p.getProgramID():sel.getProgramID());
 			p1.setNaziv_programa((p.getNaziv_programa()!=null) ? p.getNaziv_programa():sel.getNaziv_programa());
 			if(p.getAutorID()!=null && ucm.provjeriKorisnika(p.getAutorID())==false)
 			{
@@ -84,8 +84,7 @@ public class ProgramiService {
 			p1.setAutorID((p.getAutorID()!=null) ? p.getAutorID():sel.getAutorID());
 			p1.setOpis_programa((p.getOpis_programa()!=null) ? p.getOpis_programa():sel.getOpis_programa());
 			p1.setAktivan((p.getAktivan()!=null) ? p.getAktivan():sel.getAktivan());
-			p1.setProizvodiList((p.getProizvodiList()!=null) ? p.getProizvodiList():sel.getProizvodiList());
-			
+			//p1.setProizvodiList((p.getProizvodiList()!=null) ? p.getProizvodiList():sel.getProizvodiList());
 			return new JsonWrapperProgrami("Success","",pr.save(p1));
 		}
 		

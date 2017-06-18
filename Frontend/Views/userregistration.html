@@ -12,10 +12,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class="" ng-show="logged">
-                    <a class="page-scroll" href="#programs">Programs</a>
+                    <a class="page-scroll" href="/#!/programs/list">Programs</a>
                 </li>
                 <li class="" ng-show="logged">
-                    <a class="page-scroll" href="#products">Products</a>
+                    <a class="page-scroll" href="/#!/proizvodi">Products</a>
                 </li>
                 <li class="">
                     <a class="page-scroll" href="#about">Users</a>
@@ -59,6 +59,7 @@
 
   <input  name="first_name" placeholder="Ime" class="form-control" ng-model="ime" type="text" required>
 
+
     </div>
   </div>
 </div>
@@ -70,6 +71,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+
   <input name="last_name" placeholder="Prezime" class="form-control"  type="text" ng-model="prezime" required>
 
     </div>
@@ -110,7 +112,6 @@
         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
 
   <input name="Broj telefona" placeholder="(+387)" class="form-control" type="text" ng-model="broj" required>
-
     </div>
   </div>
 </div>
@@ -122,9 +123,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-
   <input  name="user_name" placeholder="Username" class="form-control"  type="text" ng-model="username" required>
-
     </div>
   </div>
 </div>
@@ -138,7 +137,6 @@
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
   <input name="user_password" placeholder="Password" class="form-control"  type="password" ng-model="password" required>
-
     </div>
   </div>
 </div>
@@ -150,9 +148,8 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input name="confirm_password" placeholder="Confirm Password" class="form-control"  type="password" ng-model="repPassword" required>     
-
-    </div>
+  <input name="confirm_password" placeholder="Confirm Password" class="form-control"  type="password" ng-model="repPassword" required>
+      </div>
         <p ng-show="password!=repPassword" style="color:red">Passwordi se ne podudaraju!</p>
   </div>
 </div>

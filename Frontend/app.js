@@ -81,6 +81,22 @@
                 templateUrl:'Views/Korisnici.html',
                 controller:'KorisniciController'
             })
+            .when("/programs/list",{
+                templateUrl:'Views/listaPrograma.html',
+                controller:'ProgramiListController'
+            })
+            .when("/programs/update",{
+                templateUrl:'Views/programiUpdate.html',
+                controller:'ProgramiUpdateController'
+            })
+            .when("/proizvodi/update",{
+                templateUrl:'Views/proizvodiUpdate.html',
+                controller:'ProizvodiUpdateController'
+            })
+            .when("/proizvodi/list",{
+                templateUrl:'Views/proizvodiList.html',
+                controller:'ProizvodiListController'
+            })
 			.otherwise({redirectTo: "/error"});
 
 
@@ -92,6 +108,14 @@
 	});
 
 	var AppController = function($scope){
+
+
+
+		$scope.loggedInUser = "Guest";
+
+		if(sessionStorage.user == null) {
+            //$scope.loggedInUser = "Gost";
+
 
 
 		$scope.loggedInUser = "Guest";
@@ -108,14 +132,18 @@
                 console.log($scope.loggedInUser);
             }else {
 
+
+                //$scope.loggedInUser = "Gost";
+
+
                 $scope.loggedInUser = "Guest";
 
             }
 		 }
-
+        }
 	};
 
 	app.controller("AppController", ["$scope", AppController]);
 
 
-}());
+}())

@@ -3,6 +3,24 @@
 	var app = angular.module("SitAndFit");
     
 	var ProizvodiInsertController = function($scope,$http,uploadService,FileUploader){
+     
+        vm = $scope;
+        vm.logged = false;
+        vm.proizvodi=[];
+        var userJson = JSON.parse(sessionStorage.user);
+       
+        if(sessionStorage.loggedIn==='true'){
+            vm.logged = true;
+        }
+        else{
+            vm.logged=false;
+        }
+        
+          vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+           {vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;}
         
     $scope.imageLink="";    
         
@@ -78,12 +96,11 @@
             
         console.log(data);
         
-            
+        console.log(sessionStorage.user);    
         
          $http.post('http://localhost:8083/proizvodi',data)
              .then(
          function(response){
-             console.log($scope);
               console.log(response);
              alert('Ispravno');
          },
@@ -91,6 +108,15 @@
                 alert('Neispravno');
         });
 	};
+        
+    vm.logout = function(){
+            sessionStorage.loggedIn=false;
+            sessionStorage.authentication_token = null;
+            sessionStorage.user = null;
+            vm.logged=false;
+            $location.path('/');
+            $window.location.reload();
+        };    
         }
     
 	app.controller('ProizvodiInsertController', ['$scope','$http','uploadService','FileUploader', ProizvodiInsertController]);

@@ -105,9 +105,9 @@ public class ProgramiController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
-	public JsonWrapperProgrami azurirajProgram(@PathVariable Long id,@RequestBody Programi p, @RequestHeader("Authorization") String token){
+	public JsonWrapperProgrami azurirajProgram(@PathVariable Long id,@RequestBody Programi p){
 		
-		return ps.azurirajProgram(id,p,token);
+		return ps.azurirajProgram(id,p);
 	}
 	@RequestMapping(value="/izlistaj/{name}",method=RequestMethod.GET)
 	public JsonWrapperProgrami izlistajProgramPoImenu(@PathVariable String name)

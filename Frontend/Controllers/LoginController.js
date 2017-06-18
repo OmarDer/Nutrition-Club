@@ -34,9 +34,7 @@
                                 
                                 sessionStorage.loggedIn = true;
 				    			sessionStorage.user =JSON.stringify(response.data.korisnik);
-                                //JSON.stringify(response.data.korisnik);
-                                console.log(sessionStorage.user);
-                                console.log("U ovoj sam sekciji");
+                               
                                 $location.path('/');
 
 				    		},
@@ -47,7 +45,12 @@
                             }
                             
                             });
-                            
+				    			//sessionStorage.user = JSON.stringify(response.data.korisnik);
+
+                                //$location.path('/');
+                                //$window.location.reload();
+				    		//});
+
 
 				    	}
 

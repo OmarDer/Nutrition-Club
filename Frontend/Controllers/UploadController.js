@@ -4,9 +4,6 @@
 
 	var UploadController = function($scope, uploadService, FileUploader, $http, $location){
         
-        
-
-        
         $scope.errorMsg = "";
         
         /*
