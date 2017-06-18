@@ -19,5 +19,6 @@ public interface KorisnikService {
 	KorisnikJSONWrapper aktivirajKorisnika(Long id);
 	KorisnikJSONWrapper odobriRegistrovanogKorisnika(Long id);
 	KorisnikJSONWrapper dodajRoluKorisniku(Long idk,Long idr);
+	KorisnikJSONWrapper zabraniRegistrovanogKorisnika(Long id);
 
 }

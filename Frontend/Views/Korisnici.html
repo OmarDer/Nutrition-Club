@@ -51,12 +51,13 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
+    
+        
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
+                            <th>Status</th>
                             <th>Username</th>
                             <th>Firstname</th>
                             <th>Lastname</th>
@@ -65,11 +66,12 @@
                             <th>Role</th>
                             <th>Reg date</th>
                             <th>Odobren</th>
-                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="k in korisnici">
+                            <td><button type="button" class="btn btn-success" ng-show="k.aktivan" ng-click="deaktivirajKorisnika(k.id)">Deaktiviraj</button>
+                                <button type="button" class="btn btn-warning" ng-show="!k.aktivan" ng-click="aktivirajKorisnika(k.id)">Aktiviraj</button></td>
                             <td><a ng-click="findUser(k.id)"><span>{{ k.userName }}</span></a></td>
                             <td>{{ k.ime }}</td>
                             <td>{{ k.prezime }}</td>
@@ -77,14 +79,14 @@
                             <td>{{ k.kontaktTelefon }}</td>
                             <td>{{ k.rola.nazivRole }}</td>
                             <td>{{ k.datumRegistracije }}</td>
-                            <td>{{k.odobren}}</td>
-                            <td><a href="" ng-click="delUser(k.id)"><span>del</span></a><a href="" ng-show="k.odobren == 0" ng-click="accUser(k.id)"><span>accept</span></a> </td>
+                            <td><button type="button" class="btn btn-danger" ng-show="k.odobren" ng-click="zabraniKorisnika(k.id)">Zabrani pristup</button>
+                                <button type="button" class="btn btn-warning" ng-show="!k.odobren" ng-click="accUser(k.id)">Odobri pristup</button></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-    </div>
+           
+    
     
     <div class="container">
 

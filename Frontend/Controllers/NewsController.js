@@ -14,7 +14,12 @@
         }else {
             vm.logged = false;
         }
-
+         vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+            vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
+        
         vm.date = new Date();
         var url=vijestURL+'vijesti';
         $http.get(url).then(function successCallback(response) {
