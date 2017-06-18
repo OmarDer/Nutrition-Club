@@ -45,15 +45,12 @@
                             }
                             
                             });
-<<<<<<< HEAD
 				    			//sessionStorage.user = JSON.stringify(response.data.korisnik);
 
                                 //$location.path('/');
                                 //$window.location.reload();
 				    		//});
-=======
-                            
->>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
+
 
 				    	}
 

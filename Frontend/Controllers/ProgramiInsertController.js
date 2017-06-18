@@ -17,6 +17,11 @@
             vm.logged=false;
         }
         
+          vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+           {vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;}
         
 		$scope.naziv = "";
         $scope.opis="";
@@ -61,10 +66,6 @@
             aktivan: $scope.aktivan
         };
 
-<<<<<<< HEAD
-            
-=======
->>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
          $http({ method: "post", url: 'http://localhost:8083/programi', data: data })
              .then(
          function(response){

@@ -12,7 +12,7 @@
             
         var userJson = JSON.parse(sessionStorage.user);
         
-        console.log(sessionStorage.user.id);
+        
         if(userJson!=null && userJson.rola.nazivRole=="ROLE_ADMIN")
             {
                 $scope.admin=true;
@@ -26,29 +26,28 @@
             vm.logged=false;
         }
         
-<<<<<<< HEAD
         $scope.programi=[];
         var urlProgrami=proizvodURL+'programi';
         
         $http.get(urlProgrami).then(function(response){
             $scope.programi = response.data;   
-        }, function(response) {
-=======
+        });
+        
         vm.isAdmin = false;
         
         if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
-            vm.isAdmin = true;
-            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
+           {vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;}
         
-        var url=proizvodURL+'proizvodi';
+        /*var url=proizvodURL+'proizvodi';
+            
         $http.get(url).then(function successCallback(response) {
             vm.proizvodi = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
             console.log(response);
->>>>>>> 0ae38b46d6a309cd5ad243bb38a0a46c3e76b174
         });
-
+        */
         $http.get(proizvodURL+'proizvodi').then(
             function(response){
                 

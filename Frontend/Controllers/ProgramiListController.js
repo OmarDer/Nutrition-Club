@@ -9,6 +9,12 @@
         vm.logged = false;
         vm.proizvodi=[];
         
+          vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+           {vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;}
+        
         var userJson = JSON.parse(sessionStorage.user);
         $scope.admin=false;
         console.log(sessionStorage.user.id);
