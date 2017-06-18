@@ -1,5 +1,7 @@
 package ba.sitandfit.korisnici.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +39,7 @@ import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
 import ba.sitandfit.korisnici.model.KorisnikSubmit;
+import ba.sitandfit.korisnici.model.Rola;
 import ba.sitandfit.korisnici.model.Stanje;
 import ba.sitandfit.korisnici.service.KorisnikService;
 import ba.sitandfit.korisnici.service.KorisnikSubmitService;
@@ -102,6 +105,40 @@ public class KorisniciController {
 		}
 		k.setOdobren(0);
 		k.setAktivan(false);
+		
+		//Postavljanje role
+		Boolean nasaoRolu = false;
+		List<Rola> role = rolaService.getRole();
+		for(Rola x : role){
+
+			if(x.getNazivRole().equals("ROLE_USER")){
+				
+				if(x.getAktivna())
+					k.setRola(x);
+				else{
+					x.setAktivna(true);
+					rolaService.updateRola(x.getId(), x);
+					
+					k.setRola(x);
+				}
+				nasaoRolu = true;
+				break;
+				
+			}
+		}
+		
+		if(!nasaoRolu){
+			Rola r = new Rola();
+			
+			r.setAktivna(true);
+			r.setNazivRole("ROLE_USER");
+			r.setOpisRole("Korisnicka rola");
+			RolaJSONWrapper x = rolaService.createRola(r);
+			
+			k.setRola(x.getRola());
+		}
+	
+				
 		KorisnikJSONWrapper korisnik = korisnikService.createKorisnik(k);
 		if(korisnik.getStatus()!="Error") korisnikSubmitService.createKorisnikSubmitByValues(generatedString,korisnik.getKorisnik().getId());
 		return korisnik;

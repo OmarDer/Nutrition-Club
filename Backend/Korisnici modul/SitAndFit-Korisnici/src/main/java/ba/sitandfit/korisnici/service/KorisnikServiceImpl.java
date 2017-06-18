@@ -1,6 +1,7 @@
 package ba.sitandfit.korisnici.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,14 @@ public class KorisnikServiceImpl implements KorisnikService {
 	@Override
 	public List<Korisnik> getKorisnici() {
 		
-		return korisnikRepository.findAll();
+		List<Korisnik> vraceni = (ArrayList<Korisnik>)korisnikRepository.findAll();
+		
+		for(int i=0; i<vraceni.size(); i++)
+			if(!vraceni.get(i).getAktivan())
+				vraceni.remove(i);
+		
+		return vraceni;
+							
 	}
 
 	@Override
