@@ -12,6 +12,7 @@
 		if(sessionStorage.loggedIn === 'true'){
 			vm.logged = true;
 			vm.user = JSON.parse(sessionStorage.user);
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
 
 		}
 		else {
