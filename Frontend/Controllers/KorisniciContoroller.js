@@ -72,6 +72,8 @@
                 else{
                     vm.errorPoruka = odgovor.msg;
                 }
+                
+                $window.location.reload();
             });
             
         };
@@ -92,6 +94,42 @@
             
         });
         
+        
+        vm.deaktivirajKorisnika = function(id){
+            
+            var data = {aktivan:false};
+            
+            $http.put("http://localhost:8084/korisnici/"+id.toString(), data).then(function(response){
+                console.log(response.data);
+               $window.location.reload();
+                
+            });
+            
+        };
+        
+        vm.aktivirajKorisnika = function(id){
+            
+            var data = {aktivan:true};
+            
+            $http.put("http://localhost:8084/korisnici/"+id.toString(), data).then(function(response){
+                console.log(response.data);
+                $window.location.reload();
+                
+            });
+            
+        };
+        
+        vm.zabraniKorisnika = function(userID){
+            
+            $http.get(url+'zabrani/'+userID).then(function successCallback(response) {
+                console.log(response.data);
+                $window.location.reload();
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+            
+        };
+        
         var url=korisnikURL+'korisnici/';
         $http.get(url).then(function successCallback(response) {
             vm.korisnici = response.data;
@@ -101,8 +139,9 @@
         });
         
         vm.delUser = function (userID) {
-            $http.del(url+userID).then(function successCallback(response) {
+            $http.delete(url+userID).then(function successCallback(response) {
                 console.log(response.data);
+                $window.location.reload();
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -112,6 +151,7 @@
 
             $http.get(url+'odobri/'+userID).then(function successCallback(response) {
                 console.log(response.data);
+                $window.location.reload();
             }, function errorCallback(response) {
                 console.log(response);
             });

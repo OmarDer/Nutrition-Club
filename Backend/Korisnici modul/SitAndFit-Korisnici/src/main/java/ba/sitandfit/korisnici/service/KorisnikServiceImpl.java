@@ -109,10 +109,12 @@ public class KorisnikServiceImpl implements KorisnikService {
 		
 		List<Korisnik> vraceni = (ArrayList<Korisnik>)korisnikRepository.findAll();
 		
-		for(int i=0; i<vraceni.size(); i++)
-			if(!vraceni.get(i).getAktivan())
-				vraceni.remove(i);
+		/*List<Korisnik> zaVratit = new ArrayList<Korisnik>();
 		
+		for(Korisnik x : vraceni)
+			if(x.getAktivan())
+				zaVratit.add(x);
+		*/
 		return vraceni;
 							
 	}
@@ -167,6 +169,14 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return new KorisnikJSONWrapper("Error", "Slanje verifikacijskog maila nije uspjesno!", null); 
 		}
 		kor.setOdobren(1);
+		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(kor));
+	}
+	
+	@Override
+	public KorisnikJSONWrapper zabraniRegistrovanogKorisnika(Long id) {
+		
+		Korisnik kor=korisnikRepository.findOne(id);
+		kor.setOdobren(0);
 		return new KorisnikJSONWrapper("Success", "", korisnikRepository.save(kor));
 	}
 

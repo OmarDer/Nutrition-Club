@@ -1,7 +1,5 @@
 package ba.sitandfit.korisnici.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,15 +8,9 @@ import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,10 +23,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
-
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-
 import ba.sitandfit.korisnici.jsonwrappers.KorisnikJSONWrapper;
 import ba.sitandfit.korisnici.jsonwrappers.RolaJSONWrapper;
 import ba.sitandfit.korisnici.model.Korisnik;
@@ -45,6 +35,9 @@ import ba.sitandfit.korisnici.service.KorisnikService;
 import ba.sitandfit.korisnici.service.KorisnikSubmitService;
 import ba.sitandfit.korisnici.service.RolaService;
 import ba.sitandfit.korisnici.service.StanjeService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -147,9 +140,28 @@ public class KorisniciController {
 	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public KorisnikJSONWrapper updateKorisnik(@PathVariable(value="id") Long id, @RequestBody Korisnik k){
+	public KorisnikJSONWrapper updateKorisnik(@PathVariable(value="id") Long id, @RequestBody Korisnik k, HttpServletRequest request){
 		
-		
+			String token = request.getHeader("Authorization");
+			
+			token = token.split(" ")[1];
+
+			Jws<Claims> jws = Jwts.parser()
+					.setSigningKey("FitAndSitTajna")
+					.parseClaimsJws(token);
+			
+			Claims obj = jws.getBody();
+			
+			List<String> authorities = (List<String>) obj.get("authorities");
+			
+			if(authorities.contains("ROLE_ADMIN"))
+				return korisnikService.updateKorisnik(id, k);
+			
+			Long x = ((Integer)obj.get("id")).longValue();
+
+			if(!x.equals(id))
+				return new KorisnikJSONWrapper("Error", "403 Forbidden",null);
+
 			return korisnikService.updateKorisnik(id, k);
 		
 		
@@ -239,6 +251,13 @@ public class KorisniciController {
 	public KorisnikJSONWrapper odobriRegistrovanogKorisnika(@PathVariable(value="id") Long id){
 		
 		return korisnikService.odobriRegistrovanogKorisnika(id);
+		
+	}
+	
+	@RequestMapping(value = "/zabrani/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public KorisnikJSONWrapper zabraniRegistrovanogKorisnika(@PathVariable(value="id") Long id){
+		
+		return korisnikService.zabraniRegistrovanogKorisnika(id);
 		
 	}
 	

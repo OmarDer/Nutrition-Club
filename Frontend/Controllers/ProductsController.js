@@ -13,6 +13,13 @@
         else{
             vm.logged=false;
         }
+        
+        vm.isAdmin = false;
+        
+        if(vm.user != null && vm.user.rola.nazivRole == "ROLE_ADMIN")
+            vm.isAdmin = true;
+            vm.loggedInUser = vm.user.ime + " " + vm.user.prezime;
+        
         var url=proizvodURL+'proizvodi';
         $http.get(url).then(function successCallback(response) {
             vm.proizvodi = response.data;

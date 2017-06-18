@@ -17,7 +17,7 @@
                 <li class="">
                     <a class="page-scroll" href="/#!/proizvodi">Products</a>
                 </li>
-                <li class="" ng-show="logged">
+                <li class="" ng-show="logged && isAdmin">
                     <a class="page-scroll" href="/#!/korisnici">Users</a>
                 </li>
                 <li class="">
@@ -99,13 +99,33 @@
                                                 <td>Phone Number: </td>
                                                 <td>{{korisnik.kontaktTelefon}}
                                                 </td>
+                                                
+                                                <form>
+                                                     <tr>
+                                                        <td>Stara lozinka: </td>
+                                                        <td><input type="password" placeholder="Stara lozinka" ng-model="stariPass" required /></td>
+                                                    </tr>
 
-                                                </tr>
+                                                     <tr>
+                                                        <td>Nova lozinka: </td>
+                                                        <td><input type="password" placeholder="Nova lozinka" ng-model="noviPass" required/></td>
+                                                    </tr>
+
+                                                     <tr>
+                                                        <td>Nova lozinka ponovo: </td>
+                                                        <td><input type="password" placeholder="Nova lozinka ponovo" ng-model="noviPassPonovo" required/></td>
+                                                    </tr>
+                                                </form>
+
+                                                
 
                                                 </tbody>
                                             </table>
-
-                                            <a href="" class="btn btn-primary">Change my Password</a>
+                                        
+                                            <div ng-show="poruka" class="text-center">
+                                                <p style="color:red">{{poruka}}</p>
+                                            </div>
+                                            <button ng-click="promijeniPassword()" class="btn btn-info">Change my Password</button>
                                         </div>
                                     </div>
                                 </div>
